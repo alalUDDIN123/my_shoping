@@ -1,3 +1,60 @@
 [
-    {}
+    {
+        "title": "iPhone 13",
+        "description": "Newest iPhone with advanced features",
+        "image": "https://example.com/iphone13.jpg",
+        "images": [
+            "https://example.com/iphone13_1.jpg",
+            "https://example.com/iphone13_2.jpg",
+            "https://example.com/iphone13_3.jpg"
+        ],
+        "price": 1099,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 4.5,
+        "stock": 3,
+        "reviews": [
+            {
+                "user": "60bf69a877b6c00e6d04d6e8",
+                "rating": 4.5,
+                "comment": "Great phone!"
+            },
+            {
+                "user": "60bf69a877b6c00e6d04d6e9",
+                "rating": 3.5,
+                "comment": "Good phone, but battery life could be better"
+            }
+        ],
+        "numOfReviews": 2,
+        "createdAt": "2022-03-08T12:30:00.000Z"
+    },
+    {
+        "title": "Nike Air Max 2090",
+        "description": "Modern and stylish running shoes",
+        "image": "https://example.com/nike2090.jpg",
+        "images": [
+            "https://example.com/nike2090_1.jpg",
+            "https://example.com/nike2090_2.jpg",
+            "https://example.com/nike2090_3.jpg"
+        ],
+        "price": 149.99,
+        "category": "Clothing",
+        "brand": "Nike",
+        "ratings": 4.8,
+        "stock": 50,
+        "reviews": [
+            {
+                "user": "60bf69a877b6c00e6d04d6ea",
+                "rating": 5,
+                "comment": "Comfortable and stylish shoes!"
+            },
+            {
+                "user": "60bf69a877b6c00e6d04d6eb",
+                "rating": 4.5,
+                "comment": "Great shoes, but a bit expensive"
+            }
+        ],
+        "numOfReviews": 2,
+        "createdAt": "2022-03-07T15:00:00.000Z"
+    }
 ]

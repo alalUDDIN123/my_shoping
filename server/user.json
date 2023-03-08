@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Alal Uddin",
+        "email": "alal@gmail.com",
+        "password": "Alal12@",
+        "role": "admin",
+        "avator": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyu8pvIy6jXwRi9VluYbqkKBjhiM_YlZIGww&usqp=CAU",
+        "mobile": 1234567891
+    },
+    {
+        "name": "Abhijit",
+        "email": "abhiji@gmail.com",
+        "password": "abhiJit1@",
+        "role": "superAdmin",
+        "avator": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyu8pvIy6jXwRi9VluYbqkKBjhiM_YlZIGww&usqp=CAU",
+        "mobile": 122133
+    },
+    {
+        "name": "Ravi Ranjan",
+        "email": "ravi@gmail.com",
+        "password": "ravi123@/",
+        "mobile": 7896784590
+    }
+]
