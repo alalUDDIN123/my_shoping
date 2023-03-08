@@ -1,6 +1,8 @@
 const userModal = require("../modals/user.modal");
-const bcrypt=require("bcrypt")
-// register user 👍
+const bcrypt = require("bcrypt");
+const generateToken = require("../generateToken");
+
+// register user 👍👍👍👍👍
 
 const createUser = async (req, res) => {
     try {
@@ -27,12 +29,56 @@ const createUser = async (req, res) => {
             role
         });
         await user.save();
-        res.status(201).json({ "message":"Register successful" });
+        res.status(201).json({ "message": "Register successful" });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
 
-module.exports={
-    createUser
+// login user 👍👍👍👍👍
+
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+        return res.status(400).send({ message: "email and password required" })
+    }
+    const user = await userModal.findOne({ email });
+
+    if (!user) {
+        return res.status(404).send({ message: `This email : ${email} is not found in our database` })
+    }
+
+    //   res.send(user)
+
+    const passWordMatch = bcrypt.compareSync(password, user.password)
+    if (!passWordMatch) {
+        res.status(400).send({ message: `Wrong password` })
+    }
+    else {
+        try {
+            // res.send(passWordMatch)
+            const token = generateToken(user);
+
+            res.cookie("myToken", token, {
+                // for one day expiration
+                expires: new Date(Date.now() + 25892000000),
+                httpOnly: true
+            })
+
+            res.status(200).send({
+                messssage: "Login Successful",
+                token: token,
+                role:user.role,
+                name:user.name
+            })
+
+        } catch (error) {
+            res.status(500).send({ message: "Internel server error", error: `${error}` })
+        }
+    }
+}
+
+module.exports = {
+    createUser,
+    loginUser
 }
