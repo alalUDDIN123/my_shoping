@@ -11,6 +11,7 @@ const cors = require("cors")
 // requiring file path 👍👍👍
 const ConnectDb = require("./config/Db.connect")
 const userRouter = require("./routes/user.route");
+const productRouter = require("./routes/products.route");
 
 
 // neccessary middleware 👍👍👍
@@ -32,7 +33,8 @@ app.get('/', function (req, res) {
 
 
 // All Routes 👍👍👍
-app.use("/users", userRouter)
+app.use("/api/users", userRouter)
+app.use("/api/products", productRouter)
 
 
 const PORT = process.env.PORT || 8085;

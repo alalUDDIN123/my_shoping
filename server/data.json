@@ -1,60 +1,152 @@
 [
     {
-        "title": "iPhone 13",
+        "title": "iphone x",
         "description": "Newest iPhone with advanced features",
-        "image": "https://example.com/iphone13.jpg",
+        "image": "https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         "images": [
-            "https://example.com/iphone13_1.jpg",
-            "https://example.com/iphone13_2.jpg",
-            "https://example.com/iphone13_3.jpg"
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         ],
-        "price": 1099,
+        "price": 59999,
         "category": "Electronics",
         "brand": "Apple",
         "ratings": 4.5,
-        "stock": 3,
-        "reviews": [
-            {
-                "user": "60bf69a877b6c00e6d04d6e8",
-                "rating": 4.5,
-                "comment": "Great phone!"
-            },
-            {
-                "user": "60bf69a877b6c00e6d04d6e9",
-                "rating": 3.5,
-                "comment": "Good phone, but battery life could be better"
-            }
-        ],
-        "numOfReviews": 2,
-        "createdAt": "2022-03-08T12:30:00.000Z"
+        "stock": 3
     },
     {
-        "title": "Nike Air Max 2090",
-        "description": "Modern and stylish running shoes",
-        "image": "https://example.com/nike2090.jpg",
+        "title": "iPhone 13",
+        "description": "Modern and newest feature iPhone 13",
+        "image": "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
         "images": [
-            "https://example.com/nike2090_1.jpg",
-            "https://example.com/nike2090_2.jpg",
-            "https://example.com/nike2090_3.jpg"
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "blob:https://in.pinterest.com/cc8548a0-5fd8-48d0-82a8-3375c9b5e071",
+            "https://i.pinimg.com/564x/5f/93/d3/5f93d31d8d1378559f738b44788186bd.jpg"
         ],
-        "price": 149.99,
-        "category": "Clothing",
-        "brand": "Nike",
-        "ratings": 4.8,
-        "stock": 50,
-        "reviews": [
-            {
-                "user": "60bf69a877b6c00e6d04d6ea",
-                "rating": 5,
-                "comment": "Comfortable and stylish shoes!"
-            },
-            {
-                "user": "60bf69a877b6c00e6d04d6eb",
-                "rating": 4.5,
-                "comment": "Great shoes, but a bit expensive"
-            }
+        "price": 69995,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 4,
+        "Stock": 2
+    },
+    {
+        "title": "Lenovo IdeaPad Gaming",
+        "description": "IdeaPad Gaming3 15ACH6D2 Gaming Laptop",
+        "image": "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg"
         ],
-        "numOfReviews": 2,
-        "createdAt": "2022-03-07T15:00:00.000Z"
+        "price":500699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings": 4,
+        "stock": 5
+    },
+    {
+        "title": "ASUS Vivobook Pro 15 Ryzen",
+        "description": "The distinctive, loaded-with-features Asus Vivobook Pro 15 laptop provides a wonderful user experience and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "price":490699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings":5,
+        "Stock":3
+    },
+    {
+        "title": "Lenovo Athlon Dual Core",
+        "description": "Light Laptop without Optical Disk Drive and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "price":18699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings":3,
+        "Stock":3
+    },
+    {
+        "title": "iphone x",
+        "description": "Newest iPhone with advanced features",
+        "image": "https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "images": [
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        ],
+        "price": 59999,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 5,
+        "Stock": 3
+    },
+    {
+        "title": "iPhone 13",
+        "description": "Modern and newest feature iPhone 13",
+        "image": "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
+        "images": [
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "blob:https://in.pinterest.com/cc8548a0-5fd8-48d0-82a8-3375c9b5e071",
+            "https://i.pinimg.com/564x/5f/93/d3/5f93d31d8d1378559f738b44788186bd.jpg"
+        ],
+        "price": 69995,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 3,
+        "Stock": 2
+    },
+    {
+        "title": "Lenovo IdeaPad Gaming",
+        "description": "IdeaPad Gaming3 15ACH6D2 Gaming Laptop",
+        "image": "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg"
+        ],
+        "price":500699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings": 4,
+        "Stock": 5
+    },
+    {
+        "title": "ASUS Vivobook Pro 15 Ryzen",
+        "description": "The distinctive, loaded-with-features Asus Vivobook Pro 15 laptop provides a wonderful user experience and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "price":490699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings":2,
+        "Stock":3
+    },
+    {
+        "title": "Lenovo Athlon Dual Core",
+        "description": "Light Laptop without Optical Disk Drive and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "price":18699,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings":4,
+        "Stock":1
     }
 ]
