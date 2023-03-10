@@ -20,3 +20,4 @@
 #### Products
   - `Add` : http://localhost:8080/api/products/add (`admin only`)
   - `get` : http://localhost:8080/api/products/get
+  - `get` : http://localhost:8080/api/products/get/:id

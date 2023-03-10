@@ -12,7 +12,7 @@ const createProduct = async (req, res) => {
   }
 }
 
-// get products
+// get products 👍👍👍👍
 const getProducts = async (req, res) => {
   const {
     title,
@@ -80,7 +80,7 @@ const getProducts = async (req, res) => {
       .exec();
 
     if (products.length === 0) {
-      return res.status(404).json({ error: "No products found" });
+      return res.status(404).json({ message: "No products found" });
     }
 
     res.status(200).json({ products, total: products.length });
@@ -88,7 +88,27 @@ const getProducts = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// get single product 👍👍👍👍
+
+const getSingleProduct= async(req,res)=>{
+  const id= req.params.id;
+  
+  const product= await productModal.findById({_id:id});
+
+  if(!product){
+    return res.status(404).json({ message: `No product found with id :${id}` });
+  }
+
+  try {
+    res.status(200).json({product});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+  
+}
 module.exports = {
   createProduct,
-  getProducts
+  getProducts,
+  getSingleProduct
 }
