@@ -32,15 +32,7 @@ function validateProduct(req, res, next) {
     if (Stock && (typeof Stock !== "number" || isNaN(Stock) || Stock <= 0 || Stock > 5)) {
       return res.status(400).json({ error: "Invalid stock value" });
     }
-  
-    // if (reviews && reviews.length > 0) {
-    //   for (let i = 0; i < reviews.length; i++) {
-    //     const { rating } = reviews[i];
-    //     if (rating && (typeof rating !== "number" || isNaN(rating) || rating <= 0 || rating > 5)) {
-    //       return res.status(400).json({ error: "Invalid rating value" });
-    //     }
-    //   }
-    // }
+ 
   
     if (!title) {
       return res.status(400).json({ error: "Please provide product title" });
