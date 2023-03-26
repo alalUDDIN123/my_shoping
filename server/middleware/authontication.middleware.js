@@ -1,0 +1,30 @@
+const jwt = require("jsonwebtoken");
+
+const authenticateUser = (req, res, next) => {
+  const token = req.headers?.token
+  // console.log(token,"token");
+  if (!token) {
+    return res.status(400).send("Please provide token")
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+    if (decodedToken) {
+      const userId = decodedToken.userId;
+      req.body.userId = userId;
+      next();
+    }
+    else {
+      res.send("Please Login First");
+    }
+
+  } catch (err) {
+    if (err instanceof jwt.JsonWebTokenError) {
+      return res.status(401).send("Invalid token");
+    } else {
+      return res.status(500).send("Server error");
+    }
+  }
+};
+
+module.exports = authenticateUser;

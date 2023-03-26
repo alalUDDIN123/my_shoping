@@ -21,7 +21,12 @@ const productSchema = mongoose.Schema({
             required: [true, "Please provide product multiple images link"],
         },
     ],
-    price: {
+    originalPrice: {
+        type: Number,
+        required: [true, "Please Enter product Price"],
+        maxLength: [8, "Price cannot exceed 8 characters"],
+    },
+    discountPrice: {
         type: Number,
         required: [true, "Please Enter product Price"],
         maxLength: [8, "Price cannot exceed 8 characters"],
