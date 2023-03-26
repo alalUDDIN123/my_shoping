@@ -14,4 +14,5 @@ productRouter.post("/add", authenticateUser, adminAccess, validateProduct, creat
 productRouter.get("/get", getProducts)
 productRouter.get("/get/:id", getSingleProduct)
 
+
 module.exports = productRouter

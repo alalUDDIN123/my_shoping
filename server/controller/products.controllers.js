@@ -12,6 +12,7 @@ const createProduct = async (req, res) => {
   }
 }
 
+
 // get products 👍👍👍👍
 const getProducts = async (req, res) => {
   const {
@@ -91,6 +92,7 @@ const getProducts = async (req, res) => {
 
 // get single product 👍👍👍👍
 
+
 const getSingleProduct= async(req,res)=>{
   const id= req.params.id;
   
@@ -111,4 +113,5 @@ module.exports = {
   createProduct,
   getProducts,
   getSingleProduct
+
 }

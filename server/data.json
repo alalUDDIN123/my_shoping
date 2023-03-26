@@ -8,85 +8,11 @@
             "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
             "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         ],
-        "price": 59999,
+        "originalPrice": 59999,
+        "discountPrice": 50200,
         "category": "Electronics",
         "brand": "Apple",
         "ratings": 4.5,
-        "stock": 3
-    },
-    {
-        "title": "iPhone 13",
-        "description": "Modern and newest feature iPhone 13",
-        "image": "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
-        "images": [
-            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "blob:https://in.pinterest.com/cc8548a0-5fd8-48d0-82a8-3375c9b5e071",
-            "https://i.pinimg.com/564x/5f/93/d3/5f93d31d8d1378559f738b44788186bd.jpg"
-        ],
-        "price": 69995,
-        "category": "Electronics",
-        "brand": "Apple",
-        "ratings": 4,
-        "Stock": 2
-    },
-    {
-        "title": "Lenovo IdeaPad Gaming",
-        "description": "IdeaPad Gaming3 15ACH6D2 Gaming Laptop",
-        "image": "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg",
-        "images": [
-            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
-            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg"
-        ],
-        "price":500699,
-        "category": "Electronics",
-        "brand": "ideaPad",
-        "ratings": 4,
-        "stock": 5
-    },
-    {
-        "title": "ASUS Vivobook Pro 15 Ryzen",
-        "description": "The distinctive, loaded-with-features Asus Vivobook Pro 15 laptop provides a wonderful user experience and an excellent touch interface.",
-        "image": "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg",
-        "images": [
-            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
-            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
-        ],
-        "price":490699,
-        "category": "Electronics",
-        "brand": "ideaPad",
-        "ratings":5,
-        "Stock":3
-    },
-    {
-        "title": "Lenovo Athlon Dual Core",
-        "description": "Light Laptop without Optical Disk Drive and an excellent touch interface.",
-        "image": "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
-        "images": [
-            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
-            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
-        ],
-        "price":18699,
-        "category": "Electronics",
-        "brand": "ideaPad",
-        "ratings":3,
-        "Stock":3
-    },
-    {
-        "title": "iphone x",
-        "description": "Newest iPhone with advanced features",
-        "image": "https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        "images": [
-            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-            "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
-            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        ],
-        "price": 59999,
-        "category": "Electronics",
-        "brand": "Apple",
-        "ratings": 5,
         "Stock": 3
     },
     {
@@ -98,10 +24,11 @@
             "blob:https://in.pinterest.com/cc8548a0-5fd8-48d0-82a8-3375c9b5e071",
             "https://i.pinimg.com/564x/5f/93/d3/5f93d31d8d1378559f738b44788186bd.jpg"
         ],
-        "price": 69995,
+        "originalPrice": 69995,
+        "discountPrice": 60350,
         "category": "Electronics",
         "brand": "Apple",
-        "ratings": 3,
+        "ratings": 4,
         "Stock": 2
     },
     {
@@ -113,7 +40,8 @@
             "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg"
         ],
-        "price":500699,
+        "originalPrice": 500699,
+        "discountPrice": 45500,
         "category": "Electronics",
         "brand": "ideaPad",
         "ratings": 4,
@@ -128,11 +56,12 @@
             "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
             "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
         ],
-        "price":490699,
+        "originalPrice": 490699,
+        "discountPrice": 40260,
         "category": "Electronics",
         "brand": "ideaPad",
-        "ratings":2,
-        "Stock":3
+        "ratings": 5,
+        "Stock": 3
     },
     {
         "title": "Lenovo Athlon Dual Core",
@@ -143,11 +72,236 @@
             "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
             "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
         ],
-        "price":18699,
+        "originalPrice": 18699,
+        "discountPrice": 15030,
         "category": "Electronics",
         "brand": "ideaPad",
-        "ratings":4,
-        "Stock":1
+        "ratings": 3,
+        "Stock": 3
+    },
+    {
+        "title": "iphone x",
+        "description": "Newest iPhone with advanced features",
+        "image": "https://images.pexels.com/photos/1275229/pexels-photo-1275229.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "images": [
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+        ],
+        "originalPrice": 59999,
+        "discountPrice": 50200,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 5,
+        "Stock": 3
+    },
+    {
+        "title": "iPhone 13",
+        "description": "Modern and newest feature iPhone 13",
+        "image": "https://i.pinimg.com/564x/d3/cc/97/d3cc97ef0949ba3ff2b33a1e67ee953b.jpg",
+        "images": [
+            "https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "blob:https://in.pinterest.com/cc8548a0-5fd8-48d0-82a8-3375c9b5e071",
+            "https://i.pinimg.com/564x/5f/93/d3/5f93d31d8d1378559f738b44788186bd.jpg"
+        ],
+        "originalPrice": 69995,
+        "discountPrice": 60200,
+        "category": "Electronics",
+        "brand": "Apple",
+        "ratings": 3,
+        "Stock": 2
+    },
+    {
+        "title": "Lenovo IdeaPad Gaming",
+        "description": "IdeaPad Gaming3 15ACH6D2 Gaming Laptop",
+        "image": "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/f2/c8/15/f2c815e1d23e70b6100d58564ccc6546.jpg"
+        ],
+        "originalPrice": 500699,
+        "discountPrice": 45285,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings": 4,
+        "Stock": 5
+    },
+    {
+        "title": "ASUS Vivobook Pro 15 Ryzen",
+        "description": "The distinctive, loaded-with-features Asus Vivobook Pro 15 laptop provides a wonderful user experience and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "originalPrice": 490699,
+        "discountPrice": 43745,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings": 2,
+        "Stock": 3
+    },
+    {
+        "title": "Lenovo Athlon Dual Core",
+        "description": "Light Laptop without Optical Disk Drive and an excellent touch interface.",
+        "image": "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+        "images": [
+            "https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+            "https://i.pinimg.com/564x/c6/ca/0a/c6ca0a947bbe7033b3e83b76a5ad0657.jpg",
+            "https://i.pinimg.com/564x/e1/95/a6/e195a62a766969c1f6b492573cbcc0fc.jpg"
+        ],
+        "originalPrice": 18699,
+        "discountPrice": 14045,
+        "category": "Electronics",
+        "brand": "ideaPad",
+        "ratings": 4,
+        "Stock": 1
+    },
+    {
+        "title": "Women Orange Handbag",
+        "description": "Handbag for women in orange color. Nice cool attractive bag.",
+        "image": "https://i.pinimg.com/564x/b7/c9/c5/b7c9c50a6c44c5a837f8708a6fb291b9.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/e9/01/ca/e901cafa8e2a93d9e5f5eafc679c8ea0.jpg",
+            "https://rukminim1.flixcart.com/image/612/612/xif0q/hand-messenger-bag/h/c/r/lwhb02252pink-8-lwhb02252pink-shoulder-bag-lino-perros-28-original-imagngm7n6tkfexx.jpeg?q=70",
+            "https://i.pinimg.com/564x/b7/c9/c5/b7c9c50a6c44c5a837f8708a6fb291b9.jpg"
+        ],
+        "originalPrice": 1199,
+        "discountPrice": 819,
+        "category": "accessories",
+        "brand": "aldo",
+        "ratings": 4,
+        "Stock": 3
+    },
+    {
+        "title": "Women Pink Satchel",
+        "description": "Handbag for women in pink color. Attractice design for women special.",
+        "image": "https://i.pinimg.com/564x/e9/01/ca/e901cafa8e2a93d9e5f5eafc679c8ea0.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/e9/01/ca/e901cafa8e2a93d9e5f5eafc679c8ea0.jpg",
+            "https://rukminim1.flixcart.com/image/612/612/xif0q/hand-messenger-bag/h/c/r/lwhb02252pink-8-lwhb02252pink-shoulder-bag-lino-perros-28-original-imagngm7n6tkfexx.jpeg?q=70",
+            "https://i.pinimg.com/564x/e9/01/ca/e901cafa8e2a93d9e5f5eafc679c8ea0.jpg"
+        ],
+        "originalPrice": 599,
+        "discountPrice": 335,
+        "category": "accessories",
+        "brand": "aldo",
+        "ratings": 4,
+        "Stock": 1
+    },
+    {
+        "title": "Men Casual Brown Genuine Leather Money Clip",
+        "description": "This blue bi-fold Top Grain Leather Money Clip Wallet from Allen Solly is a great choice for daily use. It shows your personality and style every time you pull it out..",
+        "image": "https://i.pinimg.com/564x/19/1d/88/191d882598873cd64f269108644b983f.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/6f/bf/a5/6fbfa51dc4b24bb3143337dcc6ba6170.jpg",
+            "https://i.pinimg.com/564x/cb/db/ca/cbdbcab4331d0a379f280f195f9c5a2e.jpg",
+            "https://i.pinimg.com/564x/19/1d/88/191d882598873cd64f269108644b983f.jpg"
+        ],
+        "originalPrice": 259,
+        "discountPrice": 219,
+        "category": "accessories",
+        "brand": "aldo",
+        "ratings": 5,
+        "Stock": 2
+    },
+    {
+        "title": "Supcase Front & Back Case for Samsung Galaxy mobile cover",
+        "description": "Compatible with Galaxy Note 9 (2018) ONLY.Inner layer is made of soft, mobile cover impact-absorbent TPU materials and hard Polycarbonate back cover provides added protection",
+        "image": "https://i.pinimg.com/564x/0b/f0/ae/0bf0ae8e3eeee876bb70db2993b2a2bd.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/a5/41/43/a541439cccce3b4b72cc5ac046670d11.jpg",
+            "https://i.pinimg.com/564x/b0/dc/f8/b0dcf850575cba369d70feb641ed8f80.jpg",
+            "https://i.pinimg.com/564x/99/8e/ca/998eca015f5ab57de4214effd30c9764.jpg"
+        ],
+        "originalPrice": 149,
+        "discountPrice": 169,
+        "category": "accessories",
+        "brand": "supcase",
+        "ratings": 3,
+        "Stock": 1
+    },
+    {
+        "title": "Supcase Bumper Case for Apple iPhone 11 Pro mobile cover",
+        "description": "Blason Front and Back Case For iPhone 11Pro 5.8 Inch (2019 Release) mobile cover",
+        "image": "https://i.pinimg.com/564x/14/94/d5/1494d5d9c183a6be3da281c6cec92a11.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/0b/f0/ae/0bf0ae8e3eeee876bb70db2993b2a2bd.jpg",
+            "https://i.pinimg.com/564x/b0/dc/f8/b0dcf850575cba369d70feb641ed8f80.jpg",
+            "https://i.pinimg.com/564x/99/8e/ca/998eca015f5ab57de4214effd30c9764.jpg"
+        ],
+        "originalPrice": 390,
+        "discountPrice": 237,
+        "category": "accessories",
+        "brand": "supcase",
+        "ratings": 4.5,
+        "Stock": 1
+    },
+    {
+        "title": "Unstitched Polycotton Shirt Fabric Printed shirt",
+        "description": "This shirt made of premium quality material. Searching for casual shirts for this summer or festive Then this smart shirt",
+        "image": "https://i.pinimg.com/564x/e9/5e/26/e95e2664046ac6c7782d54cc92385399.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/4c/33/b8/4c33b8ae11a2e4aa4d17380115fd83a8.jpg",
+            "https://i.pinimg.com/564x/02/c8/ff/02c8ffc53ff4c94937bf1f7a42aeb160.jpg",
+            "https://i.pinimg.com/564x/38/30/03/3830031e7dcb540ab994c0942c7af538.jpg"
+        ],
+        "originalPrice": 505,
+        "discountPrice": 419,
+        "category": "clothing",
+        "brand": "gopgan",
+        "ratings": 4.5,
+        "Stock": 2
+    },
+    {
+        "title": "mens casual unstitched polycotton shirt fabric self design",
+        "description": "This fashionable and stylish GOPGAN TRENDZ men shirt makes your look cool and attractive. It is perfect for your summer attire.",
+        "image": "https://i.pinimg.com/564x/38/30/03/3830031e7dcb540ab994c0942c7af538.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/02/c8/ff/02c8ffc53ff4c94937bf1f7a42aeb160.jpg",
+            "https://i.pinimg.com/564x/4c/33/b8/4c33b8ae11a2e4aa4d17380115fd83a8.jpg",
+            "https://i.pinimg.com/564x/e9/5e/26/e95e2664046ac6c7782d54cc92385399.jpg"
+        ],
+        "originalPrice": 390,
+        "discountPrice": 319,
+        "category": "clothing",
+        "brand": "gopgan",
+        "ratings": 4,
+        "Stock": 2
+    },
+    {
+        "title": "Men Colorblock Black Track Pants",
+        "description": "Product Design Details Black and coral pink colorblocked joggers Elasticated waistband Drawstring closure",
+        "image": "https://i.pinimg.com/564x/92/33/18/92331801bc293a6e0d9af9861168410c.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/9d/41/bb/9d41bb405c9215f1b807f0fa413d380c.jpg",
+            "https://i.pinimg.com/564x/f4/60/1e/f4601e111c425c35f5b2ae6830f29497.jpg",
+            "https://i.pinimg.com/564x/a1/0e/7d/a10e7d214b0c8ab99bf9e4726a249565.jpg"
+        ],
+        "originalPrice": 790,
+        "discountPrice": 655,
+        "category": "clothing",
+        "brand": "adidas",
+        "ratings": 4,
+        "Stock": 1
+    },
+    {
+        "title": "Men Striped Blue Track Pants",
+        "description": "Our adidas technology helps you feel comfortable and ready. AEROREADY absorbs moisture and makes you feel dry.",
+        "image": "https://i.pinimg.com/564x/a1/0e/7d/a10e7d214b0c8ab99bf9e4726a249565.jpg",
+        "images": [
+            "https://i.pinimg.com/564x/9d/41/bb/9d41bb405c9215f1b807f0fa413d380c.jpg",
+            "https://i.pinimg.com/564x/92/33/18/92331801bc293a6e0d9af9861168410c.jpg",
+            "https://i.pinimg.com/564x/f4/60/1e/f4601e111c425c35f5b2ae6830f29497.jpg"
+        ],
+        "originalPrice": 525,
+        "discountPrice": 440,
+        "category": "clothing",
+        "brand": "adidas",
+        "ratings": 3,
+        "Stock": 1
     }
 ]
 
