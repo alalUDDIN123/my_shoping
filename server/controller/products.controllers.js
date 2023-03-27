@@ -16,11 +16,12 @@ const createProduct = async (req, res) => {
 // get products 👍👍👍👍
 const getProducts = async (req, res) => {
   const {
-    title,
+    query,
     category,
     brand,
     minPrice,
     maxPrice,
+    ratings,
     _sort,
     _order,
     page = 1,
@@ -32,24 +33,31 @@ const getProducts = async (req, res) => {
   try {
     const filter = {};
 
-    if (title) {
-      filter.title = new RegExp(title, "i");
+    if (query) {
+      filter.title = new RegExp(query, "i");
     }
 
     if (category) {
       filter.category = category;
     }
 
+
+
     if (brand) {
       filter.brand = brand;
     }
 
+    
+    if (ratings) {
+      filter.ratings = ratings;
+    }
+
     if (minPrice && maxPrice) {
-      filter.price = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
+      filter.originalPrice = { $gte: parseInt(minPrice), $lte: parseInt(maxPrice) };
     } else if (minPrice) {
-      filter.price = { $gte: parseInt(minPrice) };
+      filter.originalPrice = { $gte: parseInt(minPrice) };
     } else if (maxPrice) {
-      filter.price = { $lte: parseInt(maxPrice) };
+      filter.originalPrice = { $lte: parseInt(maxPrice) };
     }
 
 
@@ -63,7 +71,7 @@ const getProducts = async (req, res) => {
     const parsedLimit = parseInt(limit);
     const startIndex = (parsedPage - 1) * parsedLimit;
 
-    // console.log("filter:- ", filter,"sort:-",sort, "minRate", minRating,"maxrating", maxRating)
+    // console.log("page::-",parsedPage,"limit::-",parsedLimit, "filter::-",filter,"sort::-",sort,"rating::",ratings)
 
     products = await productModal.find(filter)
       .sort(sort)
