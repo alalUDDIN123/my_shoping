@@ -21,8 +21,6 @@ const getProducts = async (req, res) => {
     brand,
     minPrice,
     maxPrice,
-    minRating,
-    maxRating,
     _sort,
     _order,
     page = 1,
@@ -54,13 +52,6 @@ const getProducts = async (req, res) => {
       filter.price = { $lte: parseInt(maxPrice) };
     }
 
-    if (minRating && maxRating) {
-      filter.ratings = { $gte: parseInt(minRating), $lte: parseInt(maxRating) };
-    } else if (minRating) {
-      filter.ratings = { $gte: parseInt(minRating) };
-    } else if (maxRating) {
-      filter.ratings = { $lte: parseInt(maxRating) };
-    }
 
     const sort = {};
 
