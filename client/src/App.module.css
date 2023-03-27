@@ -1,0 +1,125 @@
+.App{
+  text-align: center;
+}
+
+/* Search Form */
+._searchForm {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+._searchForm input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+}
+
+._searchForm button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Select Category */
+._select_Category {
+  margin: 20px 0;
+}
+
+._select_Category label {
+  margin-right: 10px;
+}
+
+._select_Category select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Select Brand */
+._select_brand {
+  margin: 20px 0;
+}
+
+._select_brand label {
+  margin-right: 10px;
+}
+
+._select_brand select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Price Range */
+._price {
+  margin: 20px 0;
+}
+
+._price label {
+  margin-right: 10px;
+}
+
+._price input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Rating Range */
+._rating {
+  margin: 20px 0;
+}
+
+._rating label {
+  margin-right: 10px;
+}
+
+._rating input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Sort */
+._order {
+  margin: 20px 0;
+}
+
+._order label {
+  margin-right: 10px;
+}
+
+._order select {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+/* Pagination */
+._pagination {
+  margin: 20px 0;
+}
+
+._pagination button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  background-color: #4CAF50;
+  color: white;
+}
+
+._pagination span {
+  margin: 0 10px;
+  font-size: 18px;
+}
