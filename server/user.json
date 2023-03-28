@@ -17,8 +17,14 @@
     },
     {
         "name": "Ravi Ranjan",
-        "email": "ravi@gmail.com",
-        "password": "ravi123@/",
+        "email": "ravi@gmail.gov",
+        "password": "Ravi123@/",
         "mobile": 7896784590
+    },
+    {
+        "name": "Khairul Ali",
+        "email": "khai@gmail.com",
+        "password": "khai123@/",
+        "mobile": 9366336620  
     }
 ]
