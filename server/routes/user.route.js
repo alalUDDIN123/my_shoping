@@ -4,6 +4,9 @@ const {
     loginUser,
     getAllUsers,
     addUser,
+    updateUser,
+    removeUser,
+    getSingleUser,
 
 
 } = require("../controller/users.controller");
@@ -19,8 +22,12 @@ userRouter.post("/login", loginUser)
 
 // supe admin
 
-
+userRouter.use(authenticateUser, SuperAdminAccess,)
 userRouter.get("/get", getAllUsers)
-userRouter.post("/superAdmin/register", authenticateUser, SuperAdminAccess,validateUserFields,addUser)
+userRouter.get("/SuperAdmin/get/single",getSingleUser)
+userRouter.post("/superAdmin/register",validateUserFields,addUser)
+userRouter.patch("/SuperAdmin/update", updateUser)
+userRouter.delete("/SuperAdmin/remove",removeUser)
+
 
 module.exports = userRouter

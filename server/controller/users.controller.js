@@ -97,10 +97,36 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+
+
+const getSingleUser = async (req, res) => {
+    let userId = req.body.user_id;
+    console.log(userId);
+
+    if(!userId){
+        return res.status(400).send({ message: "Required user_id " });  
+    }
+    try {
+
+        let CheckExits = await userModal.findById({ _id: userId })
+        if (!CheckExits) {
+            return res.status(404).send({ message: "User not found " });
+        } else {
+            let user= await userModal.findById({ _id:userId})
+            res.status(200).send({ user })
+        }
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+
+
 // get all users (superAdmin) 👍👍👍👍👍
 const addUser = async (req, res) => {
     try {
-        const { email, password} = req.body;
+        const { email, password } = req.body;
 
         // userExits
 
@@ -125,7 +151,52 @@ const addUser = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 }
-// change role   
+
+
+// update user  (superAdmin) 👍👍👍👍👍
+
+const updateUser = async (req, res) => {
+    let newData = { ...req.body };
+    try {
+
+        let CheckExits = await userModal.findById({ _id: newData.update_user_id })
+        if (!CheckExits) {
+            return res.status(404).send({ message: "User not found " });
+        } else {
+            await userModal.findByIdAndUpdate({ _id: newData.update_user_id }, newData)
+            res.status(200).send({ message: "User updated success" })
+        }
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+// Remove user (superAdmin) 👍👍👍👍👍
+
+const removeUser = async (req, res) => {
+    let RemoveUserId = req.body.remove_user_id;
+
+    if(!RemoveUserId){
+        return res.status(400).send({ message: "Required user_id " });  
+    }
+    try {
+
+        let CheckExits = await userModal.findById({ _id: RemoveUserId })
+        if (!CheckExits) {
+            return res.status(404).send({ message: "User not found " });
+        } else {
+            await userModal.findByIdAndDelete({ _id:RemoveUserId})
+            res.status(200).send({ message: "User Remove success" })
+        }
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+
+
 
 
 
@@ -133,6 +204,9 @@ module.exports = {
     createUser,
     loginUser,
     getAllUsers,
-    addUser
+    addUser,
+    updateUser,
+    removeUser,
+    getSingleUser
 
 }
