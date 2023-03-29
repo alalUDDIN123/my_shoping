@@ -20,8 +20,7 @@ const userRouter = express.Router();
 userRouter.post("/register", validateUserFields, createUser);
 userRouter.post("/login", loginUser)
 
-// supe admin
-
+// SuperAdmin
 userRouter.use(authenticateUser, SuperAdminAccess,)
 userRouter.get("/get", getAllUsers)
 userRouter.get("/SuperAdmin/get/single",getSingleUser)
