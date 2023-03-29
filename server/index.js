@@ -32,6 +32,7 @@ app.get('/', function (req, res) {
 });
 
 
+
 // All Routes 👍👍👍
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)

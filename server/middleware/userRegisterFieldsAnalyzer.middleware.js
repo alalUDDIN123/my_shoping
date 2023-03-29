@@ -11,12 +11,12 @@ const validateUserFields = (req, res, next) => {
 
     // Validate name field
     if (!name) {
-        return res.status(400).json({ error: "Please provide your name" });
+        return res.status(400).json({ error: "Please provide name" });
     }
 
     // Validate email field
     if (!email) {
-        return res.status(400).json({ error: "Please provide your email" });
+        return res.status(400).json({ error: "Please provide email" });
     } else if (!isValidEmail(email)) {
         return res.status(400).json({ error: "Please provide a valid email address" });
     }
