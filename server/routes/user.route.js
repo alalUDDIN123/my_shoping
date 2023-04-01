@@ -27,8 +27,7 @@ userRouter.post("/forget/password",forgetPassword)
 userRouter.get('/reset_password', resetPassword);
 
 
-// supe admin
-
+// SuperAdmin
 userRouter.use(authenticateUser, SuperAdminAccess,)
 userRouter.get("/get", getAllUsers)
 userRouter.get("/SuperAdmin/get/single",getSingleUser)
