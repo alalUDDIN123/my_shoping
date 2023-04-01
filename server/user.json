@@ -26,5 +26,24 @@
         "email": "khai@gmail.com",
         "password": "khai123@/",
         "mobile": 9366336620  
+    },
+    {
+        "name": "Alal Uddin",
+        "email": "alal61238@gmail.com",
+        "password": "Alal23@&?+",
+        "mobile": 6003643534
+    },
+    {
+        "name": "Khairul Ali",
+        "email": "khairulali28472@gmail.com",
+        "password": "kHairul@&?+",
+        "mobile": 4356564664
+    },
+    {
+        "name": "Abhijit Bai",
+        "email": "abhijitbiswas8859@gmail.com",
+        "password": "Abhit23@?+",
+        "mobile": 3454385387,
+        "role":"admin"
     }
 ]
