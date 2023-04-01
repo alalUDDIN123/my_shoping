@@ -7,6 +7,9 @@ const {
     updateUser,
     removeUser,
     getSingleUser,
+    ChangePassword,
+    forgetPassword,
+    resetPassword,
 
 
 } = require("../controller/users.controller");
@@ -19,6 +22,10 @@ const userRouter = express.Router();
 
 userRouter.post("/register", validateUserFields, createUser);
 userRouter.post("/login", loginUser)
+userRouter.post("/change/password", authenticateUser,ChangePassword)
+userRouter.post("/forget/password",forgetPassword)
+userRouter.get('/reset_password', resetPassword);
+
 
 // SuperAdmin
 userRouter.use(authenticateUser, SuperAdminAccess,)
