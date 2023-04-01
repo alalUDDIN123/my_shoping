@@ -115,7 +115,7 @@ const getSingleProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const newData = { ...req.body }
 
-  console.log(Object.keys(req.body)) 
+  // console.log(Object.keys(req.body)) 
   // output will containe array with all keys that are passing so we know already ["userId"]
   // exits so I written if length 1 then empty error
   if (Object.keys(req.body).length === 1) {
