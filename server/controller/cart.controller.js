@@ -10,8 +10,8 @@ const addProductToCart = async (req, res) => {
     // console.log("productid:", productId, "userId:-", userId)
 
 
-    if (!userId || !quantity || !productId) {
-        return res.status(400).send({ message: "userId , productId and quantity required " })
+    if (!quantity || !productId) {
+        return res.status(400).send({ message: "productId and quantity required " })
     }
 
     if (typeof quantity !== "number") {
