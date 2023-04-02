@@ -5,28 +5,33 @@ const orderSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     products: [
       {
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "product",
-        },
-        quantity: Number,
+          ref: "Product",
+          required: true,
+        }
       },
     ],
-    totalAmount: { 
-        type: Number
-     },
-    payment: {
+    paymentMethod: {
       type: String,
       enum: ["cashOn", "UPI", "netBanking"],
       default: "cashOn",
+      required: true,
     },
-    status: {
+    orderStatus: {
       type: String,
-      enum: ["pending", "packed", "dispatch", "cancelled", "deliverd"],
+      enum: ["pending", "packed", "dispatch", "cancelled", "delivered"],
       default: "pending",
+      required: true,
+    },
+    deliveryAddress: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "deliveryAddres",
+      required: true,
     },
     created: {
       type: Date,
@@ -42,4 +47,4 @@ const orderSchema = mongoose.Schema(
 
 const orderModel = mongoose.model("order", orderSchema);
 
-module.export=orderModel
+module.exports=orderModel 
