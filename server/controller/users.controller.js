@@ -104,7 +104,7 @@ const getAllUsers = async (req, res) => {
 
 const getSingleUser = async (req, res) => {
     let userId = req.body.user_id;
-    console.log(userId);
+    // console.log(userId);
 
     if (!userId) {
         return res.status(400).send({ message: "Required user_id " });

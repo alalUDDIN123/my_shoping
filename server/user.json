@@ -25,7 +25,7 @@
         "name": "Khairul Ali",
         "email": "khai@gmail.com",
         "password": "khai123@/",
-        "mobile": 9366336620  
+        "mobile": 9366336620
     },
     {
         "name": "Alal Uddin",
@@ -36,7 +36,7 @@
     {
         "name": "Khairul Ali",
         "email": "khairulali28472@gmail.com",
-        "password": "kHairul@&?+",
+        "password": "kHairul23@&?+",
         "mobile": 4356564664
     },
     {
@@ -44,6 +44,6 @@
         "email": "abhijitbiswas8859@gmail.com",
         "password": "Abhit23@?+",
         "mobile": 3454385387,
-        "role":"admin"
+        "role": "admin"
     }
 ]

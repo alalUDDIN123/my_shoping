@@ -12,6 +12,7 @@ const cors = require("cors")
 const ConnectDb = require("./config/Db.connect")
 const userRouter = require("./routes/user.route");
 const productRouter = require("./routes/products.route");
+const cartRouter = require("./routes/cart.route");
 
 
 // neccessary middleware 👍👍👍
@@ -36,6 +37,7 @@ app.get('/', function (req, res) {
 // All Routes 👍👍👍
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
+app.use("/api/cart",cartRouter)
 
 
 const PORT = process.env.PORT || 8085;
