@@ -6,16 +6,14 @@ const forgetPasswordSchema = mongoose.Schema({
         trim: true,
        
     },
-    expirationDate:{
-        type: String,
-        trim: true,
-       
+    expirationDate: {
+        type: Date,
+        required: true,
     },
-    
-},
-    {
-        versionKey: false
-    })
+}, {
+    versionKey: false
+});
+
 
 
 // user modal 

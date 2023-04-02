@@ -4,6 +4,7 @@ const generateToken = require("../generateToken");
 const crypto = require('crypto');
 const forgotModal = require("../modals/Forget.password.model");
 const sendEmail = require("./sendmail");
+const schedule = require('node-schedule');
 
 // register user 👍👍👍👍👍
 
@@ -256,6 +257,8 @@ const forgetPassword = async (req, res) => {
         const subject = "Password reset request";
         const token = crypto.randomBytes(20).toString('hex');
         const expirationDate = Date.now() + 300000;
+        // const expirationDate = Date.now() + 120000;
+
         const resetLink = 'http://localhost:8080/api/users/reset_password?token=' + token;
         const message = `Hello, ${user.name}.\n to reset your password, please click on the following link:\n${resetLink}.\nThis token will expire in 5 minutes.`;
 
@@ -270,12 +273,25 @@ const forgetPassword = async (req, res) => {
                 return res.status(500).send({ message: "Error sending email" });
             }
         }
-
         const newToken = new forgotModal({
             token,
-            expirationDate,
+            expirationDate: new Date(expirationDate),
         });
+
         await newToken.save();
+
+
+
+        // Schedule a job to remove expired tokens
+        schedule.scheduleJob('*/5 * * * *', async () => {
+            console.log('Running job to remove expired tokens');
+            try {
+                const result = await forgotModal.deleteMany({ expirationDate: { $lte: Date.now() } });
+                console.log(`Expired tokens removed: ${result.deletedCount}`);
+            } catch (error) {
+                console.log('Error removing expired tokens:', error);
+            }
+        });
 
         res.status(200).send({ message: `Email has been sent to email: ${user.email}` });
     } catch (error) {
@@ -283,21 +299,22 @@ const forgetPassword = async (req, res) => {
     }
 };
 
+
 // validating  token and time for forgetting password 👍👍👍👍👍
 const resetPassword = async (req, res) => {
     const { token } = req.query;
     // console.log("password reset token::-",token)
     try {
-      // verify that the unique token exists in your database and hasn't expired
-      const passwordResetToken = await forgotModal.findOne({ token });
-      if (!passwordResetToken || passwordResetToken.expirationDate < new Date()) {
-        return res.status(400).send({message:"Invalid or expired token"});
-      }
+        // verify that the unique token exists in your database and hasn't expired
+        const passwordResetToken = await forgotModal.findOne({ token });
+        if (!passwordResetToken || passwordResetToken.expirationDate < new Date()) {
+            return res.status(400).send({ message: "Invalid or expired token" });
+        }
 
-      res.status(200).send({message:"Token verified"})
+        res.status(200).send({ message: "Token verified" })
 
     } catch (error) {
-      res.status(400).send({ msg: "Something went wrong", error: error.message });
+        res.status(400).send({ msg: "Something went wrong", error: error.message });
     }
 };
 
