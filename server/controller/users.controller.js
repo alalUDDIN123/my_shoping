@@ -4,7 +4,6 @@ const generateToken = require("../generateToken");
 const crypto = require('crypto');
 const forgotModal = require("../modals/Forget.password.model");
 const sendEmail = require("./sendmail");
-const schedule = require('node-schedule');
 
 // register user 👍👍👍👍👍
 
@@ -213,13 +212,29 @@ const ChangePassword = async (req, res) => {
     if (!newPassword) {
         return res.status(400).send({ msg: " New password required" })
     }
+
+    if (newPassword.length < 6) {
+        return res.status(400).json({ error: "Password must be at least 6 characters long" });
+    }
+    if (!/[A-Z]/.test(newPassword)) {
+        return res.status(400).json({ error: "Password must contain at least one uppercase letter" });
+    }
+    if (!/[a-z]/.test(newPassword)) {
+        return res.status(400).json({ error: "Password must contain at least one lowercase letter" });
+    }
+    if (!/\d/.test(newPassword)) {
+        return res.status(400).json({ error: "Password must contain at least one digit" });
+    }
+    if (!/[@#%&^()/?!]/.test(newPassword)) {
+        return res.status(400).json({ error: "Password must contain at least one special character (@,#,%,&,^,(,),/?) " });
+    }
+
+
     try {
         const user = await userModal.findOne({ email });
         if (!user) {
             return res.status(404).send("User not found");
         }
-
-
 
         // check if old password matches the one in the database
         const isMatch = await bcrypt.compare(password, user.password);
@@ -253,6 +268,8 @@ const forgetPassword = async (req, res) => {
             return res.status(404).send("User not found");
         }
 
+        // console.log("user",user)
+
         // send an email to the user's Gmail address
         const subject = "Password reset request";
         const token = crypto.randomBytes(20).toString('hex');
@@ -274,25 +291,12 @@ const forgetPassword = async (req, res) => {
             }
         }
         const newToken = new forgotModal({
+            userId: user._id,
             token,
             expirationDate: new Date(expirationDate),
         });
 
         await newToken.save();
-
-
-
-        // Schedule a job to remove expired tokens
-        schedule.scheduleJob('*/5 * * * *', async () => {
-            console.log('Running job to remove expired tokens');
-            try {
-                const result = await forgotModal.deleteMany({ expirationDate: { $lte: Date.now() } });
-                console.log(`Expired tokens removed: ${result.deletedCount}`);
-            } catch (error) {
-                console.log('Error removing expired tokens:', error);
-            }
-        });
-
         res.status(200).send({ message: `Email has been sent to email: ${user.email}` });
     } catch (error) {
         res.status(400).send({ msg: "Something went wrong", error: error.message });
@@ -303,7 +307,7 @@ const forgetPassword = async (req, res) => {
 // validating  token and time for forgetting password 👍👍👍👍👍
 const resetPassword = async (req, res) => {
     const { token } = req.query;
-    // console.log("password reset token::-",token)
+
     try {
         // verify that the unique token exists in your database and hasn't expired
         const passwordResetToken = await forgotModal.findOne({ token });
@@ -311,12 +315,44 @@ const resetPassword = async (req, res) => {
             return res.status(400).send({ message: "Invalid or expired token" });
         }
 
-        res.status(200).send({ message: "Token verified" })
+        // If the token is valid, allow the user to update their password
+        const { newPassword } = req.body;
+        const user = await userModal.findById(passwordResetToken.userId);
+
+        if (!newPassword) {
+            return res.status(400).send({ msg: " New password required" })
+        }
+
+        if (newPassword.length < 6) {
+            return res.status(400).json({ error: "Password must be at least 6 characters long" });
+        }
+        if (!/[A-Z]/.test(newPassword)) {
+            return res.status(400).json({ error: "Password must contain at least one uppercase letter" });
+        }
+        if (!/[a-z]/.test(newPassword)) {
+            return res.status(400).json({ error: "Password must contain at least one lowercase letter" });
+        }
+        if (!/\d/.test(newPassword)) {
+            return res.status(400).json({ error: "Password must contain at least one digit" });
+        }
+        if (!/[@#%&^()/?!]/.test(newPassword)) {
+            return res.status(400).json({ error: "Password must contain at least one special character (@,#,%,&,^,(,),/?) " });
+        }
+
+        // hash and update user's password with the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 5);
+        user.password = hashedPassword;
+        await user.save();
+
+        // Remove the token from the database
+        await passwordResetToken.removeToken();
+        res.status(200).send({ message: "Password reset successful" });
 
     } catch (error) {
         res.status(400).send({ msg: "Something went wrong", error: error.message });
     }
 };
+
 
 module.exports = {
     createUser,

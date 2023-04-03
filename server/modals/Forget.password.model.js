@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const forgetPasswordSchema = mongoose.Schema({
+
+    userId:{
+        type: String,
+        trim: true,
+    },
     token: {
         type: String,
         trim: true,
@@ -14,6 +19,10 @@ const forgetPasswordSchema = mongoose.Schema({
     versionKey: false
 });
 
+// add the remove method to the schema
+forgetPasswordSchema.methods.removeToken = function () {
+    return this.deleteOne();
+};
 
 
 // user modal 

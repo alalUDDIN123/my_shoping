@@ -22,7 +22,7 @@ const userRouter = express.Router();
 
 userRouter.post("/register", validateUserFields, createUser);
 userRouter.post("/login", loginUser)
-userRouter.post("/change/password", authenticateUser,ChangePassword)
+userRouter.post("/change/password",ChangePassword)
 userRouter.post("/forget/password",forgetPassword)
 userRouter.get('/reset_password', resetPassword);
 
