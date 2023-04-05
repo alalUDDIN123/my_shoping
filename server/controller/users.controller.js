@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
         const userExits = await userModal.findOne({ email })
 
         if (userExits) {
-            return res.status(400).send({ msg: `This email : ${email} already exits, try with different email or login` })
+            return res.status(400).send({ msg: `This email : ${email} already exits, try with different email or login`,hint:"em1" })
         }
 
         const gensalt = 5;
