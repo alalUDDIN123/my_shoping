@@ -23,6 +23,7 @@
 ### Account Registration and Access
   - `Registration`
      - Required format
+     - `API`: http://localhost:8080/api/users/register
       ```  
        "name": "",
        "email": "", email should validate in Regex form that is after @.(com|net|org|edu|gov|mil|info|biz)
@@ -32,12 +33,14 @@
       ```
   - `login`
      - Required format
+     - `API`: http://localhost:8080/api/users/login
      ```
       "email": "",
       "password": ""
      ```  
   - `Change password`  
      - Required format
+     - `API`: http://localhost:8080/api/users/change/password
      ```
      "email":"", registered email
      "password":"", old password
@@ -45,12 +48,14 @@
 
   - `forget password`  
      - Required format
+     - `API`: http://localhost:8080/api/users/forget/password
      ```
      "email":"", registered email
      "checkMail":""
      ```  
   - `reset forget password`
       - Required format
+      - `API`: http://localhost:8080/api/users/reset_password?token=783456df4bcdf5bbb2d08c2ac43d3ffac773c2c2
       ```
        "first-received-token" : should have validate
        "newPassword": should validate as like register password
