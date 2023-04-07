@@ -20,11 +20,12 @@ const validateUserFields = require("../middleware/userRegisterFieldsAnalyzer.mid
 
 const userRouter = express.Router();
 
+userRouter.post('/resetPassword', resetPassword);
 userRouter.post("/register", validateUserFields, createUser);
 userRouter.post("/login", loginUser)
 userRouter.post("/change/password",ChangePassword)
 userRouter.post("/forget/password",forgetPassword)
-userRouter.get('/reset_password', resetPassword);
+
 
 
 // SuperAdmin

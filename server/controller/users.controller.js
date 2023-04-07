@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
         const userExits = await userModal.findOne({ email })
 
         if (userExits) {
-            return res.status(400).send({ msg: `This email : ${email} already exits, try with different email or login`,hint:"em1" })
+            return res.status(400).send({ msg: `This email : ${email} already exits, try with different email or login`, hint: "em1" })
         }
 
         const gensalt = 5;
@@ -103,22 +103,36 @@ const getAllUsers = async (req, res) => {
 
 
 const getSingleUser = async (req, res) => {
-    let userId = req.body.user_id;
-    // console.log(userId);
+    const { user, email, name } = req.body;
 
-    if (!userId) {
-        return res.status(400).send({ message: "Required user_id " });
+    if (!user && !email && !name) {
+        return res.status(400).send({ message: "At least one of the fields (userId, email, name) is required." });
     }
     try {
 
-        let CheckExits = await userModal.findById({ _id: userId })
-        if (!CheckExits) {
-            return res.status(404).send({ message: "User not found " });
-        } else {
-            let user = await userModal.findById({ _id: userId })
-            res.status(200).send({ user })
+        const filter = {};
+
+        if (user) {
+            filter._id = user;
         }
 
+        if (email) {
+            filter.email = email;
+        }
+
+        if (name) {
+            filter.name = name;
+        }
+
+        // console.log("filter::-", filter);
+
+        const findUser = await userModal.find(filter)
+
+        if (findUser.length === 0) {
+            return res.status(404).send({ message: "User not found" })
+        }
+
+        res.status(200).send(findUser)
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -265,7 +279,7 @@ const forgetPassword = async (req, res) => {
     try {
         const user = await userModal.findOne({ email });
         if (!user) {
-            return res.status(404).send("User not found");
+            return res.status(404).send({ message: "User not found", hint: "not" });
         }
 
         // console.log("user",user)
@@ -276,7 +290,7 @@ const forgetPassword = async (req, res) => {
         const expirationDate = Date.now() + 300000;
         // const expirationDate = Date.now() + 120000;
 
-        const resetLink = 'http://localhost:8080/api/users/reset_password?token=' + token;
+        const resetLink = `http://localhost:3000/reset_password/token/${token}`;
         const message = `Hello, ${user.name}.\n to reset your password, please click on the following link:\n${resetLink}.\nThis token will expire in 5 minutes.`;
 
         try {
@@ -297,7 +311,7 @@ const forgetPassword = async (req, res) => {
         });
 
         await newToken.save();
-        res.status(200).send({ message: `Email has been sent to email: ${user.email}` });
+        res.status(200).send({ message: `Email has been sent to email: ${user.email}`, hint: "send" });
     } catch (error) {
         res.status(400).send({ msg: "Something went wrong", error: error.message });
     }
@@ -306,19 +320,23 @@ const forgetPassword = async (req, res) => {
 
 // validating  token and time for forgetting password 👍👍👍👍👍
 const resetPassword = async (req, res) => {
-    const { token } = req.query;
+    const { token, newPassword } = req.body;
+
+    if (!token) {
+        return res.status(400).send({ message: "Please provide token" });
+    }
+
 
     try {
         // verify that the unique token exists in your database and hasn't expired
         const passwordResetToken = await forgotModal.findOne({ token });
         if (!passwordResetToken || passwordResetToken.expirationDate < new Date()) {
+            if (passwordResetToken) {
+                await passwordResetToken.removeToken();
+            }
             return res.status(400).send({ message: "Invalid or expired token" });
+
         }
-
-        // If the token is valid, allow the user to update their password
-        const { newPassword } = req.body;
-        const user = await userModal.findById(passwordResetToken.userId);
-
         if (!newPassword) {
             return res.status(400).send({ msg: " New password required" })
         }
@@ -339,6 +357,9 @@ const resetPassword = async (req, res) => {
             return res.status(400).json({ error: "Password must contain at least one special character (@,#,%,&,^,(,),/?) " });
         }
 
+        // If the token is valid, allow the user to update their password
+
+        const user = await userModal.findById(passwordResetToken.userId);
         // hash and update user's password with the new password
         const hashedPassword = await bcrypt.hash(newPassword, 5);
         user.password = hashedPassword;
