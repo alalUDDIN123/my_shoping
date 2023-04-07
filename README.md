@@ -59,10 +59,11 @@
      ```  
   - `reset forget password`
       - Required format
-      - `API`: http://localhost:8080/api/users/reset_password?token=783456df4bcdf5bbb2d08c2ac43d3ffac773c2c2
+      - `API`: http://localhost:8080/api/users/reset_password
       - `method` : POST 
       ```
        "first-received-token" : should have validate
+        token : required
        "newPassword": should validate as like register password
       ```
 
@@ -141,7 +142,9 @@
    - `getSingleUser` : http://localhost:8080/api/users/SuperAdmin/get/single
        - `Required format`
        - `method` : get
-          - user_id : ""
+          - user : "", or
+          - email:"", or
+          - name :""
 
    - `addUser` : http://localhost:8080/api/users/superAdmin/register
       - `Required format`
