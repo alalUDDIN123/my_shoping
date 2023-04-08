@@ -1,96 +1,66 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/users/Home'
+import AdminHome from './pages/admin/Home';
+import SuperHome from "./pages/superAdmin/Home"
+import Signup from './commom/Signup'
+import Login from './commom/Login'
+import ForgetPassword from './commom/ForgetPassword'
+import ResetPassword from './commom/ResetPassword'
+import ChangePassword from './commom/ChangePassword'
+import Products from './pages/users/ProductsPage'
+import Singleproduct from './pages/users/Singleproduct'
+import Cart from './pages/users/Cart'
+import Orders from './pages/users/Orders'
+import CheckoutPage from './pages/users/CheckoutPage'
+import UserProfile from './pages/users/UserProfile'
 
-// ALL COMPONENTS
-import Navbar from "./components/Navbar";
-
-// ALL CSS
-import "./styles/navbar.scss";
 
 function App() {
   return (
-    <Router>
-      {/* NAVBAR */}
+    <>
+
       <Navbar />
 
-      {/* ALL ROUTES */}
       <Routes>
-        <Route
-          path="/"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              HOME
-            </h1>
-          }
-        />
-        <Route
-          path="/about-us"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              ABOUT US
-            </h1>
-          }
-        />
-        <Route
-          path="/contact-us"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              CONTACT US
-            </h1>
-          }
-        />
-        <Route
-          path="/wishlist"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              WISHLIST
-            </h1>
-          }
-        />
-        <Route
-          path="/cart"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              CART
-            </h1>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <h1
-              style={{
-                paddingTop: "100px",
-              }}
-            >
-              PROFILE
-            </h1>
-          }
-        />
+
+        {/* common route */}
+
+        <Route path="/signup" element={<Signup />} ></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/changePassword" element={<ChangePassword/>}></Route>
+        <Route path="/forgetPassword" element={<ForgetPassword />} ></Route>
+        <Route path="/reset_password/token/:token" element={<ResetPassword />} ></Route>
+
+
+
+        {/* Users route */}
+        <Route path="/" element={<Home />} ></Route>
+        <Route path="/products" element={<Products />} ></Route>
+        <Route path="/product/:id" element={<Singleproduct />} ></Route>
+        <Route path="/cart" element={<Cart />} ></Route>
+        <Route path="/orders" element={<Orders />} ></Route>
+        <Route path="/checkout" element={<CheckoutPage/>} ></Route>
+        <Route path="/profile" element={<UserProfile/>} ></Route>
+
+
+
+        {/* Admin Route */}
+        <Route path='/admin' element={<AdminHome />}></Route>
+
+
+
+        {/* Super Admin Route */}
+        <Route path="/superAdmin" element={<SuperHome />} ></Route>
+
+
       </Routes>
 
-      {/* FOOTERs */}
-    </Router>
-  );
+      <Footer />
+    </>
+  )
 }
 
-export default App;
+export default App

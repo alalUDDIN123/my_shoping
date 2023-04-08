@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Navbar() {
+function Home() {
   return (
     <div>
-      Navbar
+      Admin Access
     </div>
   )
 }
 
-export default Navbar
+export default Home
