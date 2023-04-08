@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineShoppingCart, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineMenu,AiOutlineClose } from 'react-icons/ai';
 import { ImProfile } from 'react-icons/im';
 import { BsBagCheck } from 'react-icons/bs';
 import { GrList } from 'react-icons/gr';
@@ -105,7 +105,8 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
 
           <div className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""}`}>
             <div className={styles.hamburgerIcon} onClick={() => setShowRightSide(!showRightSide)}>
-              <AiOutlineMenu />
+              {showRightSide ? <AiOutlineClose /> :<AiOutlineMenu /> }
+              
             </div>
             {showRightSide &&
               (
@@ -175,7 +176,7 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
 
           <div className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""}`}>
             <div className={styles.hamburgerIcon} onClick={() => setShowRightSide(!showRightSide)}>
-              <AiOutlineMenu />
+            {showRightSide ? <AiOutlineClose /> :<AiOutlineMenu /> }
             </div>
             {showRightSide &&
               (
