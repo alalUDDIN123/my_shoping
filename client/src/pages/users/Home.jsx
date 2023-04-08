@@ -1,10 +1,18 @@
 import React from 'react'
 
+import SliderComponent from '../../components/SliderComponent'
+import CategoriesSection from './CategoriesSection'
 function Home() {
   return (
-    <div>
-      User Home
-    </div>
+    <>
+      <>
+        <SliderComponent />
+      </>
+
+      <>
+        <CategoriesSection />
+      </>
+    </>
   )
 }
 
