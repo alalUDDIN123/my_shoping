@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500;600;700;800&family=Roboto:wght@300;400&display=swap');
+
+* {
+    font-family: 'Fira Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 0px 0px 0px 90px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: -90px;
+
+}
+
+.logo span {
+    color: #fca311;
+}
+
+.search {
+    width: 30%;
+    height: 40px;
+
+}
+
+.search input {
+    border-radius: 2rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    height: 100%;
+    width: 100%;
+    padding: 0px 10px 0px 20px;
+}
+
+.search input:focus {
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-color: #fca311;
+}
+
+._rightSide {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    /* border: 1px solid black; */
+}
+
+._rightSide button {
+    background-color: #fca311;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: .5rem 30px;
+    font-size:22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* border: 1px solid black; */
+}
+
+._rightSide button:hover {
+    background-color: #fdaa48;
+}
+
+.more {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: none;
+    padding: 0.5rem 0;
+    background-color: #fca311;
+    width: 200px;
+    margin-top: 3px;
+    border-radius: 3px;
+}
+
+
+.more:hover .dropdown,
+.dropdown:hover {
+    display: block;
+
+}
+
+
+.dropdown a {
+    display: block;
+    padding: 10px;
+    color: blue;
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-family: sans-serif;
+    border-bottom: 1px solid white;
+
+}
+
+.dropdown a:hover {
+    background-color: rgb(23 23 23);
+    color: white;
+}
+
+.cartIcon {
+    padding: 10px;
+    position: relative;
+}
+
+.cartIcon span {
+    position: absolute;
+    font-size: 14px;
+    top: -6px;
+    right: -6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    background-color: #fca311;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+}
+
+/* tablet css */
+._tablet_navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+._tablet_logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+._tablet_logo h1 {
+    margin: 0;
+    padding: 0;
+}
+
+._tablet_logo span {
+    color: #fca311;
+}
+
+
+._tablet_search {
+    flex: .7;
+    margin: 0 20px;
+}
+
+._tablet_search input[type="text"] {
+    width: 100%;
+    padding: 15px 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.hamburgerIcon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+}
+
+
+
+._tablet_rightSidebar {
+    position: absolute;
+    top: 70px;
+    right: 1px;
+    width: 230px;
+    /* height: calc(100% - 60px); */
+    background-color: rgb(249 115 22);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 1;
+    transition: all 0.5s ease-out;
+    border-radius: 3px 0px 0px 10px;
+}
+
+.showRightSide ._tablet_rightSidebar {
+    right: 0;
+}
+
+
+
+._tablet_rightSidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+._tablet_rightSidebar li {
+    margin: 16px 0;
+    margin-bottom: 30px;
+}
+
+._tablet_rightSidebar a {
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+
+}
+
+._tablet_rightSidebar a span {
+    background-color: #e91e63;
+    color: #fff;
+    font-size: 14px;
+    padding: 4px;
+    border-radius: 50%;
+    margin-left: 8px;
+}
+
+.showRightSide ._tablet_rightSidebar {
+    right: 0;
+}
