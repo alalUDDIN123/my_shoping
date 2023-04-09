@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "../../styles/products.module.css"
+import stylesPagin from "../../styles/Pagination.module.css"
 import { useMediaQuery } from 'react-responsive'
-import { productsData } from './ProductsData'
+import stylesTablet from "../../styles/products.tablet.module.css"
 
 import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption'
 import Loader from '../../components/Loader'
 import ProductCard from '../../components/ProductC'
+import TabletProductCard from '../../components/TabletProductCard'
+import TabletLoader from '../../components/TabletLoader'
+import MobileLoader from '../../components/MobileLoader'
+
 // import ProductCard from '../../components/ProductCard'
 
 
-function ProductsPage({ loading = false }) {
+function ProductsPage() {
+
+  const [products, setProducts] = useState([])
+  const [page, setPage] = useState(1)
+  const [loading, setLoading] = useState(false)
+  const [totalPages, setTotalPages] = useState(0)
+  const [selectCategory, setSelectCategory] = useState([]);
+
+
 
 
   const Dekstop = ({ children }) => {
@@ -25,6 +38,31 @@ function ProductsPage({ loading = false }) {
     return isMobile ? children : null
   }
 
+  const fetchProducts = async () => {
+    setLoading(true)
+    const res = await fetch(`https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`)
+    const data = await res.json()
+    if (data && data.products) {
+      setProducts(data.products)
+    }
+
+    setLoading(false)
+
+    data && setTotalPages(data.total / 10)
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [page])
+
+  const selectPageHandler = (selectedPage) => {
+    if (selectedPage >= 1 && selectedPage <= totalPages && selectedPage !== page) {
+      setPage(selectedPage)
+    }
+  }
+
+
+ 
 
   return (
     <>
@@ -38,8 +76,11 @@ function ProductsPage({ loading = false }) {
               <label className={styles._label_text}>Select Category</label>
               {categoryOption.map((cate, index) => (
                 <div key={index}>
-                  <input type="checkbox" id={`category-${index}`} name="category" value={cate} />
-                  <label htmlFor={`category-${index}`}>{cate}</label>
+                  <input type="checkbox"
+                  name="category" 
+                  value={cate} 
+                 />
+                  <label >{cate}</label>
                 </div>
               ))}
 
@@ -57,7 +98,7 @@ function ProductsPage({ loading = false }) {
               ))}
 
             </div>
-              <hr />
+            <hr />
 
             <div className={styles._price_div}>
               <label className={`${styles._label_text} ${styles._label_text_price}`} >Enter price range</label>
@@ -74,7 +115,7 @@ function ProductsPage({ loading = false }) {
               <button className={styles._apply_button}>Apply</button>
 
             </div>
-              <hr />
+            <hr />
 
             <div className={styles._rating_div} >
               <label >Choose rating</label>
@@ -97,16 +138,26 @@ function ProductsPage({ loading = false }) {
               {loading ? (
                 <Loader />
               ) : (
-                productsData.length === 0 ? (
+                products.length === 0 ? (
                   <h1>products not available</h1>
                 ) : (
-                  productsData.map((el) => (
+                  products.map((el) => (
                     <ProductCard key={el.id} {...el} />
                   ))
                 )
               )}
-            </div>
 
+
+            </div>
+            {products.length > 0 && <div className={stylesPagin.pagination}>
+              <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesPagin.pagination__disable}>◀</span>
+
+              {[...Array(totalPages)].map((_, i) => {
+                return <span key={i} className={page === i + 1 ? stylesPagin.pagination__selected : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+              })}
+
+              <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesPagin.pagination__disable}>▶</span>
+            </div>}
 
           </div>
 
@@ -117,20 +168,101 @@ function ProductsPage({ loading = false }) {
 
       {/* Tablet*/}
 
-      <Tablet Tablet >
-
-        <main>
+      <Tablet>
+        <main className={stylesTablet._tablet_main_div} >
 
           {/* filters container */}
-          <div>
+          <div className={stylesTablet._tablet_filters}>
 
+            <div className={stylesTablet._tablet_category_div} >
+              <label className={stylesTablet._tablet__label_text}>Select Category</label>
+              <select  >
+                <option value="" disabled selected>-Select Category-</option>
+                {categoryOption.map((categ, index) => (
+                  <option key={index} value={categ}>
+                    {categ}
+                  </option>
+                ))}
+              </select>
+
+
+            </div>
+            <hr />
+
+            <div className={stylesTablet._tablet_brand_div} >
+              <label className={stylesTablet._tablet_label_text}>Select Brand</label>
+              <select >
+                <option value="" disabled selected >-Select brand-</option>
+                {brandOption.map((brand, index) => (
+                  <option key={index} value={brand}>
+                    {brand}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <hr />
+
+            <div className={stylesTablet._tablet_price_div}>
+              <label className={`${stylesTablet._tablet_label_text} ${stylesTablet._label_text_price}`} >Enter price range</label>
+              <div>
+                <label htmlFor=""> Min price</label>
+                <input type="number" />
+
+              </div>
+              <div>
+                <label htmlFor="">Max price</label>
+                <input type="number" />
+              </div>
+
+              <button className={stylesTablet._tablet_apply_button}>Apply</button>
+
+            </div>
+            <hr />
+
+            <div className={stylesTablet._tablet_rating_div} >
+              <label >Choose rating</label>
+              <select >
+                <option value="" disabled>Ratings</option>
+                {ratingOption.map((rate, index) => (
+                  <option key={index} value={rate}>
+                    {rate}
+                  </option>
+                ))}
+              </select>
+
+            </div>
           </div>
 
 
           {/* products container */}
-          <div>
+          <div className={stylesTablet._tablet_products_container}>
+            <div className={stylesTablet._tablet_products}>
+              {loading ? (
+                <TabletLoader />
+              ) : (
+                products.length === 0 ? (
+                  <h1>products not available</h1>
+                ) : (
+                  products.map((el) => (
+                    <TabletProductCard key={el.id} {...el} />
+                  ))
+                )
+              )}
+
+
+            </div>
+            {products.length > 0 && <div className={stylesTablet._tablet_pagination}>
+              <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._tablet_pagination__disable}>◀</span>
+
+              {[...Array(totalPages)].map((_, i) => {
+                return <span key={i} className={page === i + 1 ? stylesTablet._tablet_pagination__selected : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+              })}
+
+              <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._tablet_pagination__disable}>▶</span>
+            </div>}
 
           </div>
+
         </main>
       </Tablet >
 
@@ -138,20 +270,37 @@ function ProductsPage({ loading = false }) {
 
       {/* Mobile */}
 
-      <Mobile Mobile >
-        <main>
+      <Mobile>
+     
+          <div className={stylesTablet._mobile_products_container}>
+            <div className={stylesTablet._mobile_products}>
+              {loading ? (
+                <MobileLoader />
+              ) : (
+                products.length === 0 ? (
+                  <h1>products not available</h1>
+                ) : (
+                  products.map((el) => (
+                    <TabletProductCard key={el.id} {...el} />
+                  ))
+                )
+              )}
 
-          {/* filters container */}
-          <div>
+
+            </div>
+            {products.length > 0 && <div className={stylesTablet._mobile_pagination}>
+              <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._mobile_pagination__disable}>◀</span>
+
+              {[...Array(totalPages)].map((_, i) => {
+                return <span key={i} className={page === i + 1 ? stylesTablet._mobile_pagination__selected : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+              })}
+
+              <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._mobile_pagination__disable}>▶</span>
+            </div>}
 
           </div>
 
-
-          {/* products container */}
-          <div>
-
-          </div>
-        </main>
+      
       </Mobile >
     </>
   )

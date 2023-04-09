@@ -1,17 +1,17 @@
 import React from 'react';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 import styles from '../styles/productCard.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({ image, name, brand, category, rating, price }) => {
-
-  // console.log("rating::-", [...Array(rating)])
+const ProductCard = ({ thumbnail, title, brand, category, rating, price,id }) => {
+ const navigate=useNavigate()
   return (
-    <div className={styles.product_card}>
+    <div className={styles.product_card} onClick={()=>navigate(`/product/single/${id}`)} >
       <div className={styles.product_image_container}>
-        <img src={image} alt={name} className={styles.product_image} />
+        <img src={thumbnail} alt={title} className={styles.product_image} />
       </div>
       <div className={styles.product_details}>
-        <h3 className={styles.product_name}>{name}</h3>
+        <h3 className={styles.product_name}>{title.substr(0,20)}</h3>
         <p className={styles.product_brand}> <strong>Brand : -</strong> {brand}</p>
         <p className={styles.product_category}> <strong>Category : -</strong> {category}</p>
 
@@ -22,7 +22,7 @@ const ProductCard = ({ image, name, brand, category, rating, price }) => {
             // let's say rating 3
             // so over the each iteration i will check that currect i is less then rating
             // if yes then till to 3 star `star_active` will be added others 2 will not
-            <span key={i} className={`${styles.star} ${i < rating ? styles.star_active : ''}`}>
+            <span key={i} className={`${styles.star} ${i < Math.floor(rating )? styles.star_active : ''}`}>
               <FaStar />
             </span>
           ))}
