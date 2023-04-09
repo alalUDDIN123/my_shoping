@@ -16,6 +16,7 @@ import Cart from './pages/users/Cart'
 import Orders from './pages/users/Orders'
 import CheckoutPage from './pages/users/CheckoutPage'
 import UserProfile from './pages/users/UserProfile'
+import PageNotFound from './components/PageNotFound'
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
 
         {/* Users route */}
         <Route path="/" element={<Home />} ></Route>
-        <Route path="/products" element={<Products />} ></Route>
+        <Route path="/products/:category" element={<Products />} ></Route>
         <Route path="/product/:id" element={<Singleproduct />} ></Route>
         <Route path="/cart" element={<Cart />} ></Route>
         <Route path="/orders" element={<Orders />} ></Route>
@@ -54,6 +55,11 @@ function App() {
 
         {/* Super Admin Route */}
         <Route path="/superAdmin" element={<SuperHome />} ></Route>
+
+
+        {/* Not found route */}
+
+        <Route path="*" element={<PageNotFound />} ></Route>
 
 
       </Routes>
