@@ -2,9 +2,14 @@ import React from 'react'
 import styles from "../../styles/products.module.css"
 import { useMediaQuery } from 'react-responsive'
 import { productsData } from './ProductsData'
-import ProductGrid from '../../components/ProductGrid'
-import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption' 
-function ProductsPage() {
+
+import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption'
+import Loader from '../../components/Loader'
+import ProductCard from '../../components/ProductC'
+// import ProductCard from '../../components/ProductCard'
+
+
+function ProductsPage({ loading = false }) {
 
 
   const Dekstop = ({ children }) => {
@@ -20,6 +25,7 @@ function ProductsPage() {
     return isMobile ? children : null
   }
 
+
   return (
     <>
       <Dekstop>
@@ -29,7 +35,7 @@ function ProductsPage() {
           <div className={styles._filters}>
 
             <div className={styles._category_div} >
-              <label htmlFor="">Select Category</label>
+              <label className={styles._label_text}>Select Category</label>
               {categoryOption.map((cate, index) => (
                 <div key={index}>
                   <input type="checkbox" id={`category-${index}`} name="category" value={cate} />
@@ -39,9 +45,10 @@ function ProductsPage() {
 
 
             </div>
+            <hr />
 
             <div className={styles._brand_div} >
-              <label htmlFor="">Select Brand</label>
+              <label className={styles._label_text}>Select Brand</label>
               {brandOption.map((brand, index) => (
                 <div key={index}>
                   <input type="checkbox" id={`category-${index}`} name="category" value={brand} />
@@ -50,21 +57,24 @@ function ProductsPage() {
               ))}
 
             </div>
+              <hr />
 
             <div className={styles._price_div}>
-              <label>Enter price range</label>
+              <label className={`${styles._label_text} ${styles._label_text_price}`} >Enter price range</label>
               <div>
-
+                <label htmlFor=""> Min price</label>
                 <input type="number" />
 
               </div>
               <div>
+                <label htmlFor="">Max price</label>
                 <input type="number" />
               </div>
 
-              <button>Apply</button>
+              <button className={styles._apply_button}>Apply</button>
 
             </div>
+              <hr />
 
             <div className={styles._rating_div} >
               <label >Choose rating</label>
@@ -84,23 +94,30 @@ function ProductsPage() {
           {/* products container */}
           <div className={styles._products_container}>
             <div className={styles._products}>
-              {productsData.length === 0 ? <h1>products not available</h1> :
-                productsData.map((el) => (
-                  <ProductGrid key={el.id} {...el} />
-                ))}
-
+              {loading ? (
+                <Loader />
+              ) : (
+                productsData.length === 0 ? (
+                  <h1>products not available</h1>
+                ) : (
+                  productsData.map((el) => (
+                    <ProductCard key={el.id} {...el} />
+                  ))
+                )
+              )}
             </div>
+
 
           </div>
 
         </main>
-      </Dekstop>
+      </Dekstop >
 
 
 
       {/* Tablet*/}
 
-      <Tablet>
+      <Tablet Tablet >
 
         <main>
 
@@ -115,13 +132,13 @@ function ProductsPage() {
 
           </div>
         </main>
-      </Tablet>
+      </Tablet >
 
 
 
       {/* Mobile */}
 
-      <Mobile>
+      <Mobile Mobile >
         <main>
 
           {/* filters container */}
@@ -135,7 +152,7 @@ function ProductsPage() {
 
           </div>
         </main>
-      </Mobile>
+      </Mobile >
     </>
   )
 }
