@@ -22,15 +22,17 @@
 
 
 
-._filters{
- margin-left: 20px;
+._filters {
+  margin-left: 20px;
   width: 300px;
   overflow-y: auto;
+  height: 100vh;
   padding: 1rem;
   background-color: #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
 }
+
 ._main_div> :first-child {
   margin-top: 10px;
 
@@ -48,26 +50,27 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   border-radius: 5px;
- 
+
 }
 
 /* products grid */
 ._products {
   padding: 2rem;
   display: grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
 
-._label_text{
+._label_text {
   margin-bottom: 10px;
   display: block;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"]+label {
   margin-top: 5px;
 }
+
 ._category_div label,
 ._brand_div label {
   font-size: 1.1rem;
@@ -75,7 +78,7 @@ input[type="checkbox"] + label {
 
 }
 
-._label_text_price{
+._label_text_price {
   font-size: 1.1rem;
 }
 
@@ -100,7 +103,8 @@ input[type="checkbox"] + label {
 ._price_div {
   margin-bottom: 1rem;
 }
-._price_div>div>input{
+
+._price_div>div>input {
   width: 100%;
   padding: 7px;
   border-radius: 2px;
@@ -131,11 +135,11 @@ input[type="checkbox"] + label {
   margin-top: 1rem;
 }
 
-._rating_div > label {
+._rating_div>label {
   margin-right: 1rem;
 }
 
-._rating_div > select {
+._rating_div>select {
   border: none;
   background-color: #f2f2f2;
   padding: 0.5rem;
@@ -143,3 +147,4 @@ input[type="checkbox"] + label {
   font-size: 1rem;
   cursor: pointer;
 }
+

@@ -39,8 +39,9 @@ function App() {
 
         {/* Users route */}
         <Route path="/" element={<Home />} ></Route>
+        <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>
-        <Route path="/product/:id" element={<Singleproduct />} ></Route>
+        <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
         <Route path="/cart" element={<Cart />} ></Route>
         <Route path="/orders" element={<Orders />} ></Route>
         <Route path="/checkout" element={<CheckoutPage/>} ></Route>
