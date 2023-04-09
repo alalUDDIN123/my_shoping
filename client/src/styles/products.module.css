@@ -1,0 +1,77 @@
+/* main container */
+._main_div {
+    width: 100%;
+    display: flex;
+  }
+  
+  /* filters container */
+  ._filters {
+    position: fixed;
+    left: 30px;
+    width: 200px;
+    height: calc(100% - 80px); 
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-right: 1px solid #ebebeb;
+  }
+  
+  /* first child */
+  ._main_div > :first-child {
+    margin-top: 13px; 
+  }
+  
+  /* category container */
+  ._category_div {
+    margin-bottom: 1rem;
+  }
+  
+  /* brand container */
+  ._brand_div {
+    margin-bottom: 1rem;
+  }
+  
+  /* price container */
+  ._price_div {
+    margin-bottom: 1rem;
+  }
+  
+  /* rating container */
+  ._rating_div {
+    margin-bottom: 1rem;
+  }
+  
+  /* products container */
+  ._products_container {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* products grid */
+  ._products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  /* product image */
+  ._product_img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  /* product name */
+  ._product_name {
+    margin: 0.5rem 0;
+    font-weight: bold;
+  }
+  
+  /* product price */
+  ._product_price {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  

@@ -50,7 +50,7 @@ function CategoriesSection() {
                 <div className={styles._category}>
                     {images.map(el => (
                         <div key={el.id} className={styles._cate_img} >
-                            <Link to={`/products/${el.category}`}>
+                            <Link to={`/products/category=${el.category}`}>
                                 <img src={el.src} alt={`slideimage ${el.id}`} />
                                 <h3 className={styles._title}>{el.category}</h3>
                             </Link>
