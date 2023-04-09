@@ -96,7 +96,7 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
         <nav className={styles._tablet_navbar}>
           <div className={styles._tablet_logo}>
             <h1 onClick={() => navigate("/")}>
-              my<span>Shopping</span>
+              myShopping
             </h1>
           </div>
           <div className={styles._tablet_search}>
