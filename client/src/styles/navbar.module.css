@@ -12,6 +12,10 @@
     background-color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     padding: 0px 0px 0px 90px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+
 }
 
 
@@ -23,36 +27,37 @@
 
 }
 
-.logo span {
-  color: #fca311;
+.logo>h1 {
+    font-size: 35px;
+    position: relative;
+    color: #2ed573;
 }
 
-.logo > h1 {
-  font-size: 35px;
-  position: relative;
-}
-
-.logo > h1::before {
-  content: "myShopping";
-  width: 100%;
-  color: blue;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-right: 0.2rem solid blue;
-  animation: slideAn 2s linear infinite;
+.logo>h1::before {
+    content: "myShopping";
+    width: 100%;
+    color: blue;
+    position: absolute;
+    top: -2px;
+    left: 0;
+    border-right: 0.2rem solid blue;
+    overflow: hidden;
+    animation: slideAn 2s linear infinite;
+    -webkit-animation: slideAn 2s linear infinite
 }
 
 @keyframes slideAn {
-  0% {
-    width: 0%;
-  }
-  50% {
-    width: 100%;
-  }
-  100% {
-    width: 0%;
-  }
+    0% {
+        width: 0%;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
+    }
 }
 
 
@@ -92,7 +97,7 @@
     border: none;
     border-radius: 3px;
     padding: .5rem 30px;
-    font-size:22px;
+    font-size: 22px;
     cursor: pointer;
     transition: all 0.3s ease;
     /* border: 1px solid black; */
@@ -109,8 +114,8 @@
 
 .dropdown {
     position: absolute;
-    left: 50%; 
-    transform: translateX(-50%); 
+    left: 50%;
+    transform: translateX(-50%);
     display: none;
     padding: 0.5rem 0;
     background-color: #fca311;

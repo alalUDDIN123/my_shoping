@@ -3,7 +3,7 @@ import styles from "../../styles/products.module.css"
 import { useMediaQuery } from 'react-responsive'
 import { productsData } from './ProductsData'
 import ProductGrid from '../../components/ProductGrid'
-import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption'
+import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption' 
 function ProductsPage() {
 
 
