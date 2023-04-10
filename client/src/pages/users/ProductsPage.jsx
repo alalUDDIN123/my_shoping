@@ -36,20 +36,21 @@ function ProductsPage() {
     return isMobile ? children : null
   }
 
-  const fetchProducts = async () => {
-    setLoading(true)
-    const res = await fetch(`https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`)
-    const data = await res.json()
-    if (data && data.products) {
-      setProducts(data.products)
-    }
-
-    setLoading(false)
-
-    data && setTotalPages(data.total / 10)
-  }
 
   useEffect(() => {
+
+    const fetchProducts = async () => {
+      setLoading(true)
+      const res = await fetch(`https://dummyjson.com/products?limit=10&skip=${page * 10 - 10}`)
+      const data = await res.json()
+      if (data && data.products) {
+        setProducts(data.products)
+      }
+
+      setLoading(false)
+
+      data && setTotalPages(data.total / 10)
+    }
     fetchProducts()
   }, [page])
 
@@ -60,11 +61,11 @@ function ProductsPage() {
   }
 
 
- 
+
 
   return (
     <>
-    <DocumentTitle pageTitle="Products" />
+      <DocumentTitle pageTitle="Products" />
       <Dekstop>
         <main className={styles._main_div} >
 
@@ -76,9 +77,9 @@ function ProductsPage() {
               {categoryOption.map((cate, index) => (
                 <div key={index}>
                   <input type="checkbox"
-                  name="category" 
-                  value={cate} 
-                 />
+                    name="category"
+                    value={cate}
+                  />
                   <label >{cate}</label>
                 </div>
               ))}
@@ -141,7 +142,7 @@ function ProductsPage() {
                   <h1>products not available</h1>
                 ) : (
                   products.map((el) => (
-                    <ProductCard key={el.id} {...el} />
+                    <ProductCard key={el._id} {...el} />
                   ))
                 )
               )}
@@ -243,7 +244,7 @@ function ProductsPage() {
                   <h1>products not available</h1>
                 ) : (
                   products.map((el) => (
-                    <TabletProductCard key={el.id} {...el} />
+                    <TabletProductCard key={el._id} {...el} />
                   ))
                 )
               )}
@@ -270,36 +271,36 @@ function ProductsPage() {
       {/* Mobile */}
 
       <Mobile>
-     
-          <div className={stylesTablet._mobile_products_container}>
-            <div className={stylesTablet._mobile_products}>
-              {loading ? (
-                <Loader />
+
+        <div className={stylesTablet._mobile_products_container}>
+          <div className={stylesTablet._mobile_products}>
+            {loading ? (
+              <Loader />
+            ) : (
+              products.length === 0 ? (
+                <h1>products not available</h1>
               ) : (
-                products.length === 0 ? (
-                  <h1>products not available</h1>
-                ) : (
-                  products.map((el) => (
-                    <TabletProductCard key={el.id} {...el} />
-                  ))
-                )
-              )}
+                products.map((el) => (
+                  <TabletProductCard key={el._id} {...el} />
+                ))
+              )
+            )}
 
-
-            </div>
-            {products.length > 0 && <div className={stylesTablet._mobile_pagination}>
-              <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._mobile_pagination__disable}>◀</span>
-
-              {[...Array(totalPages)].map((_, i) => {
-                return <span key={i} className={page === i + 1 ? stylesTablet._mobile_pagination__selected : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
-              })}
-
-              <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._mobile_pagination__disable}>▶</span>
-            </div>}
 
           </div>
+          {products.length > 0 && <div className={stylesTablet._mobile_pagination}>
+            <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._mobile_pagination__disable}>◀</span>
 
-      
+            {[...Array(totalPages)].map((_, i) => {
+              return <span key={i} className={page === i + 1 ? stylesTablet._mobile_pagination__selected : ""} onClick={() => selectPageHandler(i + 1)}>{i + 1}</span>
+            })}
+
+            <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._mobile_pagination__disable}>▶</span>
+          </div>}
+
+        </div>
+
+
       </Mobile >
     </>
   )
