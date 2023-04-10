@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from "../../styles/details.module.css"
 import { product } from './SingleObjetData'
-import {  FaShoppingCart, FaStar } from 'react-icons/fa';
-import {TiShoppingCart} from "react-icons/ti"   
+import { FaShoppingCart, FaStar } from 'react-icons/fa';
+import { TiShoppingCart } from "react-icons/ti"
+import { ReviewModal } from '../../components/ReviewModal';
 function Singleproduct() {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
@@ -25,11 +27,11 @@ function Singleproduct() {
           {/* single image */}
 
           <div className={styles._main_single_img} >
-            <img src={product.image} alt={`product-${product.title}`} style={{borderRadius:"5px"}} />
+            <img src={product.image} alt={`product-${product.title}`} style={{ borderRadius: "5px" }} />
 
             <div className={styles._main_single_buttons}>
-              <button className={styles.buyButton}>Buy Now <TiShoppingCart/></button>
-              <button className={styles.cartButton}>Add to Cart <FaShoppingCart /></button>
+              <button className={styles.buyButton} >Buy Now <TiShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} /></button>
+              <button className={styles.cartButton}>Add to Cart <FaShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} /></button>
             </div>
           </div>
 
@@ -41,48 +43,89 @@ function Singleproduct() {
           <h2>{product && product.title}</h2>
 
           <div className={styles._main_single_reviews}>
-            <p>{product && product.ratings} stars</p>
-            <p>{product && product.reviews.length} reviews</p>
+            <button>
+              {product && <span style={{ fontSize: "17px" }}>{product.ratings} </span>}
+              <FaStar style={{ paddingLeft: '5px', fontSize: '20px' }} />
+            </button>
+            <p>{product && product.reviews.length} Reviews</p>
           </div>
 
           <div className={styles._main_single_price}>
-            <p className={styles.discountPrice}>${product && product.discountPrice}</p>
-            <p className={styles.originalPrice}>${product && product.originalPrice}</p>
+            <p className={styles.discountPrice}>₹ {product && product.discountPrice}</p>
+            <p className={styles.originalPrice}>₹ {product && product.originalPrice}</p>
           </div>
 
-          <div className={styles._main_single_stock}>
-            <p>Availability: {product && product.Stock > 0 ? `In Stock (${product.Stock})` : "Out of Stock"}</p>
-          </div>
-          <div className={styles._main_single_category}>
-            <p>Category: {product && product.category}</p>
-          </div>
-          <div className={styles._main_single_brand}>
-            <p>Brand: {product && product.brand}</p>
+          <div className={styles._main_single_stock_cate_bran}>
+            <p> <span>Availability  </span> :   {product && product.Stock > 0 ? `In Stock (${product.Stock})` : "Out of Stock"}</p>
+            <p> <span>Category  </span> :   {product && product.category}</p>
+            <p> <span>Brand  </span> :   {product && product.brand}</p>
           </div>
 
           <div className={styles._main_single_description} >
-            <p>{product && product.description}</p>
+            <span >Description : </span>
+            <p>
+              {product && product.description}
+            </p>
           </div>
 
+          <hr />
 
-          {/* reviews */}
-          <div className={styles._main_single_reviews}>
+
+          <div className={styles._main_single_reviews_container}>
             {product && product.reviews.length === 0 ? (
-              <h1>No Reviews</h1>
+              <h1 className={styles._main_single_no_reviews}>No Reviews</h1>
             ) : (
-              product.reviews.map((rev) => (
-                <>
-                  <div className={styles._main_single_rating_name}>
-                    <p className={styles._main_single_rating}>{rev.rating} <FaStar /> </p>
-                    <p className={styles._main_single_rater}>{rev.name}</p>
+              <>
+                {product.reviews.slice(0, 2).map((rev) => (
+                  <div key={rev.id} className={styles._main_single_reviewer}>
+                    <div className={styles._main_single_rating_name}>
+                      <button className={styles._main_single_buttons_reviwes_given} >
+                        {product && (
+                          <span style={{ fontSize: "17px" }}>{rev.rating} </span>
+                        )}
+                        <FaStar
+                          style={{ paddingLeft: "5px", fontSize: "20px" }}
+                        />
+                      </button>
+                      <p className={styles._main_single_rater_name}>{rev.name}</p>
+                    </div>
+                    <div className={styles._main_single_comment}>
+                      <p className={styles._main_single_com}>
+                        {rev.comment.length > 300
+                          ? `${rev.comment.substring(0, 300)}.`
+                          : rev.comment
+                        }
+                        {rev.comment.length > 300 && (
+                          <button onClick={() => setModalVisible(true)} className={styles._main_single_see_more} >
+                            See more
+                          </button>
+                        )}
+                      </p>
+
+
+                    </div>
                   </div>
-                  <div className={styles._main_single_comment}>
-                    <p className={styles._main_single_com}>{rev.comment}</p>
-                  </div>
-                </>
-              ))
+                ))}
+
+
+              </>
             )}
           </div>
+
+          {modalVisible && (
+            <ReviewModal
+              content={product.reviews.find((rev) => rev.comment.length > 300).comment}
+              onClose={() => setModalVisible(false)}
+            />
+          )}
+
+          {/* review add button and see all review */}
+          <div className={styles._main_single_add_review}>
+            {product.reviews.length > 2 && <button className={styles._main_single_add_review_see_all} >SEE ALL REVIEWS</button>}
+            <button className={styles._main_single_add_review_btn} >ADD REVIEW</button>
+          </div>
+
+
 
 
 
