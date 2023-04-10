@@ -3,10 +3,10 @@ import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 import styles from '../styles/tablet.card.module.css'; 
 import { useNavigate } from 'react-router-dom';
 
-const TabletProductCard = ({ thumbnail, title, brand, category, rating, price,id }) => {
+const TabletProductCard = ({ thumbnail, title, brand, category, rating, price,_id }) => {
  const navigate=useNavigate()
   return (
-    <div className={styles._tablet_product_card} onClick={()=>navigate(`/product/single/${id}`)} >
+    <div className={styles._tablet_product_card} onClick={()=>navigate(`/product/single/${_id}`)} >
       <div className={styles._tablet_product_image_container}>
         <img src={thumbnail} alt={title} className={styles._tablet_product_image} />
       </div>
