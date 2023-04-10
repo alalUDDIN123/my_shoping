@@ -8,10 +8,8 @@ import { brandOption, categoryOption, ratingOption } from '../../Constant/Produc
 import Loader from '../../components/Loader'
 import ProductCard from '../../components/ProductC'
 import TabletProductCard from '../../components/TabletProductCard'
-import TabletLoader from '../../components/TabletLoader'
-import MobileLoader from '../../components/MobileLoader'
+import DocumentTitle from '../../components/Helmet'
 
-// import ProductCard from '../../components/ProductCard'
 
 
 function ProductsPage() {
@@ -20,7 +18,7 @@ function ProductsPage() {
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
   const [totalPages, setTotalPages] = useState(0)
-  const [selectCategory, setSelectCategory] = useState([]);
+
 
 
 
@@ -66,6 +64,7 @@ function ProductsPage() {
 
   return (
     <>
+    <DocumentTitle pageTitle="Products" />
       <Dekstop>
         <main className={styles._main_div} >
 
@@ -238,7 +237,7 @@ function ProductsPage() {
           <div className={stylesTablet._tablet_products_container}>
             <div className={stylesTablet._tablet_products}>
               {loading ? (
-                <TabletLoader />
+                <Loader />
               ) : (
                 products.length === 0 ? (
                   <h1>products not available</h1>
@@ -275,7 +274,7 @@ function ProductsPage() {
           <div className={stylesTablet._mobile_products_container}>
             <div className={stylesTablet._mobile_products}>
               {loading ? (
-                <MobileLoader />
+                <Loader />
               ) : (
                 products.length === 0 ? (
                   <h1>products not available</h1>

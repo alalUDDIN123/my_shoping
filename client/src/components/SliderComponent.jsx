@@ -59,8 +59,12 @@ const CarouselComponent = () => {
           className={styles.carousel}
         >
           {images.map((image) => (
-            <div key={image.id} style={{ height: "50vh" }}>
-              <img src={image.src} alt={`slideimage ${image.id}`} style={{ height: "100%" }} />
+            <div key={image.id} style={{ height: "50vh", width: "100%" }}>
+              <img src={image.src} alt={`slideimage ${image.id}`} style={{
+                height: "100%",
+                
+                width: "100%"
+              }} />
             </div>
           ))}
         </Carousel>

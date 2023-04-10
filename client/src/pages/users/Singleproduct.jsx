@@ -1,10 +1,14 @@
 import React from 'react'
+import Loader from '../../components/Loader'
+
+
+
 
 function Singleproduct() {
   return (
-    <div>
-      Single product page
-    </div>
+   <>
+     <Loader />   
+   </> 
   )
 }
 
