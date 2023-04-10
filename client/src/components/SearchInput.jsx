@@ -54,6 +54,7 @@ const SearchInput = () => {
     <div>
       <div className={styles.inputSearch}>
         <input
+          placeholder="Search products.."
           type="text"
           name="search"
           autocomplete="off"

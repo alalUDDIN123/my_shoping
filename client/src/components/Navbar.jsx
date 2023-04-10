@@ -95,7 +95,7 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
             <h1 onClick={() => navigate("/")}>myShopping</h1>
           </div>
           <div className={styles._tablet_search}>
-            <input type="text" placeholder="Search products..." />
+            <SearchInput />
           </div>
 
           <div

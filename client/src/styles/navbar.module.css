@@ -301,7 +301,7 @@
   margin: 0 20px;
 }
 
-._tablet_search input[type="text"] {
+.inputSearch input[type="text"] {
   width: 100%;
   padding: 15px 10px;
   border: none;
