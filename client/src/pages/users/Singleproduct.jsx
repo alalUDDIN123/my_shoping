@@ -3,7 +3,7 @@ import React from 'react'
 import styles from "../../styles/details.module.css"
 import { product } from './SingleObjetData'
 import {  FaShoppingCart, FaStar } from 'react-icons/fa';
-import {TiShoppingCart} from "react-icons/ti"
+import {TiShoppingCart} from "react-icons/ti"   
 function Singleproduct() {
 
   return (
