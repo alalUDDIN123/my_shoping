@@ -21,14 +21,21 @@
           "user": "640884e82a1498c00ffde58a",
           "name": "Abhijit",
           "rating": 5,
-          "comment": "Very Good Product",
+          "comment": "Very Good Product,Processor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be better.",
           "_id": "642fa2be9770ab3c42b3bc20"
         },
         {
           "user": "64231ac871ddf2f4e9c25edb",
           "name": "Ravi Ranjan",
           "rating": 2,
-          "comment": "Average product",
+          "comment": "Average product.Processor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor-.it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be better",
+          "_id": "6433c21a77ba9da44413a34a"
+        },
+        {
+          "user": "64231ac871ddf2f4e9c25edb",
+          "name": "Ravi Ranjan",
+          "rating": 2,
+          "comment": "Average product.Processor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor- it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be betterProcessor-.it's working very fine without any lag.Battery- it's last a couples of the day Design- it looks premium phone Display- very fine, and of course corning gorilla glass.Camra - this segment Could be better",
           "_id": "6433c21a77ba9da44413a34a"
         }
       ],

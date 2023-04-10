@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/navbar.module.css";
-import axios from "axios";
+// import axios from "axios";
 
 const SearchInput = () => {
   const [inputValue, setInputValue] = useState("");
@@ -36,17 +36,30 @@ const SearchInput = () => {
     console.log(inputValue);
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8080/api/products/get")
+  //     .then((res) => {
+  //       const productData = res.data.products;
+  //       setProduct(productData);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/products/get")
-      .then((res) => {
-        const productData = res.data.products;
+    fetch("http://localhost:8080/api/products/get")
+      .then(res => res.json())
+      .then(data => {
+        const productData = data.products;
         setProduct(productData);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }, []);
+  
 
   return (
     <div>
@@ -55,7 +68,7 @@ const SearchInput = () => {
           placeholder="Search products.."
           type="text"
           name="search"
-          autocomplete="off"
+          autoComplete="off"
           value={inputValue}
           onChange={handleInputChange}
         />
