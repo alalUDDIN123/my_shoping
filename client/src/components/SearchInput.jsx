@@ -19,8 +19,6 @@ const SearchInput = () => {
     setFilterData(filteredData);
   };
 
-  console.log(filterData, "filterdataa");
-
   //   handeling serach
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
