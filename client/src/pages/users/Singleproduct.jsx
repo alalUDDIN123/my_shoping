@@ -1,12 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from "../../styles/details.module.css"
 import { product } from './SingleObjetData'
 import { FaShoppingCart, FaStar } from 'react-icons/fa';
 import { TiShoppingCart } from "react-icons/ti"
-import { ReviewModal } from '../../components/ReviewModal';
+import { ReviewModal } from '../../components/CompleteReview';
+import ProductCard from "../../components/ProductC"
+import AddReviewModal from '../../components/AddReviewModal';
 function Singleproduct() {
+  const [recommendedProd, setRecommendPro] = useState([])
   const [modalVisible, setModalVisible] = useState(false);
+  const [showAddReviewModal, setShowAddReviewModal] = useState(false);
+ 
+  const handleAddReviewClick = () => {
+    setShowAddReviewModal(true);
+  };
+
+  const handleAllReviws=()=>{
+    alert("Modal will be show")
+  }
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch(`https://dummyjson.com/products?limit=10`)
+      const data = await res.json()
+      if (data && data.products) {
+        setRecommendPro(data.products)
+      }
+
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <>
@@ -96,7 +120,8 @@ function Singleproduct() {
                           : rev.comment
                         }
                         {rev.comment.length > 300 && (
-                          <button onClick={() => setModalVisible(true)} className={styles._main_single_see_more} >
+                          <button onClick={() => setModalVisible(true)} 
+                          className={styles._main_single_see_more} onClose={()=>setModalVisible(false)} >
                             See more
                           </button>
                         )}
@@ -119,15 +144,13 @@ function Singleproduct() {
             />
           )}
 
-          {/* review add button and see all review */}
           <div className={styles._main_single_add_review}>
-            {product.reviews.length > 2 && <button className={styles._main_single_add_review_see_all} >SEE ALL REVIEWS</button>}
-            <button className={styles._main_single_add_review_btn} >ADD REVIEW</button>
+            {product.reviews.length > 2 && <button className={styles._main_single_add_review_see_all} onClick={handleAllReviws} >SEE ALL REVIEWS</button>}
+            <button className={styles._main_single_add_review_btn} onClick={handleAddReviewClick}>ADD REVIEW</button>
+            {showAddReviewModal && (
+              <AddReviewModal onCloseModal={() => setShowAddReviewModal(false)} />
+            )}
           </div>
-
-
-
-
 
         </div>
       </div>
@@ -135,8 +158,15 @@ function Singleproduct() {
       {/* recommaned */}
       <div className={styles._main_single_recommendations}>
         <h3>Recommended Products</h3>
-
+        {recommendedProd.length === 0 ? <h1>Recommended Product Not Available</h1> :
+          <div className={styles._main_single_recommend_products}>
+            {recommendedProd.map((el) => (
+              <ProductCard key={el.id} {...el} />
+            ))}
+          </div>
+        }
       </div>
+
     </>
   )
 }
