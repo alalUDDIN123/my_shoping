@@ -79,7 +79,7 @@
   margin-top: 20px;
   transition: 0.5s;
 
-  
+
 }
 
 .buyButton,
@@ -103,11 +103,12 @@
 }
 
 
-.buyButton:hover{
+.buyButton:hover {
   letter-spacing: 2px;
   box-shadow: 0 0 35px rgb(180 83 9);
-  background-color: rgb(180 83 9); 
+  background-color: rgb(180 83 9);
 }
+
 .cartButton {
   background-color: #fca311;
   background-image: linear-gradient(to right, #cfcbc4 0%, #9211fc 100%);
@@ -115,14 +116,16 @@
   animation: infinityGlow 2s linear infinite;
 }
 
-@keyframes infinityGlow{
-  0%{
+@keyframes infinityGlow {
+  0% {
     background-color: #874caf;
   }
-  50%{
+
+  50% {
     background-color: #f4f5ee;
   }
-  100%{
+
+  100% {
     background-color: #e75907;
   }
 }
@@ -294,4 +297,17 @@
   cursor: pointer;
   border-radius: 2px;
 
+}
+
+/* Recommended css */
+
+._main_single_recommendations>h3 {
+  padding: 10px 0px 1px 30px;
+}
+
+._main_single_recommend_products {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
