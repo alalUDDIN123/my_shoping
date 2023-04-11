@@ -16,6 +16,8 @@ function AddReviewModal({ onCloseModal }) {
     }, []);
 
     return (
+       <>
+        <div className={styles._main_single_add_review_modal_main_top_container}>
         <div className={styles._main_single_add_review_modal} ref={modalRef}>
             <div className={styles._main_single_add_review_modal_close} onClick={onCloseModal}>
                 &times;
@@ -30,6 +32,8 @@ function AddReviewModal({ onCloseModal }) {
             </div>
             <button onClick={handleSubmitReview}>Submit</button>
         </div>
+        </div>
+       </>
     );
 }
 
