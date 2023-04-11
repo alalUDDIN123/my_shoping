@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
 function useOnClickOutsideModal(ref, onCloseModal, isOpen) {
-    console.log("onClose:-",onCloseModal);
+    // console.log("onClose:-",onCloseModal);
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
-        console.log("ref:-",ref.current);
+        // console.log("ref:-",ref.current);
       if (ref.current && !ref.current.contains(event.target) && isOpen) {
         onCloseModal();
       }
@@ -19,3 +19,4 @@ function useOnClickOutsideModal(ref, onCloseModal, isOpen) {
 }
 
 export default useOnClickOutsideModal;
+
