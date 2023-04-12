@@ -165,7 +165,7 @@
 /* ------------------------------------------------------------------------------------------------------ */
 
 ._rightSide {
-  width: 40%;
+  width: 45%;
   display: flex;
   align-items: center;
   gap: 3rem;
@@ -188,6 +188,12 @@
   background-color: #fdaa48;
 }
 
+
+._navbar_avator_{
+  width: 50px;
+  height: 40px;
+  border-radius: 50%;
+}
 .more {
   position: relative;
   cursor: pointer;
