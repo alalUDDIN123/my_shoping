@@ -11,7 +11,31 @@ const loginInitial = {
 }
 
 
+const signupIntialState = {
+    email: "",
+    firstname: "",
+    lastname: "",
+    password: "",
+    avator: "",
+    mobile: ""
+  }
+
+const initialMessages = {
+    name: "",
+    email: "",
+    password: "",
+    mobile: "",
+    role: "",
+    emailExits: "",
+    success: "",
+    invalid:""
+};
+
+
 export {
     signupInitial,
-    loginInitial
+    loginInitial,
+    signupIntialState,
+    initialMessages,
+   
 }
