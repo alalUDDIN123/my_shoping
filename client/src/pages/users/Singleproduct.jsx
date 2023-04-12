@@ -118,7 +118,7 @@ function Singleproduct() {
               ) : (
                 <>
                   {product.reviews.slice(0, 2).map((rev) => (
-                    <div key={rev.id} className={styles._main_single_reviewer}>
+                    <div key={rev._id} className={styles._main_single_reviewer}>
                       <div className={styles._main_single_rating_name}>
                         <button className={styles._main_single_buttons_reviwes_given} >
                           {product && (
