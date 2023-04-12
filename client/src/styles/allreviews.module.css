@@ -14,7 +14,7 @@
     align-items: center;
     padding: 20px;
     background-color: #fff;
-    width: 40%;
+    width: 45%;
     margin: auto;
     margin-top: 79px;
     border-top: 7px solid red;
@@ -24,8 +24,7 @@
   .all_reviews_modal_body {
     background-color: #fff;
     padding: 20px;
-    width: 65%;
-    max-width: 600px;
+    width: 45%;
     max-height: 80vh;
     overflow-y: auto;
     position: absolute;
