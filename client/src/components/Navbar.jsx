@@ -7,15 +7,18 @@ import {
 } from "react-icons/ai";
 import { ImProfile } from "react-icons/im";
 import { BsBagCheck } from "react-icons/bs";
-import { SiAdminer, SiMicrosoftaccess } from "react-icons/si";
+import { SiAdminer, SiMicrosoftaccess, SiGnuprivacyguard } from "react-icons/si";
 import { GrList } from "react-icons/gr";
+import { AiOutlineLogin } from "react-icons/ai";
+import { FcAbout } from "react-icons/fc";
+import { RiLogoutCircleLine } from "react-icons/ri";
 import styles from "../styles/navbar.module.css";
 import { useMediaQuery } from "react-responsive";
 import SearchInput from "./SearchInput";
 
-function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
-  const role = "superAdmin"
-  const loggedUser=["https://ravi-047.github.io/static/media/profile_ravi.7217ccd7c4968d31c2c2.png","Alal"]
+function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
+  const role = "admin"
+  const loggedUser = ["https://ravi-047.github.io/static/media/profile_ravi.7217ccd7c4968d31c2c2.png", "Alal"]
   const [showRightSide, setShowRightSide] = useState(false);
   const navigate = useNavigate();
 
@@ -47,63 +50,111 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
           </div>
           <div className={styles._rightSide}>
             {isLoggedIn ? (
-              <>
-                <button onClick={() => navigate("/about")} style={{ fontSize: "20px" }} >About Us</button>
-                <button onClick={onLogout} style={{ fontSize: "20px" }} >Logout</button>
+              <> 
+                <button onClick={() => navigate("/about")} style={{
+                  fontSize: "17px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "5px",
+                  margin: "0 5px",
+                  width:"200px"
+                }} > <FcAbout /> About Us</button>
+                <button onClick={onLogout} style={{
+                  fontSize: "17px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "5px",
+                  margin: "0 5px"
+                }} > <RiLogoutCircleLine />Logout</button>
                 <div className={styles.more}>
                   {/* <CgMenuRound style={{
                     fontSize: "35px",
                     color: "#fca311"
-                  }} /> */} 
+                  }} /> */}
 
-                  <img src={loggedUser[0]} alt={[loggedUser[1]]} style={{
-                    borderRadius:"50px",
-                    width:"40px",
-                    height:"40px"
-                  }} />
+                  <img src={loggedUser[0]} alt={[loggedUser[1]]} className={styles._navbar_avator_} />
                   <div className={styles.dropdown}>
-                  <Link to="/profile">
-                    <ImProfile style={{ marginRight: "10px", color: "white" }} />
-                    My Profile
-                  </Link>
-                  <Link to="/orders">
-                    <GrList style={{ marginRight: "10px", color: "white" }} />
-                    Wishlist
-                  </Link>
-                  <Link to="/orders">
-                    <BsBagCheck style={{ marginRight: "10px", color: "white" }} />
-                    Orders
-                  </Link>
-                  {role === "admin" ? (
-                    <Link to="/admin">
-                      <SiAdminer style={{ marginRight: "10px", color: "white" }} />
-                      Admin
+                    <Link to="/profile">
+                      <ImProfile style={{ marginRight: "10px", color: "white" }} />
+                      My Profile
                     </Link>
-                  ) : role === "user" ? (
-                    null
-                  ) : (
-                    <Link to="/super-admin">
-                      <SiMicrosoftaccess style={{ marginRight: "10px", color: "white" }} />
-                      SuperAdmin
+                    <Link to="/wishlist">
+                      <GrList style={{ marginRight: "10px", color: "white" }} />
+                      Wishlist
                     </Link>
-                  )}
-                </div>
+                    <Link to="/orders">
+                      <BsBagCheck style={{ marginRight: "10px", color: "white" }} />
+                      Orders
+                    </Link>
+                    {role === "admin" ? (
+                      <Link to="/admin">
+                        <SiAdminer style={{ marginRight: "10px", color: "white" }} />
+                        Admin
+                      </Link>
+                    ) : role === "user" ? (
+                      null
+                    ) : (
+                      <Link to="/superAdmin">
+                        <SiMicrosoftaccess style={{ marginRight: "10px", color: "white" }} />
+                        SuperAdmin
+                      </Link>
+                    )}
+                  </div>
 
                 </div>
-                
+
 
                 <div className={styles.cartIcon}>
                   <Link to="/cart">
-                    <AiOutlineShoppingCart fontSize={"30px"} />
+                    <AiOutlineShoppingCart fontSize={"27px"} />
                     {cartItemsCount > 0 && <span>{cartItemsCount}</span>}
                   </Link>
                 </div>
               </>
             ) : (
               <>
-                <button onClick={() => navigate("/about")}>About Us</button>
-                <button onClick={() => navigate("/login")}>Signin</button>
-                <button onClick={() => navigate("/signup")}>Signup</button>
+                <div style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "10px"
+                }}>
+                  <button onClick={() => navigate("/about")} style={{
+                    fontSize: "19px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    margin: "0 5px"
+                  }}>
+                    <FcAbout />
+                    About Us
+                  </button>
+                  <button onClick={() => navigate("/login")} style={{
+                    fontSize: "19px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    margin: "0 5px"
+                  }}>
+                    <AiOutlineLogin />
+                    Sign in
+                  </button>
+                  <button onClick={() => navigate("/signup")} style={{
+                    fontSize: "19px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    margin: "0 5px"
+                  }}>
+                    <SiGnuprivacyguard />
+                    Sign up
+                  </button>
+                </div>
+
 
               </>
             )}
@@ -140,7 +191,7 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
                       <li>
                         <a href="/profile">
                           <ImProfile style={{ marginRight: "10px" }} />
-                          Profile
+                          My Profile
                         </a>
                       </li>
                       <li>
@@ -163,16 +214,40 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
                           Orders
                         </a>
                       </li>
+                      {role === "admin" ? <li>
+                        <a href="/admin">
+                          <SiAdminer style={{ marginRight: "10px" }} />
+                          Admin
+                        </a>
+                      </li> : role === "user" ? null : <li>
+                        <a href="/superAdmin">
+                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
+                          SuperAdmin
+                        </a>
+                      </li>
+                      }
                     </ul>
                   </>
                 ) : (
                   <>
                     <ul>
-                      <li>
-                        <a href="/signup">Signup</a>
+                    <li>
+                        <a href="/about" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }} > <FcAbout /> About Us</a>
                       </li>
                       <li>
-                        <a href="/login">Login</a>
+                        <a href="/login" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }}>  <AiOutlineLogin />Signin</a>
+                      </li>
+                      <li>
+                        <a href="/signup" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }}> <SiGnuprivacyguard /> Signup</a>
                       </li>
                     </ul>
                   </>
@@ -211,17 +286,17 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
                       <li>
                         <a href="/profile">
                           <ImProfile style={{ marginRight: "10px" }} />
-                          Profile
+                          My Profile
                         </a>
                       </li>
                       <li>
-                        <a href="/profile">
+                        <a href="/wishlist">
                           <GrList style={{ marginRight: "10px" }} />
                           Wishlist
                         </a>
                       </li>
                       <li>
-                        <a href="/profile">
+                        <a href="/cart">
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
@@ -229,23 +304,50 @@ function Navbar({ isLoggedIn = true, cartItemsCount = 2 }) {
                         </a>
                       </li>
                       <li>
-                        <a href="/profile">
+                        <a href="/orders">
                           <BsBagCheck style={{ marginRight: "10px" }} />
                           Orders
                         </a>
                       </li>
+
+                      {role === "admin" ? <li>
+                        <a href="/admin">
+                          <SiAdminer style={{ marginRight: "10px" }} />
+                          Admin
+                        </a>
+                      </li> : role === "user" ? null : <li>
+                        <a href="/superAdmin">
+                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
+                          SuperAdmin
+                        </a>
+                      </li>
+                      }
                     </ul>
                   </>
                 ) : (
                   <>
                     <ul>
                       <li>
-                        <a href="/signup">Signup</a>
+                        <a href="/about" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }} > <FcAbout /> About Us</a>
                       </li>
                       <li>
-                        <a href="/login">Login</a>
+                        <a href="/login" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }}>  <AiOutlineLogin />Signin</a>
                       </li>
+                      <li>
+                        <a href="/signup" style={{
+                          gap: "8px",
+                          margin: "0 5px"
+                        }}> <SiGnuprivacyguard /> Signup</a>
+                      </li>
+
                     </ul>
+
                   </>
                 )}
               </div>
