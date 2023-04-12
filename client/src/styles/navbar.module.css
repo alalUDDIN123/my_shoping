@@ -188,8 +188,7 @@
   background-color: #fdaa48;
 }
 
-
-._navbar_avator_{
+._navbar_avator_ {
   width: 50px;
   height: 40px;
   border-radius: 50%;
@@ -310,8 +309,6 @@
 .inputSearch input[type="text"] {
   width: 100%;
   padding: 15px 10px;
-  border: none;
-  border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
