@@ -20,7 +20,7 @@
     border-top: 7px solid red;
     border-radius: 3px 3px 0px 0px;
   }
-
+     
   .all_reviews_modal_body {
     background-color: #fff;
     padding: 20px;
@@ -32,6 +32,8 @@
     left: 50%;
     transform: translateX(-50%);
   }
+
+  
   
   .all_reviews_modal_body::-webkit-scrollbar {
     width: 6px;
