@@ -12,14 +12,14 @@ const Cart = () => {
 
   return (
     <section>
-      <div className={styles._cart_container}>
+      <div className={`container ${styles.table}`}>
         <h2>Shopping Cart</h2>
         {1=== 0 ? (
           <>
             <p>Your cart is currently empty.</p>
             <br />
             <div>
-              <Link to="/products">&larr; Continue shopping</Link>
+              <Link to="/#products">&larr; Continue shopping</Link>
             </div>
           </>
         ) : (
@@ -29,7 +29,6 @@ const Cart = () => {
                 <tr>
                   <th>s/n</th>
                   <th>Product</th>
-                  <th>Id</th>
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Total</th>
@@ -40,20 +39,20 @@ const Cart = () => {
               <tr key={product._id}>
                       <td>1</td>
                       <td>
-                        
+                        <p>
+                          <b>{product.title}</b>
+                        </p>
                         <img
                           src={product.image}
                           alt={product.title}
-                        
+                          style={{ width: "100px" }}
                         />
                       </td>
-
-                      <td>{product._id}</td>
                       <td>{product.discountPrice}</td>
                       <td>
-                        <div className={styles._cart_inc_dec_qty}>
+                        <div className={styles.count}>
                           <button
-                           className={styles._cart_inc_dec_btn}
+                            className="--btn"
                            
                           >
                             -
@@ -62,7 +61,7 @@ const Cart = () => {
                             <b>2</b>
                           </p>
                           <button
-                           className={styles._cart_inc_dec_btn}
+                            className="--btn"
                             
                           >
                             +
@@ -70,7 +69,7 @@ const Cart = () => {
                         </div>
                       </td>
                       <td>{product.discountPrice}</td>
-                      <td className={styles._cart_remove_item}>
+                      <td className={styles.icons}>
                         <FaTrashAlt
                           size={19}
                           color="red"
@@ -80,31 +79,31 @@ const Cart = () => {
                     </tr>
               </tbody>
             </table>
-            <div className={styles._cart_summary}>
-              <button className={styles._cart_clear_cart} >
+            <div className={styles.summary}>
+              <button className="--btn --btn-danger" >
                 Clear Cart
               </button>
-              <div className={styles._cart_checkout}>
+              <div className={styles.checkout}>
                 <div>
-                  <Link to="/products">&larr; Continue shopping</Link>
+                  <Link to="/#products">&larr; Continue shopping</Link>
                 </div>
                 <br />
-                <div cardClass={styles._cart_checkout_div}>
+                <Card cardClass={styles.card}>
                   <p>
                     <b>Cart item(s): 1</b>
                   </p>
-                  <div className={styles._cart_sub_total}>
+                  <div className={styles.text}>
                     <h4>Subtotal:</h4>
                     <h3>200</h3>
                   </div>
                   <p>Tax an shipping calculated at checkout</p>
                   <button
-                    className={styles._cart_checkout_btn}
+                    className="--btn --btn-primary --btn-block"
                     
                   >
                     Checkout
                   </button>
-                </div>
+                </Card>
               </div>
             </div>
           </>
