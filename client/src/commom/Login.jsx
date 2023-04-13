@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import styles from '../styles/authentication.module.css';
@@ -11,7 +11,7 @@ import DocumentTitle from '../components/Helmet';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { initialMessages, loginInitialState } from '../objects/Objects';
 import { SigninActionObj } from '../redux/AuthReducer/actions';
 
@@ -24,7 +24,8 @@ const sendData = {
 const Login = () => {
   const [state, setState] = useState(loginInitialState)
   const [isLoading, setIsLoading] = useState(true);
-
+  const location = useLocation();
+  const commingFrom = location.state?.from || "/"
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
@@ -50,17 +51,13 @@ const Login = () => {
 
   useEffect(() => {
     if (showMessage && showMessage.success) {
-      toast.success(showMessage.success, {
-        // here onClose callback to toast.success, which will be called when the toast message is closed.
-        //  In this callback, I update showMessage and call navigate. 
-        // This way, we ensure that the state is updated only after the toast message is shown
-        onClose: () => {
-          setShowMessage({ ...showMessage, success: "" });
-          navigate("/");
-        }
-      });
+      toast.success(showMessage.success)
+      setShowMessage({ ...showMessage, success: "" });
+      setTimeout(() => {
+        navigate(commingFrom, { replace: true });
+      }, 2500)
     }
-  }, [showMessage, navigate]);
+  }, [showMessage, navigate,commingFrom]);
 
 
   const handleFormSubmit = async (e) => {

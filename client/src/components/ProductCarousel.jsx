@@ -43,8 +43,8 @@ const ProductCarousel = () => {
       });
   }, []);
 
-  const product = productData?.map((item) => (
-    <Link to="" key={item.id} className="__each__link__">
+  const product = productData?.map((item,ind) => (
+    <Link to="" key={ind} className="__each__link__">
       <div className="__each__Product__">
         <div className="__each__imgage__">
           <img src={item.image} alt="product" />
