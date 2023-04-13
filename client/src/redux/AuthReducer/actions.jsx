@@ -13,7 +13,7 @@ import {
 const url = 'http://localhost:8080/api/users/register'
 
 const SignupActionObj = (payload) => async (dispatch) => {
-    console.log("payload::-",payload);
+    // console.log("payload::-",payload);
     dispatch({ type: SIGNUP_REQUEST });
     try {
         const res = await fetch(url, {
@@ -26,7 +26,7 @@ const SignupActionObj = (payload) => async (dispatch) => {
 
         const responseData = await res.json();
 
-        console.log("responseData:-", responseData)
+        // console.log("responseData:-", responseData)
         // console.log("res::-res",res)
 
         if (res.ok) {

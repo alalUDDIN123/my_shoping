@@ -10,6 +10,8 @@ const {
     ChangePassword,
     forgetPassword,
     resetPassword,
+    getToken,
+    getLoggedUserData,
 
 
 } = require("../controller/users.controller");
@@ -17,6 +19,7 @@ const authenticateUser = require("../middleware/authontication.middleware");
 const { SuperAdminAccess } = require("../middleware/authorised.middleware");
 // const { SuperAdminAccess, adminAccess } = require("../middleware/authorised.middleware");
 const validateUserFields = require("../middleware/userRegisterFieldsAnalyzer.middleware");
+
 
 const userRouter = express.Router();
 
@@ -26,7 +29,10 @@ userRouter.post("/login", loginUser)
 userRouter.post("/change/password",ChangePassword)
 userRouter.post("/forget/password",forgetPassword)
 
+// get token and user
 
+userRouter.get("/get/token", authenticateUser,getToken)
+userRouter.get("/get/user", authenticateUser,getLoggedUserData)
 
 // SuperAdmin
 userRouter.use(authenticateUser, SuperAdminAccess,)

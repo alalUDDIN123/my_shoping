@@ -15,10 +15,11 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import styles from "../styles/navbar.module.css";
 import { useMediaQuery } from "react-responsive";
 import SearchInput from "./SearchInput";
+import getLoggedUserData, {  loadUser } from "../utils/LoggedUserData";
 
-function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
-  const role = "admin"
-  const loggedUser = ["https://ravi-047.github.io/static/media/profile_ravi.7217ccd7c4968d31c2c2.png", "Alal"]
+function Navbar({ cartItemsCount = 2 }) {
+  const LoggedUser = getLoggedUserData()
+  const reGisterUer= loadUser()
   const [showRightSide, setShowRightSide] = useState(false);
   const navigate = useNavigate();
 
@@ -35,7 +36,18 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
     return isMobile ? children : null;
   };
 
-  const onLogout = () => { };
+  
+
+  const onLogout = () => {
+    const confirmed = window.confirm("Are you sure you want to log out?");
+    if (confirmed) {
+      localStorage.removeItem("loggedUser");
+      localStorage.removeItem("registration");
+      window.location.reload()
+     
+    }
+  };
+
 
   return (
     <>
@@ -49,8 +61,8 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
             <SearchInput />
           </div>
           <div className={styles._rightSide}>
-            {isLoggedIn ? (
-              <> 
+            {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message)? (
+              <>
                 <button onClick={() => navigate("/about")} style={{
                   fontSize: "17px",
                   display: "flex",
@@ -58,7 +70,7 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                   justifyContent: "center",
                   gap: "5px",
                   margin: "0 5px",
-                  width:"200px"
+                  width: "200px"
                 }} > <FcAbout /> About Us</button>
                 <button onClick={onLogout} style={{
                   fontSize: "17px",
@@ -74,7 +86,7 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                     color: "#fca311"
                   }} /> */}
 
-                  <img src={loggedUser[0]} alt={[loggedUser[1]]} className={styles._navbar_avator_} />
+                  <img src={(LoggedUser && LoggedUser.avator) || (reGisterUer && reGisterUer.avator)} alt={(LoggedUser && LoggedUser.name)||(reGisterUer && reGisterUer.role)} className={styles._navbar_avator_} />
                   <div className={styles.dropdown}>
                     <Link to="/profile">
                       <ImProfile style={{ marginRight: "10px", color: "white" }} />
@@ -88,12 +100,12 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                       <BsBagCheck style={{ marginRight: "10px", color: "white" }} />
                       Orders
                     </Link>
-                    {role === "admin" ? (
+                    {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? (
                       <Link to="/admin">
                         <SiAdminer style={{ marginRight: "10px", color: "white" }} />
                         Admin
                       </Link>
-                    ) : role === "user" ? (
+                    ) : (LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user")? (
                       null
                     ) : (
                       <Link to="/superAdmin">
@@ -185,7 +197,7 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {isLoggedIn ? (
+                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -214,12 +226,12 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                           Orders
                         </a>
                       </li>
-                      {role === "admin" ? <li>
+                      {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? <li>
                         <a href="/admin">
                           <SiAdminer style={{ marginRight: "10px" }} />
                           Admin
                         </a>
-                      </li> : role === "user" ? null : <li>
+                      </li> :(LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user") ? null : <li>
                         <a href="/superAdmin">
                           <SiMicrosoftaccess style={{ marginRight: "10px" }} />
                           SuperAdmin
@@ -231,7 +243,7 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                 ) : (
                   <>
                     <ul>
-                    <li>
+                      <li>
                         <a href="/about" style={{
                           gap: "8px",
                           margin: "0 5px"
@@ -280,7 +292,7 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {isLoggedIn ? (
+                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message)? (
                   <>
                     <ul>
                       <li>
@@ -310,12 +322,12 @@ function Navbar({ isLoggedIn = false, cartItemsCount = 2 }) {
                         </a>
                       </li>
 
-                      {role === "admin" ? <li>
+                      {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? <li>
                         <a href="/admin">
                           <SiAdminer style={{ marginRight: "10px" }} />
                           Admin
                         </a>
-                      </li> : role === "user" ? null : <li>
+                      </li> : (LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user") ? null : <li>
                         <a href="/superAdmin">
                           <SiMicrosoftaccess style={{ marginRight: "10px" }} />
                           SuperAdmin

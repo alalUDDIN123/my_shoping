@@ -22,6 +22,8 @@ const signupReducer = (state = signupInitial, { type, payload }) => {
             }
 
         case SIGNUP_REQUEST_SUCESS:
+            // console.log("payload:-",payload);
+            localStorage.setItem("registration",JSON.stringify(payload))
             return {
                 ...state,
                 data: payload,
