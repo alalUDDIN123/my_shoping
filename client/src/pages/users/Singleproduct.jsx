@@ -398,6 +398,13 @@ function Singleproduct() {
             )}
           </div>
         </div>
+
+        {showAllReviewsModal && (
+          <AllReviewsModal
+            reviews={product.reviews}
+            onCloseModal={() => setShowAllReviewsModal(false)}
+          />
+        )}
       </Tablet>
 
       <Mobile>
@@ -559,6 +566,13 @@ function Singleproduct() {
             )}
           </div>
         </div>
+
+        {showAllReviewsModal && (
+          <AllReviewsModal
+            reviews={product.reviews}
+            onCloseModal={() => setShowAllReviewsModal(false)}
+          />
+        )}
       </Mobile>
     </>
   );
