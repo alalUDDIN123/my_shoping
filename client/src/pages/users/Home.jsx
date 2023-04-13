@@ -7,7 +7,7 @@ import ProductCarousel from "../../components/ProductCarousel";
 function Home() {
   return (
     <>
-      <DocumentTitle pageTitle="Home" />
+      <DocumentTitle pageTitle="| HOME" />
       <>
         <SliderComponent />
       </>
