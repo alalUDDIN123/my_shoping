@@ -71,8 +71,8 @@ function ProductsPage() {
     dispatch(getData())
   }, [dispatch])
 
-  console.log(selectedCategories)
-  console.log(selectedBrands)
+  // console.log(selectedCategories)
+  // console.log(selectedBrands)
 
   return (
     <>

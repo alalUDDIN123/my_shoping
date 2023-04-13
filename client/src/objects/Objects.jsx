@@ -42,12 +42,33 @@ const getProductIntial={
     isError:false
 }
 
+
+const getProductDetailsInitial={
+    isLoading:false,
+    product:{},
+    isError:false
+}
+
+const addReviewInitial={
+    isLoading:false,
+    addReview:{},
+    isError:false  
+}
+
+const addReviewInitiaState={
+    name:"",
+    rating:"",
+    comment:""
+}
 export {
     signupInitial,
     loginInitial,
     signupIntialState,
     loginInitialState,
     initialMessages,
-    getProductIntial
+    getProductIntial,
+    getProductDetailsInitial,
+    addReviewInitial,
+    addReviewInitiaState
    
 }

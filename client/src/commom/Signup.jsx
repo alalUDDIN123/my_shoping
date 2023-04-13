@@ -12,7 +12,7 @@ import DocumentTitle from '../components/Helmet';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const sendData = {
   title: "Email Validation Failed",
@@ -23,7 +23,8 @@ const sendData = {
 const Signup = () => {
   const [state, setState] = useState(signupIntialState)
   const [isLoading, setIsLoading] = useState(true);
-
+  const location = useLocation();
+  const commingFrom = location.state?.from || "/"
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
@@ -49,17 +50,12 @@ const Signup = () => {
 
   useEffect(() => {
     if (showMessage && showMessage.success) {
-      toast.success(showMessage.success, {
-        // here onClose callback to toast.success, which will be called when the toast message is closed.
-        //  In this callback, I update showMessage and call navigate. 
-        // This way, we ensure that the state is updated only after the toast message is shown
-        onClose: () => {
-          setShowMessage({ ...showMessage, success: "" });
-          navigation("/");
-        }
-      });
+      toast.success(showMessage.success)
+      setTimeout(() => {
+        navigation(commingFrom, { replace: true });
+      }, 2500)
     }
-  }, [showMessage,navigation]);
+  }, [showMessage, navigation,commingFrom]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

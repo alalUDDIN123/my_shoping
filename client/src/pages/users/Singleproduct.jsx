@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import styles from "../../styles/details.module.css";
-import { product } from "./SingleObjetData";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { ReviewModal } from "../../components/CompleteReview";
 import ProductCard from "../../components/ProductC";
 import AddReviewModal from "../../components/AddReviewModal";
 import AllReviewsModal from "../../components/AllReviews";
+import { useDispatch, useSelector } from "react-redux"
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getProductDetails } from "../../redux/AppReducer/actions";
+import DocumentTitle from "../../components/Helmet";
+import Loader from "../../components/Loader";
+import getLoggedUserData, { loadUser } from "../../utils/LoggedUserData";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+
 function Singleproduct() {
-  const [recommendedProd, setRecommendPro] = useState([]);
+  const CheckLogin = getLoggedUserData()
+  const CheckRegister = loadUser()
   const [modalVisible, setModalVisible] = useState(false);
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
   const [showAllReviewsModal, setShowAllReviewsModal] = useState(false);
+  const [isComponetChnages,setIsComponentChanges]=useState(false)
+  const navigate = useNavigate()
+  const location = useLocation()
+
 
   const Dekstop = ({ children }) => {
     const isDekstop = useMediaQuery({ minWidth: 992 });
@@ -28,40 +43,84 @@ function Singleproduct() {
   };
 
   const handleAddReviewClick = () => {
+    if (!CheckLogin && !CheckRegister) {
+      // console.log("by logged in ::-",CheckLogin,"by register::-",CheckRegister);
+      toast.error("Please login to add review");
+
+      // without using setTimout if we use navigate then navigate
+      // will  immediately call becuase it is a synchronous function
+      setTimeout(() => {
+        navigate("/login", {
+          state: { from: location.pathname },
+          replace: true
+        });
+      }, 2000);
+      return;
+    }
     setShowAddReviewModal(true);
   };
+
 
   const handleAllReviws = () => {
     setShowAllReviewsModal(true);
   };
 
+  const [recommendedProd, setRecommendPro] = useState([]);
+  const { product, isLoading } = useSelector((store) => store.getProductDetailsReducer)
+  const { products } = useSelector((store) => store.getProductReducer)
+  const dispatch = useDispatch()
+  const { id } = useParams()
+
+  const handleComponentChanges = () => {
+    setIsComponentChanges((prevState) => !prevState);
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const res = await fetch(`https://dummyjson.com/products?limit=10`);
-      const data = await res.json();
-      if (data && data.products) {
-        setRecommendPro(data.products);
-      }
-    };
-    fetchProducts();
-  }, []);
+    dispatch(getProductDetails(id))
+  }, [id, dispatch,isComponetChnages])
+
+  useEffect(() => {
+    if (product) {
+      matchRecommenData()
+    }
+  }, [product])
+
+  const matchRecommenData = () => {
+    const filterRecom = products.filter((prod) => (
+      prod.category === product.category ||
+      prod.brand === product.brand
+      // prod.title === product.title
+    ));
+
+    setRecommendPro(filterRecom);
+  };
+
+  // console.log("product:-", product, "id", id)
+
+
+
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <>
+      <ToastContainer />
+      <DocumentTitle pageTitle="| PRODUCT | DETAILS" />
       <Dekstop>
         <div className={styles._main_single_container}>
-          {/* images  */}
+
           <div className={styles._main_single_images}>
-            {/* column images div */}
+
 
             <div className={styles._main_single_column}>
-              {product &&
-                product.images.map((image, index) => (
-                  <img key={index} src={image} alt={`Product ${index + 1}`} />
-                ))}
+              {product?.images?.map((image, index) => (
+                <img key={index} src={image} alt={`Product ${index + 1}`} />
+              ))}
+
             </div>
 
-            {/* single image */}
 
             <div className={styles._main_single_img}>
               <img
@@ -72,13 +131,13 @@ function Singleproduct() {
 
               <div className={styles._main_single_buttons}>
                 <button className={styles.buyButton}>
-                  Buy Now{" "}
+                  Buy Now
                   <TiShoppingCart
                     style={{ paddingLeft: "10px", fontSize: "30px" }}
                   />
                 </button>
                 <button className={styles.cartButton}>
-                  Add to Cart{" "}
+                  Add to Cart
                   <FaShoppingCart
                     style={{ paddingLeft: "10px", fontSize: "30px" }}
                   />
@@ -87,7 +146,6 @@ function Singleproduct() {
             </div>
           </div>
 
-          {/* details about the product */}
           <div className={styles._main_single_details}>
             <h2>{product && product.title}</h2>
 
@@ -98,7 +156,8 @@ function Singleproduct() {
                 )}
                 <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
               </button>
-              <p>{product && product.reviews.length} Reviews</p>
+              <p>{product && product.reviews && product.reviews.length ? product.reviews.length : 0} Reviews</p>
+
             </div>
 
             <div className={styles._main_single_price}>
@@ -112,18 +171,18 @@ function Singleproduct() {
 
             <div className={styles._main_single_stock_cate_bran}>
               <p>
-                {" "}
-                <span>Availability </span> :{" "}
+
+                <span>Availability </span> :
                 {product && product.Stock > 0
                   ? `In Stock (${product.Stock})`
                   : "Out of Stock"}
               </p>
               <p>
-                {" "}
+
                 <span>Category </span> : {product && product.category}
               </p>
               <p>
-                {" "}
+
                 <span>Brand </span> : {product && product.brand}
               </p>
             </div>
@@ -136,28 +195,20 @@ function Singleproduct() {
             <hr />
 
             <div className={styles._main_single_reviews_container}>
-              {product && product.reviews.length === 0 ? (
-                <h1 className={styles._main_single_no_reviews}>No Reviews</h1>
+              {product && product.reviews && product.reviews.length === 0 ? (
+                <h1 className={styles._main_single_no_reviews}>No Review</h1>
               ) : (
                 <>
-                  {product.reviews.slice(0, 2).map((rev) => (
+                  {product && product.reviews && product.reviews.length > 0 && product.reviews.slice(0, Math.min(2, product.reviews.length)).map((rev) => (
                     <div key={rev._id} className={styles._main_single_reviewer}>
                       <div className={styles._main_single_rating_name}>
-                        <button
-                          className={styles._main_single_buttons_reviwes_given}
-                        >
+                        <button className={styles._main_single_buttons_reviwes_given}>
                           {product && (
-                            <span style={{ fontSize: "17px" }}>
-                              {rev.rating}{" "}
-                            </span>
+                            <span style={{ fontSize: "17px" }}>{rev.rating} </span>
                           )}
-                          <FaStar
-                            style={{ paddingLeft: "5px", fontSize: "20px" }}
-                          />
+                          <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
                         </button>
-                        <p className={styles._main_single_rater_name}>
-                          {rev.name}
-                        </p>
+                        <p className={styles._main_single_rater_name}>{rev.name}</p>
                       </div>
                       <div className={styles._main_single_comment}>
                         <p className={styles._main_single_com}>
@@ -181,6 +232,7 @@ function Singleproduct() {
               )}
             </div>
 
+
             {modalVisible && (
               <ReviewModal
                 content={
@@ -192,7 +244,7 @@ function Singleproduct() {
             )}
 
             <div className={styles._main_single_add_review}>
-              {product.reviews.length > 2 && (
+              {product && product.reviews && product.reviews.length > 2 && (
                 <button
                   className={styles._main_single_add_review_see_all}
                   onClick={handleAllReviws}
@@ -209,6 +261,7 @@ function Singleproduct() {
               {showAddReviewModal && (
                 <AddReviewModal
                   onCloseModal={() => setShowAddReviewModal(false)}
+                  onComponentChanges={handleComponentChanges}
                 />
               )}
             </div>
@@ -222,7 +275,7 @@ function Singleproduct() {
           />
         )}
 
-        {/* recommaned */}
+
         <div className={styles._main_single_recommendations}>
           <h3>Recommended Products</h3>
           {recommendedProd.length === 0 ? (
@@ -230,25 +283,25 @@ function Singleproduct() {
           ) : (
             <div className={styles._main_single_recommend_products}>
               {recommendedProd.map((el) => (
-                <ProductCard key={el.id} {...el} />
+                <ProductCard key={el._id} {...el} />
               ))}
             </div>
           )}
         </div>
       </Dekstop>
 
+
       <Tablet>
         <div className={styles._main_single_images}>
-          {/* column images div */}
+
 
           <div className={styles._main_single_column}>
-            {product &&
-              product.images.map((image, index) => (
-                <img key={index} src={image} alt={`Product ${index + 1}`} />
-              ))}
+            {product?.images?.map((image, index) => (
+              <img key={index} src={image} alt={`Product ${index + 1}`} />
+            ))}
           </div>
 
-          {/* single image */}
+
 
           <div className={styles._main_single_img}>
             <img
@@ -259,13 +312,13 @@ function Singleproduct() {
 
             <div className={styles._main_single_buttons}>
               <button className={styles.buyButton}>
-                Buy Now{" "}
+                Buy Now
                 <TiShoppingCart
                   style={{ paddingLeft: "10px", fontSize: "30px" }}
                 />
               </button>
               <button className={styles.cartButton}>
-                Add to Cart{" "}
+                Add to Cart
                 <FaShoppingCart
                   style={{ paddingLeft: "10px", fontSize: "30px" }}
                 />
@@ -284,7 +337,7 @@ function Singleproduct() {
               )}
               <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
             </button>
-            <p>{product && product.reviews.length} Reviews</p>
+            <p>{product && product.reviews && product.reviews.length ? product.reviews.length : 0} Reviews</p>
           </div>
 
           <div className={styles._main_single_price}>
@@ -298,18 +351,18 @@ function Singleproduct() {
 
           <div className={styles._main_single_stock_cate_bran}>
             <p>
-              {" "}
-              <span>Availability </span> :{" "}
+
+              <span>Availability </span> :
               {product && product.Stock > 0
                 ? `In Stock (${product.Stock})`
                 : "Out of Stock"}
             </p>
             <p>
-              {" "}
+
               <span>Category </span> : {product && product.category}
             </p>
             <p>
-              {" "}
+
               <span>Brand </span> : {product && product.brand}
             </p>
           </div>
@@ -321,7 +374,7 @@ function Singleproduct() {
 
           <hr />
 
-          <div className={styles._main_single_reviews_container}>
+          {/* <div className={styles._main_single_reviews_container}>
             {product && product.reviews.length === 0 ? (
               <h1 className={styles._main_single_no_reviews}>No Reviews</h1>
             ) : (
@@ -334,7 +387,7 @@ function Singleproduct() {
                       >
                         {product && (
                           <span style={{ fontSize: "17px" }}>
-                            {rev.rating}{" "}
+                            {rev.rating}
                           </span>
                         )}
                         <FaStar
@@ -344,6 +397,44 @@ function Singleproduct() {
                       <p className={styles._main_single_rater_name}>
                         {rev.name}
                       </p>
+                    </div>
+                    <div className={styles._main_single_comment}>
+                      <p className={styles._main_single_com}>
+                        {rev.comment.length > 300
+                          ? `${rev.comment.substring(0, 300)}.`
+                          : rev.comment}
+                        {rev.comment.length > 300 && (
+                          <button
+                            onClick={() => setModalVisible(true)}
+                            className={styles._main_single_see_more}
+                            onClose={() => setModalVisible(false)}
+                          >
+                            See more
+                          </button>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </div> */}
+
+          <div className={styles._main_single_reviews_container}>
+            {product && product.reviews && product.reviews.length === 0 ? (
+              <h1 className={styles._main_single_no_reviews}>No Review</h1>
+            ) : (
+              <>
+                {product && product.reviews && product.reviews.length > 0 && product.reviews.slice(0, Math.min(2, product.reviews.length)).map((rev) => (
+                  <div key={rev._id} className={styles._main_single_reviewer}>
+                    <div className={styles._main_single_rating_name}>
+                      <button className={styles._main_single_buttons_reviwes_given}>
+                        {product && (
+                          <span style={{ fontSize: "17px" }}>{rev.rating} </span>
+                        )}
+                        <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
+                      </button>
+                      <p className={styles._main_single_rater_name}>{rev.name}</p>
                     </div>
                     <div className={styles._main_single_comment}>
                       <p className={styles._main_single_com}>
@@ -376,8 +467,9 @@ function Singleproduct() {
             />
           )}
 
+
           <div className={styles._main_single_add_review}>
-            {product.reviews.length > 2 && (
+            {product && product.reviews && product.reviews.length > 2 && (
               <button
                 className={styles._main_single_add_review_see_all}
                 onClick={handleAllReviws}
@@ -397,6 +489,7 @@ function Singleproduct() {
               />
             )}
           </div>
+
         </div>
 
         {showAllReviewsModal && (
@@ -408,7 +501,7 @@ function Singleproduct() {
       </Tablet>
 
       <Mobile>
-        {/* single image */}
+
 
         <div className={styles._mobile_single_img}>
           <img
@@ -418,22 +511,21 @@ function Singleproduct() {
           />
         </div>
         <div className={styles._mobile_single_images}>
-          {/* column images div */}
+
 
           <div className={styles._mobile_single_column}>
-            {product &&
-              product.images.map((image, index) => (
+          {product?.images?.map((image, index) => (
                 <img key={index} src={image} alt={`Product ${index + 1}`} />
               ))}
           </div>
         </div>
         <div className={styles._mobile_single_buttons}>
           <button className={styles.buyButton}>
-            Buy Now{" "}
+            Buy Now
             <TiShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} />
           </button>
           <button className={styles.cartButton}>
-            Add to Cart{" "}
+            Add to Cart
             <FaShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} />
           </button>
         </div>
@@ -450,7 +542,7 @@ function Singleproduct() {
               )}
               <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
             </button>
-            <p>{product && product.reviews.length} Reviews</p>
+            <p>{product && product.reviews && product.reviews.length ? product.reviews.length : 0} Reviews</p>
           </div>
 
           <div className={styles._main_single_price}>
@@ -464,18 +556,18 @@ function Singleproduct() {
 
           <div className={styles._main_single_stock_cate_bran}>
             <p>
-              {" "}
-              <span>Availability </span> :{" "}
+
+              <span>Availability </span> :
               {product && product.Stock > 0
                 ? `In Stock (${product.Stock})`
                 : "Out of Stock"}
             </p>
             <p>
-              {" "}
+
               <span>Category </span> : {product && product.category}
             </p>
             <p>
-              {" "}
+
               <span>Brand </span> : {product && product.brand}
             </p>
           </div>
@@ -488,28 +580,20 @@ function Singleproduct() {
           <hr />
 
           <div className={styles._main_single_reviews_container}>
-            {product && product.reviews.length === 0 ? (
-              <h1 className={styles._main_single_no_reviews}>No Reviews</h1>
+            {product && product.reviews && product.reviews.length === 0 ? (
+              <h1 className={styles._main_single_no_reviews}>No Review</h1>
             ) : (
               <>
-                {product.reviews.slice(0, 2).map((rev) => (
+                {product && product.reviews && product.reviews.length > 0 && product.reviews.slice(0, Math.min(2, product.reviews.length)).map((rev) => (
                   <div key={rev._id} className={styles._main_single_reviewer}>
                     <div className={styles._main_single_rating_name}>
-                      <button
-                        className={styles._main_single_buttons_reviwes_given}
-                      >
+                      <button className={styles._main_single_buttons_reviwes_given}>
                         {product && (
-                          <span style={{ fontSize: "17px" }}>
-                            {rev.rating}{" "}
-                          </span>
+                          <span style={{ fontSize: "17px" }}>{rev.rating} </span>
                         )}
-                        <FaStar
-                          style={{ paddingLeft: "5px", fontSize: "20px" }}
-                        />
+                        <FaStar style={{ paddingLeft: "5px", fontSize: "20px" }} />
                       </button>
-                      <p className={styles._main_single_rater_name}>
-                        {rev.name}
-                      </p>
+                      <p className={styles._main_single_rater_name}>{rev.name}</p>
                     </div>
                     <div className={styles._main_single_comment}>
                       <p className={styles._main_single_com}>
@@ -545,14 +629,14 @@ function Singleproduct() {
           <div
             className={`${styles._main_single_add_review} ${styles._mobile_single_add_review}`}
           >
-            {product.reviews.length > 2 && (
-              <button
-                className={styles._main_single_add_review_see_all}
-                onClick={handleAllReviws}
-              >
-                SEE ALL REVIEWS
-              </button>
-            )}
+           {product && product.reviews && product.reviews.length > 2 && (
+                <button
+                  className={styles._main_single_add_review_see_all}
+                  onClick={handleAllReviws}
+                >
+                  SEE ALL REVIEWS
+                </button>
+              )}
             <button
               className={styles._main_single_add_review_btn}
               onClick={handleAddReviewClick}

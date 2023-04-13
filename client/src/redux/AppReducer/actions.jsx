@@ -1,7 +1,17 @@
 import {
+  ADD_REVIEW_REQUEST,
+  ADD_REVIEW_REQUEST_FAILUE,
+
+  ADD_REVIEW_REQUEST_SUCESS,
+
+  GET_PRODUCT_DETAILS_REQUEST,
+  GET_PRODUCT_DETAILS_REQUEST_FAILUE,
+  GET_PRODUCT_DETAILS_REQUEST_SUCESS,
+
   GET_PRODUCT_REQUEST,
   GET_PRODUCT_REQUEST_FAILUE,
   GET_PRODUCT_REQUEST_SUCESS,
+
 } from "../../Constant/actionTypes";
 
 const getData = (params = {}) => {
@@ -74,4 +84,49 @@ const getData = (params = {}) => {
   };
 };
 
-export { getData };
+
+const getProductDetails = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_PRODUCT_DETAILS_REQUEST })
+
+    try {
+      let res = await fetch(`http://localhost:8080/api/products/get/${id}`)
+      let data = await res.json()
+      // console.log(data);
+      dispatch({ type: GET_PRODUCT_DETAILS_REQUEST_SUCESS, payload: data.product })
+    } catch (error) {
+      dispatch({ type: GET_PRODUCT_DETAILS_REQUEST_FAILUE })
+    }
+  }
+}
+
+const addReviewAction = (payload) => async (dispatch) => {
+  dispatch({ type: ADD_REVIEW_REQUEST })
+// console.log("payload::-",payload);
+  try {
+    let res = await fetch(`http://localhost:8080/api/products/review`, {
+      method:"POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': "application/json",
+        token: payload.token
+      }
+    })
+
+    let response = await res.json()
+    // console.log("revuiwes add response::-", response); 
+
+    if (response && response.message === "Review Added") {
+      dispatch({ type: ADD_REVIEW_REQUEST_SUCESS, payload: response.message })
+    }
+
+    return response
+  } catch (error) {
+    dispatch({ type: ADD_REVIEW_REQUEST_FAILUE })
+  }
+}
+export {
+  getData,
+  getProductDetails,
+  addReviewAction
+};
