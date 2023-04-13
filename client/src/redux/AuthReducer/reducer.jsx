@@ -1,6 +1,9 @@
 
 
 import {
+    LOGIN_REQUEST,
+    LOGIN_REQUEST_FAILUE,
+    LOGIN_REQUEST_SUCESS,
     SIGNUP_REQUEST,
     SIGNUP_REQUEST_FAILUE,
     SIGNUP_REQUEST_SUCESS
@@ -19,6 +22,8 @@ const signupReducer = (state = signupInitial, { type, payload }) => {
             }
 
         case SIGNUP_REQUEST_SUCESS:
+            // console.log("payload:-",payload);
+            localStorage.setItem("registration",JSON.stringify(payload))
             return {
                 ...state,
                 data: payload,
@@ -38,6 +43,29 @@ const signupReducer = (state = signupInitial, { type, payload }) => {
 
 const loginReducer = (state = loginInitial, { type, payload }) => {
     switch (type) {
+     
+    case LOGIN_REQUEST:
+        return{
+            ...state,
+            isLoading:true
+        }  
+    
+    case LOGIN_REQUEST_SUCESS:
+        localStorage.setItem("loggedUser",JSON.stringify(payload))
+        return{
+            ...state,
+            isAuth:true,
+            isLoading:false
+        }  
+        
+    case LOGIN_REQUEST_FAILUE:
+        return{
+            ...state,
+            isAuth:false,
+            isLoading:false,
+            isError:true
+
+        }    
         default: return state
     }
 }

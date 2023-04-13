@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUser, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { BiUserCircle } from 'react-icons/bi';
 import { ImMobile } from 'react-icons/im';
@@ -23,12 +23,13 @@ const sendData = {
 const Signup = () => {
   const [state, setState] = useState(signupIntialState)
   const [isLoading, setIsLoading] = useState(true);
+
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
 
   const [showPassword, setShowPassword] = useState(false);
- const navigation=useNavigate()
+  const navigation = useNavigate()
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -46,6 +47,20 @@ const Signup = () => {
     handleValidation(name, state, showMessage, setShowMessage)
   }
 
+  useEffect(() => {
+    if (showMessage && showMessage.success) {
+      toast.success(showMessage.success, {
+        // here onClose callback to toast.success, which will be called when the toast message is closed.
+        //  In this callback, I update showMessage and call navigate. 
+        // This way, we ensure that the state is updated only after the toast message is shown
+        onClose: () => {
+          setShowMessage({ ...showMessage, success: "" });
+          navigation("/");
+        }
+      });
+    }
+  }, [showMessage,navigation]);
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -56,7 +71,7 @@ const Signup = () => {
         email: state.email,
         password: state.password,
         mobile: state.mobile,
-        avator: state.avator
+        avator: state.avator ? state.avator : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyu8pvIy6jXwRi9VluYbqkKBjhiM_YlZIGww&usqp=CAU"
       }
 
       // console.log("payload::From Compoent",payload);
@@ -100,14 +115,8 @@ const Signup = () => {
     );
   }
 
-  if (showMessage && showMessage.success) {
-    toast.success(showMessage.success)
-    setShowMessage({...showMessage,success:""})
-    navigation("/login")
-  }
 
-  // console.log("showMessage::-",showMessage);
-  // console.log("isValid::-",isFormValid());
+
 
   return (
     <>

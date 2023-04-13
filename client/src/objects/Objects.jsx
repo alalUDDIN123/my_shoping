@@ -20,6 +20,10 @@ const signupIntialState = {
     mobile: ""
   }
 
+  const loginInitialState={
+    email:"",
+    password:""
+  }
 const initialMessages = {
     name: "",
     email: "",
@@ -36,6 +40,7 @@ export {
     signupInitial,
     loginInitial,
     signupIntialState,
+    loginInitialState,
     initialMessages,
    
 }

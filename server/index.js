@@ -24,7 +24,8 @@ app.use(cookieParser())
 
 // cors origin for all browser 👍👍👍
 app.use(cors({
-  origin: "*"
+  origin: "*",
+  credentials: true,
 }))
 
 

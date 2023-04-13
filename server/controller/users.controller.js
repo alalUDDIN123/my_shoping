@@ -32,7 +32,7 @@ const createUser = async (req, res) => {
             role
         });
         await user.save();
-        res.status(201).json({ "message": "Register successful" });
+        res.status(201).send({ message: "Register successful",role:role?role:"user",avator:req.body.avator });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -48,14 +48,14 @@ const loginUser = async (req, res) => {
     const user = await userModal.findOne({ email });
 
     if (!user) {
-        return res.status(404).send({ message: `This email : ${email} is not found in our database` })
+        return res.status(404).send({ message: `This email : ${email} is not found in our database`,hint:"paenot" })
     }
 
     //   res.send(user)
 
     const passWordMatch = bcrypt.compareSync(password, user.password)
     if (!passWordMatch) {
-        res.status(400).send({ message: `Wrong password` })
+        res.status(400).send({ message: `Wrong password`,hint:"wrong" })
     }
     else {
         try {
@@ -72,7 +72,8 @@ const loginUser = async (req, res) => {
                 messssage: "Login Successful",
                 token: token,
                 role: user.role,
-                name: user.name
+                name: user.name,
+                avator:user.avator
             })
 
         } catch (error) {
@@ -82,6 +83,35 @@ const loginUser = async (req, res) => {
 }
 
 
+// get token 👍
+
+const getToken=async(req,res)=>{
+    const token = req.cookies.myToken;
+  if (!token) {
+    res.status(401).json({ error: 'Unauthorized' });
+  } else {
+    res.json({ token });
+  }
+}
+
+
+const getLoggedUserData=async(req,res)=>{
+    const {userId}=req.body;
+
+    try {
+
+        let CheckExits = await userModal.findById({ _id: userId })
+        if (!CheckExits) {
+            return res.status(404).send({ message: "User not found " });
+        } else {
+            let user= await userModal.findById({ _id: userId })
+            res.status(200).send({ user})
+        }
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
 // get all users (superAdmin) 👍👍👍👍👍
 
 const getAllUsers = async (req, res) => {
@@ -143,7 +173,7 @@ const getSingleUser = async (req, res) => {
 // get all users (superAdmin) 👍👍👍👍👍
 const addUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password,role } = req.body;
 
         // userExits
 
@@ -163,7 +193,7 @@ const addUser = async (req, res) => {
             password: hashPassword,
         });
         await user.save();
-        res.status(201).json({ "message": "Register successful" });
+        res.status(201).json({ "message": "Register successful",role:role?role:"user",avator:req.body.avator  });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -385,6 +415,8 @@ module.exports = {
     getSingleUser,
     ChangePassword,
     forgetPassword,
-    resetPassword
+    resetPassword,
+    getToken,
+    getLoggedUserData
 
 }
