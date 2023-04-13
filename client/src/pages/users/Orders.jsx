@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import UnderConstruction from "../../components/UnderConstruction";
 
 function Orders() {
   return (
     <div>
-      Orders page
+      <UnderConstruction />
     </div>
-  )
+  );
 }
 
-export default Orders
+export default Orders;

@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import UnderConstruction from "../../components/UnderConstruction";
 
 function CheckoutPage() {
   return (
     <div>
-      Checkout
+      <UnderConstruction />
     </div>
-  )
+  );
 }
 
-export default CheckoutPage
+export default CheckoutPage;

@@ -4,9 +4,9 @@
   margin-bottom: 10px;
 }
 
-.react-multiple-carousel__arrow::before {
+/* .react-multiple-carousel__arrow::before {
   left: -15px;
-}
+} */
 
 .react-multi-carousel-list {
   overflow: visible;

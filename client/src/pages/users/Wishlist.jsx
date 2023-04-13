@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import UnderConstruction from "../../components/UnderConstruction";
 
 function Wishlist() {
   return (
     <>
-      Wishlist
+      <UnderConstruction />
     </>
-  )
+  );
 }
 
-export default Wishlist
+export default Wishlist;
