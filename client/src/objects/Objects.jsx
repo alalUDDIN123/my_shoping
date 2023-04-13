@@ -36,11 +36,18 @@ const initialMessages = {
 };
 
 
+const getProductIntial={
+    isLoading:false,
+    products:[],
+    isError:false
+}
+
 export {
     signupInitial,
     loginInitial,
     signupIntialState,
     loginInitialState,
     initialMessages,
+    getProductIntial
    
 }
