@@ -48,14 +48,14 @@ const loginUser = async (req, res) => {
     const user = await userModal.findOne({ email });
 
     if (!user) {
-        return res.status(404).send({ message: `This email : ${email} is not found in our database` })
+        return res.status(404).send({ message: `This email : ${email} is not found in our database`,hint:"paenot" })
     }
 
     //   res.send(user)
 
     const passWordMatch = bcrypt.compareSync(password, user.password)
     if (!passWordMatch) {
-        res.status(400).send({ message: `Wrong password` })
+        res.status(400).send({ message: `Wrong password`,hint:"wrong" })
     }
     else {
         try {
@@ -72,7 +72,8 @@ const loginUser = async (req, res) => {
                 messssage: "Login Successful",
                 token: token,
                 role: user.role,
-                name: user.name
+                name: user.name,
+                avator:user.avator
             })
 
         } catch (error) {
