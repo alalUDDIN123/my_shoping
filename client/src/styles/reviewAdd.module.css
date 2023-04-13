@@ -79,6 +79,12 @@
 }
 
 ._main_single_add_review_rating span:hover,
-._main_single_add_review_rating span:hover~span {
+._main_single_add_review_rating span:hover ~ span {
   color: orange;
+}
+
+@media (max-width: 425px) {
+  ._main_single_add_review_modal {
+    width: 95%;
+  }
 }

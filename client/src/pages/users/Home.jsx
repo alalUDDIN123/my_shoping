@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import SliderComponent from '../../components/SliderComponent'
-import CategoriesSection from './CategoriesSection'
-import DocumentTitle from '../../components/Helmet'
+import SliderComponent from "../../components/SliderComponent";
+import CategoriesSection from "./CategoriesSection";
+import DocumentTitle from "../../components/Helmet";
+import ProductCarousel from "../../components/ProductCarousel";
 function Home() {
   return (
     <>
-    <DocumentTitle pageTitle="Home" />
+      <DocumentTitle pageTitle="Home" />
       <>
         <SliderComponent />
       </>
@@ -14,8 +15,14 @@ function Home() {
       <>
         <CategoriesSection />
       </>
+
+      <div style={{ background: "lightgreen" }}>
+        <hr />
+        <ProductCarousel />
+        <hr />
+      </div>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

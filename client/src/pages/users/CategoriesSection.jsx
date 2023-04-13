@@ -1,52 +1,64 @@
-import React from 'react'
-import { useMediaQuery } from 'react-responsive';
-import styles from "../../styles/home.module.css"
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import styles from "../../styles/home.module.css";
+import { Link } from "react-router-dom";
+import { MdOutlineElectricalServices } from "react-icons/md";
+import { BsLaptop } from "react-icons/bs";
+import { GiClothes } from "react-icons/gi";
 
-const images = [
-    {
-        id: 1,
-        category: "electronics",
-        src:
-            "https://rukminim1.flixcart.com/image/416/416/xif0q/television/b/c/7/-original-imaggz6zd5rchpuq.jpeg?q=70"
-    },
-    {
-        id: 2,
-        category: "accessories",
-        src:
-            "https://rukminim1.flixcart.com/image/416/416/xif0q/television/y/n/l/-original-imagkbyeqf5zxt6e.jpeg?q=70"
-    },
-    {
-        id: 3,
-        category: "clothing",
-        src:
-            "https://rukminim1.flixcart.com/image/416/416/k0tw13k0/television/h/a/m/thomson-32tm3290-original-imafkjazamdewz2x.jpeg?q=70"
-    },
+const categories = [
+  {
+    id: 1,
+    category: "electronics",
+    icon: <MdOutlineElectricalServices />,
+  },
+  {
+    id: 2,
+    category: "accessories",
+    icon: <BsLaptop />,
+  },
+  {
+    id: 3,
+    category: "clothing",
+    icon: <GiClothes />,
+  },
 ];
 
 function CategoriesSection() {
-    const navigate = useNavigate()
-    const Dekstaop = ({ children }) => {
-        const isDekstop = useMediaQuery({ minWidth: 992 })
+  // const navigate = useNavigate()
+  // const Dekstaop = ({ children }) => {
+  //     const isDekstop = useMediaQuery({ minWidth: 992 })
 
-        return isDekstop ? children : null
-    }
+  //     return isDekstop ? children : null
+  // }
 
-    const Tablet = ({ children }) => {
-        const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
+  // const Tablet = ({ children }) => {
+  //     const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
 
-        return isTablet ? children : null
-    }
+  //     return isTablet ? children : null
+  // }
 
-    const Mobile = ({ children }) => {
-        const isMobile = useMediaQuery({ maxWidth: 767 })
-        return isMobile ? children : null
-    }
-    return (
-        <>
-            {/* Dekstop */}
+  // const Mobile = ({ children }) => {
+  //     const isMobile = useMediaQuery({ maxWidth: 767 })
+  //     return isMobile ? children : null
+  // }
 
-            <Dekstaop>
+  return (
+    <>
+      <div className={styles.home_categories}>
+        {categories?.map((item) => (
+          <Link
+            key={item.id}
+            to={`/products/${item.category}`}
+            className={styles.home_link_categories}
+          >
+            <div>{item.icon}</div>
+            <div>{item.category}</div>
+          </Link>
+        ))}
+      </div>
+      {/* Dekstop */}
+
+      {/* <Dekstaop>
                 <div className={styles._category}>
                     {images.map(el => (
                         <div key={el.id} className={styles._cate_img} >
@@ -58,27 +70,24 @@ function CategoriesSection() {
                     ))}
                 </div>
 
-            </Dekstaop>
+            </Dekstaop> */}
 
-            {/* tablet */}
+      {/* tablet */}
 
-            <Tablet>
+      {/* <Tablet>
                 <div className={styles._tablet_category}>
                     {images.map(el => (
-
                         <div key={el.id} className={styles._tablet_cate_img} onClick={()=>navigate(`/products/${el.category}`)}>
                             <img src={el.src} alt={`slideimage ${el.id}`} />
                             <h3 className={styles._tablet_title}>{el.category}</h3>
                         </div>
-
                     ))}
                 </div>
-            </Tablet>
+            </Tablet> */}
 
+      {/* mobile */}
 
-            {/* mobile */}
-
-            <Mobile>
+      {/* <Mobile>
                 <div className={styles._mobile_category}>
                     {images.map(el => (
                         <div key={el.id} className={styles._mobile_cate_div} onClick={()=>navigate(`/products/${el.category}`)}>
@@ -87,9 +96,9 @@ function CategoriesSection() {
                         </div>
                     ))}
                 </div>
-            </Mobile>
-        </>
-    )
+            </Mobile> */}
+    </>
+  );
 }
 
-export default CategoriesSection
+export default CategoriesSection;
