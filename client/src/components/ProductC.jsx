@@ -4,15 +4,15 @@ import styles from '../styles/productCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import DocumentTitle from './Helmet';
 
-const ProductCard = ({ thumbnail, title, brand, category, rating, price,id }) => {
+const ProductCard = ({ image, title, brand, category, ratings, discountPrice,_id }) => {
  const navigate=useNavigate()
   return (
     <>
 
     <DocumentTitle pageTitle="Product-details"/>
-     <div className={styles.product_card} onClick={()=>navigate(`/product/single/${id}`)} > 
+     <div className={styles.product_card} onClick={()=>navigate(`/product/single/${_id}`)} > 
       <div className={styles.product_image_container}>
-        <img src={thumbnail} alt={title} className={styles.product_image} />
+        <img src={image} alt={title} className={styles.product_image} />
       </div>
       <div className={styles.product_details}>
         <h3 className={styles.product_name}>{title.substr(0,20)}</h3>
@@ -26,14 +26,14 @@ const ProductCard = ({ thumbnail, title, brand, category, rating, price,id }) =>
             // let's say rating 3
             // so over the each iteration i will check that currect i is less then rating
             // if yes then till to 3 star `star_active` will be added others 2 will not
-            <span key={i} className={`${styles.star} ${i < Math.floor(rating )? styles.star_active : ''}`}>
+            <span key={i} className={`${styles.star} ${i < Math.floor(ratings)? styles.star_active : ''}`}>
               <FaStar />
             </span>
           ))}
         </div>
 
 
-        <p className={styles.product_price}>${price}</p>
+        <p className={styles.product_price}> ₹ {discountPrice}</p>
         <div className={styles.icons_container}>
           <button className={styles.icon_button_shop}>
             <FaShoppingCart />

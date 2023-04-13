@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import styles from "../../styles/products.module.css"
-import stylesPagin from "../../styles/Pagination.module.css"
+// import stylesPagin from "../../styles/Pagination.module.css"
 import { useMediaQuery } from 'react-responsive'
 import stylesTablet from "../../styles/products.tablet.module.css"
-
+import { useDispatch, useSelector } from "react-redux"
 import { brandOption, categoryOption, ratingOption } from '../../Constant/ProductsFiltersOption'
 import Loader from '../../components/Loader'
 import ProductCard from '../../components/ProductC'
 import TabletProductCard from '../../components/TabletProductCard'
 import DocumentTitle from '../../components/Helmet'
+import { getData } from '../../redux/AppReducer/actions'
+import InputCheckbox from '../../components/InputCheckbox'
+
 
 
 
@@ -27,13 +30,53 @@ function ProductsPage() {
   }
 
 
+  // various filter
 
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
 
+  const { products, isLoading } = useSelector((store) => store.getProductReducer)
+  const dispatch = useDispatch()
 
+  function handleCategoryChange(event) {
+    const { value } = event.target;
+    const newSelectedCategories = [...selectedCategories];
+    const index = newSelectedCategories.indexOf(value);
+
+    if (index > -1) {
+      newSelectedCategories.splice(index, 1);
+    } else {
+      newSelectedCategories.push(value);
+    }
+
+    setSelectedCategories(newSelectedCategories);
+  }
+
+  
+  function handleBrandChange(event) {
+    const { value } = event.target;
+    const newSelectedBrands = [...selectedBrands];
+    const index = newSelectedBrands.indexOf(value);
+
+    if (index > -1) {
+      newSelectedBrands.splice(index, 1);
+    } else {
+      newSelectedBrands.push(value);
+    }
+
+    setSelectedBrands(newSelectedBrands);
+  }
+
+  useEffect(() => {
+    dispatch(getData())
+  }, [dispatch])
+
+  console.log(selectedCategories)
+  console.log(selectedBrands)
 
   return (
     <>
-      <DocumentTitle pageTitle="Products" />
+      <DocumentTitle pageTitle="| PRODUCTS" />
       <Dekstop>
         <main className={styles._main_div} >
 
@@ -44,11 +87,7 @@ function ProductsPage() {
               <label className={styles._label_text}>Select Category</label>
               {categoryOption.map((cate, index) => (
                 <div key={index}>
-                  <input type="checkbox"
-                    name="category"
-                    value={cate}
-                  />
-                  <label >{cate}</label>
+                 <InputCheckbox lable={cate} value={cate} onChangeHanlde={handleCategoryChange} />
                 </div>
               ))}
 
@@ -60,7 +99,10 @@ function ProductsPage() {
               <label className={styles._label_text}>Select Brand</label>
               {brandOption.map((brand, index) => (
                 <div key={index}>
-                  <input type="checkbox" id={`category-${index}`} name="category" value={brand} />
+                  <input type="checkbox" id={`category-${index}`} 
+                  name="category"
+                   value={brand} 
+                   onChange={handleBrandChange}/>
                   <label htmlFor={`category-${index}`}>{brand}</label>
                 </div>
               ))}
@@ -103,7 +145,7 @@ function ProductsPage() {
           {/* products container */}
           <div className={styles._products_container}>
             <div className={styles._products}>
-              {loading ? (
+              {isLoading ? (
                 <Loader />
               ) : (
                 products.length === 0 ? (
@@ -206,7 +248,7 @@ function ProductsPage() {
           {/* products container */}
           <div className={stylesTablet._tablet_products_container}>
             <div className={stylesTablet._tablet_products}>
-              {loading ? (
+              {isLoading ? (
                 <Loader />
               ) : (
                 products.length === 0 ? (
@@ -220,7 +262,7 @@ function ProductsPage() {
 
 
             </div>
-            {products.length > 0 && <div className={stylesTablet._tablet_pagination}>
+            {/* {products.length > 0 && <div className={stylesTablet._tablet_pagination}>
               <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._tablet_pagination__disable}>◀</span>
 
               {[...Array(totalPages)].map((_, i) => {
@@ -228,7 +270,7 @@ function ProductsPage() {
               })}
 
               <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._tablet_pagination__disable}>▶</span>
-            </div>}
+            </div>} */}
 
           </div>
 
@@ -243,7 +285,7 @@ function ProductsPage() {
 
         <div className={stylesTablet._mobile_products_container}>
           <div className={stylesTablet._mobile_products}>
-            {loading ? (
+            {isLoading ? (
               <Loader />
             ) : (
               products.length === 0 ? (
@@ -257,7 +299,7 @@ function ProductsPage() {
 
 
           </div>
-          {products.length > 0 && <div className={stylesTablet._mobile_pagination}>
+          {/* {products.length > 0 && <div className={stylesTablet._mobile_pagination}>
             <span onClick={() => selectPageHandler(page - 1)} className={page > 1 ? "" : stylesTablet._mobile_pagination__disable}>◀</span>
 
             {[...Array(totalPages)].map((_, i) => {
@@ -265,7 +307,7 @@ function ProductsPage() {
             })}
 
             <span onClick={() => selectPageHandler(page + 1)} className={page < totalPages ? "" : stylesTablet._mobile_pagination__disable}>▶</span>
-          </div>}
+          </div>} */}
 
         </div>
 
