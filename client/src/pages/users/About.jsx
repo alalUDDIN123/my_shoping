@@ -1,12 +1,12 @@
 import React from "react";
 import UnderConstruction from "../../components/UnderConstruction";
 
-function Wishlist() {
+const About = () => {
   return (
-    <>
+    <div>
       <UnderConstruction />
-    </>
+    </div>
   );
-}
+};
 
-export default Wishlist;
+export default About;

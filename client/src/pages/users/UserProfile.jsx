@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import UnderConstruction from "../../components/UnderConstruction";
 
 function UserProfile() {
   return (
     <div>
-      UserProfile
+      <UnderConstruction />
     </div>
-  )
+  );
 }
 
-export default UserProfile
+export default UserProfile;
