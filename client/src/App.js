@@ -17,6 +17,7 @@ import Orders from './pages/users/Orders'
 import CheckoutPage from './pages/users/CheckoutPage'
 import UserProfile from './pages/users/UserProfile'
 import PageNotFound from './components/PageNotFound'
+import About from './pages/users/About'
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
 
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/changePassword" element={<ChangePassword/>}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/changePassword" element={<ChangePassword />}></Route>
         <Route path="/forgetPassword" element={<ForgetPassword />} ></Route>
         <Route path="/reset_password/token/:token" element={<ResetPassword />} ></Route>
 
@@ -45,8 +47,8 @@ function App() {
         <Route path="/cart" element={<Cart />} ></Route>
         <Route path="/wishlist" element={<Cart />} ></Route>
         <Route path="/orders" element={<Orders />} ></Route>
-        <Route path="/checkout" element={<CheckoutPage/>} ></Route>
-        <Route path="/profile" element={<UserProfile/>} ></Route>
+        <Route path="/checkout" element={<CheckoutPage />} ></Route>
+        <Route path="/profile" element={<UserProfile />} ></Route>
 
 
 
