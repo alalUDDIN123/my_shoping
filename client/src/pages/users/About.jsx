@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg"
 const teamMembers = [
   {
     name: 'Alal Uddin',
-    expert: 'Backend',
+    expert: 'Full Stack Developer',
     image: 'https://avatars.githubusercontent.com/u/103570261?s=120&v=4',
     github: "https://github.com/alalUDDIN123",
     linked: "https://www.linkedin.com/in/alal-uddin-066444206/",
@@ -14,7 +14,7 @@ const teamMembers = [
   },
   {
     name: 'Ravi Ranjan Ram',
-    expert: 'UI',
+    expert: 'Full Stack Developer',
     image: 'https://avatars.githubusercontent.com/u/103764080?s=120&v=4',
     github: "https://github.com/Ravi-047",
     linked: "https://www.linkedin.com/in/ravi-ranjan-136844231",
@@ -22,7 +22,7 @@ const teamMembers = [
   },
   {
     name: 'Abhijit Biswas',
-    expert: 'UI',
+    expert: 'Full Stack Developer',
     image: 'https://avatars.githubusercontent.com/u/103665864?s=120&v=4',
     github: "https://github.com/abhijitnr",
     linked: "https://www.linkedin.com/in/abhijit-biswas-3b6586162/",
@@ -48,26 +48,14 @@ const About = () => {
 
             <div>
               <a href={member.github} target='_blank'>
-                <AiFillGithub style={{
-                  margin: "10px",
-                  color: "yellow",
-                  fontSize: "30px"
-                }} />
+                <AiFillGithub  />
               </a>
               <a href={member.linked} target='_blank' >
-                <AiFillLinkedin style={{
-                  margin: "10px",
-                  color: "yellow",
-                  fontSize: "30px"
-                }} />
+                <AiFillLinkedin  />
               </a>
 
               <a href={member.portfolio} target='_blank' >
-                <CgProfile style={{
-                  margin: "10px",
-                  color: "yellow",
-                  fontSize: "30px"
-                }} />
+                <CgProfile  />
               </a>
             </div>
           </div>

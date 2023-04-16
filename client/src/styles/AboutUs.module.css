@@ -8,19 +8,23 @@
 
 .__team__members__container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-top: -10px;
-
 }
 
 .__about__us__desc {
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     margin: 0 auto;
     text-align: center;
     letter-spacing: 1px;
     font-family: sans-serif;
-}
+    background-color: #F9FAFB;
+    padding: 20px;
+    border-radius: 5px;
 
+}
 
 .__team__member {
     margin: 20px;
@@ -30,7 +34,18 @@
     padding: 20px;
     border-radius: 5px;
     border-top: 8px solid yellow;
-}
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+.__team__member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    border: 2px solid yellow;
+  }
+
+ 
 
 .__team__member img {
     border-radius: 50%;
@@ -51,6 +66,35 @@
     color: yellow;
 }
 
+.__team__member div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.__team__member div a {
+    display: inline-block;
+    margin: 0 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.__team__member div a:hover svg {
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+    color: yellow;
+}
+
+.__team__member div a svg {
+    margin: 10px;
+    color: white;
+    font-size: 30px;
+    transition: all 0.3s ease-in-out;
+}
+
 
 /* responsive ness */
-
+@media only screen and (max-width: 768px) {
+    .__team__member {
+        width: 100%;
+    }
+}
