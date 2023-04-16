@@ -1,4 +1,4 @@
-import React,{ useState} from 'react';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import styles from '../styles/authentication.module.css';
@@ -8,9 +8,15 @@ import styles from '../styles/authentication.module.css';
 const ResetPassword = () => {
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!setShowConfirmPassword)
   };
 
 
@@ -24,10 +30,19 @@ const ResetPassword = () => {
           <div>
             <form>
 
-            <div className={styles.input_field}>
-                {/* <span><FaLock /></span> */}
+              <div className={styles.input_field}>
+
                 <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Enter password" required />
-                <span onClick={handleTogglePassword}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+                <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> : <FaEyeSlash />}</span>
+              </div>
+
+              <div className={styles.input_field}> 
+
+                <input type={showConfirmPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Confirm password"
+                  required />
+                <span onClick={handleToggleConfirmPassword}>{showConfirmPassword? <FaEye /> : <FaEyeSlash />}</span>
               </div>
 
               <input className={styles.button} type="submit" value="Submit" />
@@ -40,4 +55,3 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-
