@@ -29,12 +29,12 @@ const ChangePassword = () => {
               <div className={styles.input_field}>
                 {/* <span><FaLock /></span> */}
                 <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Current password" required />
-                <span onClick={handleTogglePassword}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+                <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
               </div>
               <div className={styles.input_field}>
                 {/* <span><FaLock /></span> */}
                 <input type={showPassword ? 'text' : 'password'} name="password" placeholder="New password" required />
-                <span onClick={handleTogglePassword}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+                <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
               </div>
               <input className={styles.button} type="submit" value="Submit" />
              

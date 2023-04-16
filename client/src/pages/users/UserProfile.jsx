@@ -1,11 +1,14 @@
 import React from "react";
 import UnderConstruction from "../../components/UnderConstruction";
+import DocumentTitle from "../../components/Helmet";
 
 function UserProfile() {
   return (
-    <div>
+    <>
+
+    <DocumentTitle pageTitle="| MY PROFILE" />
       <UnderConstruction />
-    </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import styles from '../styles/authentication.module.css';
@@ -145,7 +145,7 @@ const Login = () => {
                       onBlur={() => Passhanlde("password")}
                       onChange={(e) => setState({ ...state, password: e.target.value })}
                       required />
-                    <span onClick={handleTogglePassword}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.password}</p>}
                   <input className={styles.button}
@@ -157,6 +157,8 @@ const Login = () => {
               </div>
             </div>
           </div>
+
+          <p>Forget Password ? <span onClick={()=>navigate("/forgetPassword")} className={styles.__forgot__password__link} >Click here 👉</span> </p>
         </div>
       )}
 

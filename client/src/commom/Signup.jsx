@@ -169,7 +169,7 @@ const Signup = () => {
                       onBlur={() => Passhanlde("password")}
                       onChange={(e) => setState({ ...state, password: e.target.value })}
                       required />
-                    <span onClick={handleTogglePassword}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
+                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.password}</p>}
 
