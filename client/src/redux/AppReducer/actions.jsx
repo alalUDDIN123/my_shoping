@@ -2,12 +2,18 @@ import {
   ADD_REVIEW_REQUEST,
   ADD_REVIEW_REQUEST_FAILUE,
   ADD_REVIEW_REQUEST_SUCESS,
+
   GET_PRODUCT_DETAILS_REQUEST,
   GET_PRODUCT_DETAILS_REQUEST_FAILUE,
   GET_PRODUCT_DETAILS_REQUEST_SUCESS,
+
   GET_PRODUCT_REQUEST,
   GET_PRODUCT_REQUEST_FAILUE,
   GET_PRODUCT_REQUEST_SUCESS,
+
+  ADD_CART_REQUEST,
+  ADD_CART_REQUEST_FAILUE,
+  ADD_CART_REQUEST_SUCESS,
 } from "../../Constant/actionTypes";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -15,7 +21,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const getData = (params = {}) => {
   return async (dispatch) => {
-    console.log("params from action:-", params);
+    // console.log("params from action:-", params);
 
     dispatch({ type: GET_PRODUCT_REQUEST });
     try {
@@ -146,4 +152,38 @@ const addReviewAction = (payload) => async (dispatch) => {
     dispatch({ type: ADD_REVIEW_REQUEST_FAILUE });
   }
 };
-export { getData, getProductDetails, addReviewAction };
+
+
+
+const addToCartAction = (payload) => async (dispatch) => {
+  dispatch({ type: ADD_CART_REQUEST });
+  // console.log("payload::-",payload);
+  try {
+    let res = await fetch(`${BASE_URL}/api/cart/add`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        token: payload.token,
+      },
+    });
+
+    let response = await res.json();
+    // console.log("revuiwes add response::-", response);
+
+    if (response && response.msg === "product added to cart successs") {
+      dispatch({ type: ADD_CART_REQUEST_SUCESS, payload: response.msg });
+    }
+
+    return response;
+  } catch (error) {
+    dispatch({ type: ADD_CART_REQUEST_FAILUE });
+  }
+};
+
+export {
+  getData,
+  getProductDetails,
+  addReviewAction,
+  addToCartAction
+};

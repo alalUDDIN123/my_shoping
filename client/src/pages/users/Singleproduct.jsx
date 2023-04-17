@@ -9,10 +9,10 @@ import AddReviewModal from "../../components/AddReviewModal";
 import AllReviewsModal from "../../components/AllReviews";
 import { useDispatch, useSelector } from "react-redux"
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getProductDetails } from "../../redux/AppReducer/actions";
+import { addToCartAction, getProductDetails } from "../../redux/AppReducer/actions";
 import DocumentTitle from "../../components/Helmet";
 import Loader from "../../components/Loader";
-import getLoggedUserData, { loadUser } from "../../utils/LoggedUserData";
+import getLoggedUserData from "../../utils/LoggedUserData";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -20,11 +20,14 @@ import { ToastContainer } from 'react-toastify';
 
 function Singleproduct() {
   const CheckLogin = getLoggedUserData()
-  const CheckRegister = loadUser()
+  const [recommendedProd, setRecommendPro] = useState([]);
+  const { product, isLoading } = useSelector((store) => store.getProductDetailsReducer)
+  const { products } = useSelector((store) => store.getProductReducer)
+  const [hoveredImage, setHoveredImage] = useState(product.image);
   const [modalVisible, setModalVisible] = useState(false);
   const [showAddReviewModal, setShowAddReviewModal] = useState(false);
   const [showAllReviewsModal, setShowAllReviewsModal] = useState(false);
-  const [isComponetChnages,setIsComponentChanges]=useState(false)
+  const [isComponetChnages, setIsComponentChanges] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -43,7 +46,7 @@ function Singleproduct() {
   };
 
   const handleAddReviewClick = () => {
-    if (!CheckLogin && !CheckRegister) {
+    if (!CheckLogin) {
       // console.log("by logged in ::-",CheckLogin,"by register::-",CheckRegister);
       toast.error("Please login to add review");
 
@@ -65,9 +68,13 @@ function Singleproduct() {
     setShowAllReviewsModal(true);
   };
 
-  const [recommendedProd, setRecommendPro] = useState([]);
-  const { product, isLoading } = useSelector((store) => store.getProductDetailsReducer)
-  const { products } = useSelector((store) => store.getProductReducer)
+
+
+  function handleImageHover(imageUrl) {
+    setHoveredImage(imageUrl);
+  }
+
+
   const dispatch = useDispatch()
   const { id } = useParams()
 
@@ -77,7 +84,7 @@ function Singleproduct() {
 
   useEffect(() => {
     dispatch(getProductDetails(id))
-  }, [id, dispatch,isComponetChnages])
+  }, [id, dispatch, isComponetChnages])
 
   useEffect(() => {
     if (product) {
@@ -98,12 +105,47 @@ function Singleproduct() {
   // console.log("product:-", product, "id", id)
 
 
+  // add product
+
+  const AddToCart = async () => {
+    const payload = {
+      quantity: 1,
+      productId: id,
+      token: CheckLogin.token
+
+    }
+
+    // console.log("cart payload", payload);
+
+    try {
+      const res = await dispatch(addToCartAction(payload))
+
+      if (res === undefined) {
+        throw new Error("Something went wrong")
+      }
+      if (res && res.msg === "product added to cart successs") {
+        toast.success("Product added to cart successs")
+        setTimeout(() => {
+          navigate("/cart")
+    
+        }, 2500)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+
+
+  }
+
+
+
 
 
   if (isLoading) {
     return <Loader />
   }
 
+  // console.log("product.Stock", product && product.Stock);
   return (
     <>
       <ToastContainer />
@@ -116,7 +158,10 @@ function Singleproduct() {
 
             <div className={styles._main_single_column}>
               {product?.images?.map((image, index) => (
-                <img key={index} src={image} alt={`Product ${index + 1}`} />
+                <img key={index}
+                  src={image}
+                  alt={`Product ${index + 1}`}
+                  onMouseEnter={() => handleImageHover(image)} />
               ))}
 
             </div>
@@ -124,25 +169,33 @@ function Singleproduct() {
 
             <div className={styles._main_single_img}>
               <img
-                src={product.image}
+                src={hoveredImage ? hoveredImage:product && product.image}
                 alt={`product-${product.title}`}
                 style={{ borderRadius: "5px" }}
               />
 
-              <div className={styles._main_single_buttons}>
-                <button className={styles.buyButton}>
-                  Buy Now
-                  <TiShoppingCart
-                    style={{ paddingLeft: "10px", fontSize: "30px" }}
-                  />
-                </button>
-                <button className={styles.cartButton}>
-                  Add to Cart
-                  <FaShoppingCart
-                    style={{ paddingLeft: "10px", fontSize: "30px" }}
-                  />
-                </button>
-              </div>
+              {product.Stock <= 0 ? (
+                <div>
+                  <button className={styles.buyButton} style={{ cursor: "not-allowed" }} > Out of stock </button>
+                </div>
+              ) : (
+                <div className={styles._main_single_buttons}>
+                  <button className={styles.buyButton}>
+                    Buy Now
+                    <TiShoppingCart
+                      style={{ paddingLeft: "10px", fontSize: "30px" }}
+                    />
+                  </button>
+                  <button className={styles.cartButton} onClick={AddToCart} >
+                    Add to Cart
+                    <FaShoppingCart
+                      style={{ paddingLeft: "10px", fontSize: "30px" }}
+                    />
+                  </button>
+                </div>
+              )}
+
+
             </div>
           </div>
 
@@ -294,36 +347,44 @@ function Singleproduct() {
       <Tablet>
         <div className={styles._main_single_images}>
 
-
           <div className={styles._main_single_column}>
             {product?.images?.map((image, index) => (
-              <img key={index} src={image} alt={`Product ${index + 1}`} />
+              <img key={index}
+                src={image}
+                alt={`Product ${index + 1}`}
+                onMouseEnter={() => handleImageHover(image)} />
             ))}
-          </div>
 
+          </div>
 
 
           <div className={styles._main_single_img}>
             <img
-              src={product.image}
+            src={hoveredImage ? hoveredImage:product && product.image}
               alt={`product-${product.title}`}
               style={{ borderRadius: "5px" }}
             />
 
-            <div className={styles._main_single_buttons}>
-              <button className={styles.buyButton}>
-                Buy Now
-                <TiShoppingCart
-                  style={{ paddingLeft: "10px", fontSize: "30px" }}
-                />
-              </button>
-              <button className={styles.cartButton}>
-                Add to Cart
-                <FaShoppingCart
-                  style={{ paddingLeft: "10px", fontSize: "30px" }}
-                />
-              </button>
-            </div>
+            {product.Stock <= 0 ? (
+              <div>
+                <button className={styles.buyButton} style={{ cursor: "not-allowed" }} > Out of stock </button>
+              </div>
+            ) : (
+              <div className={styles._main_single_buttons}>
+                <button className={styles.buyButton}>
+                  Buy Now
+                  <TiShoppingCart
+                    style={{ paddingLeft: "10px", fontSize: "30px" }}
+                  />
+                </button>
+                <button className={styles.cartButton} onClick={AddToCart} >
+                  Add to Cart
+                  <FaShoppingCart
+                    style={{ paddingLeft: "10px", fontSize: "30px" }}
+                  />
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -505,30 +566,43 @@ function Singleproduct() {
 
         <div className={styles._mobile_single_img}>
           <img
-            src={product.image}
+            src={hoveredImage}
             alt={`product-${product.title}`}
             style={{ borderRadius: "5px" }}
           />
         </div>
         <div className={styles._mobile_single_images}>
 
-
           <div className={styles._mobile_single_column}>
-          {product?.images?.map((image, index) => (
-                <img key={index} src={image} alt={`Product ${index + 1}`} />
-              ))}
+            {product?.images?.map((image, index) => (
+              <img key={index}
+              src={hoveredImage ? hoveredImage:product && product.image}
+                alt={`Product ${index + 1}`}
+                onMouseEnter={() => handleImageHover(image)}
+              />
+            ))}
           </div>
         </div>
-        <div className={styles._mobile_single_buttons}>
-          <button className={styles.buyButton}>
-            Buy Now
-            <TiShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} />
-          </button>
-          <button className={styles.cartButton}>
-            Add to Cart
-            <FaShoppingCart style={{ paddingLeft: "10px", fontSize: "30px" }} />
-          </button>
-        </div>
+        {product.Stock <= 0 ? (
+          <div>
+            <button className={styles.buyButton} style={{ cursor: "not-allowed" }} > Out of stock </button>
+          </div>
+        ) : (
+          <div className={styles._main_single_buttons}>
+            <button className={styles.buyButton}>
+              Buy Now
+              <TiShoppingCart
+                style={{ paddingLeft: "10px", fontSize: "30px" }}
+              />
+            </button>
+            <button className={styles.cartButton} onClick={AddToCart} >
+              Add to Cart
+              <FaShoppingCart
+                style={{ paddingLeft: "10px", fontSize: "30px" }}
+              />
+            </button>
+          </div>
+        )}
 
         <hr />
 
@@ -629,14 +703,14 @@ function Singleproduct() {
           <div
             className={`${styles._main_single_add_review} ${styles._mobile_single_add_review}`}
           >
-           {product && product.reviews && product.reviews.length > 2 && (
-                <button
-                  className={styles._main_single_add_review_see_all}
-                  onClick={handleAllReviws}
-                >
-                  SEE ALL REVIEWS
-                </button>
-              )}
+            {product && product.reviews && product.reviews.length > 2 && (
+              <button
+                className={styles._main_single_add_review_see_all}
+                onClick={handleAllReviws}
+              >
+                SEE ALL REVIEWS
+              </button>
+            )}
             <button
               className={styles._main_single_add_review_btn}
               onClick={handleAddReviewClick}
