@@ -4,7 +4,6 @@
   max-width: 95%;
   margin: 0 auto;
   padding: 30px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
 }
@@ -32,9 +31,8 @@
 ._cart_container td {
   padding: 5px;
   font-size: 15px;
-  border-bottom: 1px solid #f2f2f2;
-  background-color: #4CAF50;
-  color: #fffbfb;
+  border-bottom: 1px solid #af9595;
+  color: black;
   text-align: center;
 }
 
@@ -98,7 +96,7 @@
   font-size: 1.6rem;
   padding: 10px;
   border: none;
-  background-color: #fca311;
+
   border-radius: 5px;
   margin-right: 20px;
   cursor: pointer;
@@ -228,13 +226,6 @@
   ._cart_quantity_ {
       font-size: 15px;
       margin: 0px 15px;
-  }
-
-  ._cart_inc_dec_qty {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
   }
 
   ._cart_summary{

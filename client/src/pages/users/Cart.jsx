@@ -1,28 +1,39 @@
-import React from "react";
+
+import React, { useEffect } from "react";
 import styles from "../../styles/cart.module.css";
-import { Link } from "react-router-dom";
 import CartItem from "../../components/CartItem";
-import { cartData } from "../../CartData";
 import DocumentTitle from "../../components/Helmet";
-import UnderConstruction from "../../components/UnderConstruction";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartData } from "../../redux/AppReducer/actions";
+import Loader from "../../components/Loader";
+import getLoggedUserData from "../../utils/LoggedUserData";
+import { Link } from "react-router-dom";
+
 
 const Cart = () => {
-  const under = true;
+  const loggedUser = getLoggedUserData();
+  const { response, isLoading } = useSelector(store => store.getCartDataReducer);
+  const dispatch = useDispatch();
 
-  if (under) {
-    return <UnderConstruction />;
+  useEffect(() => {
+    dispatch(getCartData(loggedUser.token));
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
   }
 
+  // console.log("cartdata:-", response);
+
   return (
-    <>
-      <DocumentTitle pageTitle="| CART" />
+    <><DocumentTitle pageTitle="| CART" />
       <section>
         <div className={styles._cart_container}>
           <h2>Shopping Cart</h2>
           <div className={styles._cart_continue}>
             <Link to="/products">&larr; Continue shopping</Link>
           </div>
-          {1 === 0 ? (
+          {response?.cartItems?.length === 0 ? (
             <>
               <p>Your cart is currently empty.</p>
               <br />
@@ -30,7 +41,7 @@ const Cart = () => {
                 <Link to="/products">&larr; Continue shopping</Link>
               </div>
             </>
-          ) : (
+          ) : response?.cartItems && (
             <>
               <table>
                 <thead>
@@ -45,20 +56,20 @@ const Cart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cartData.length === 0
-                    ? ""
-                    : cartData.map((el) => <CartItem key={el._id} {...el} />)}
+                  {response?.cartItems?.map((item, ind) => (
+                    <CartItem key={item.product._id} {...item.product} ind={ind} />
+                  ))}
                 </tbody>
               </table>
               <div className={styles._cart_summary}>
                 <button className={styles._cart_clear_cart}>Clear Cart</button>
                 <div className={styles._cart_checkout}>
                   <p>
-                    Total Items: <strong>{cartData.length}</strong>
+                    Total Items: <strong>{response?.cartItems?.length}</strong>
                   </p>
                   <p className={styles._cart_sub_total}>
                     <h4>
-                      Subtotal: <span> ₹ 4000</span>{" "}
+                      Subtotal: <span> ₹ {response?.totalPrice}</span>
                     </h4>
                   </p>
                   <p>Tax will be calculated at order time</p>
@@ -71,6 +82,7 @@ const Cart = () => {
           )}
         </div>
       </section>
+
     </>
   );
 };

@@ -84,6 +84,12 @@ const AddtoCartIntial={
 }
 
 
+const getCartDataIntial={
+    isLoading:false,
+    isError:false,
+    response:[]
+}
+
 export {
     signupInitial,
     loginInitial,
@@ -97,7 +103,8 @@ export {
     getProductDetailsInitial,
     addReviewInitial,
     addReviewInitiaState,
-    AddtoCartIntial
+    AddtoCartIntial,
+    getCartDataIntial
 
 
 }

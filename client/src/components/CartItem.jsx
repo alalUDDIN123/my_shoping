@@ -5,12 +5,12 @@ import { GrAdd } from "react-icons/gr";
 import { BiMinus } from "react-icons/bi";
 // import { useNavigate } from 'react-router-dom';
 
-function CartItem({ _id, image, title, discountPrice }) {
+function CartItem({ _id, image, title, discountPrice ,ind}) {
     // const navigate = useNavigate()
     return (
         <>
             <tr key={_id}>
-                <td>1</td>
+                <td>{ind+1}</td>
                 <td>
 
                     <img
@@ -21,9 +21,9 @@ function CartItem({ _id, image, title, discountPrice }) {
                 </td>
 
                 <td>
-                    <a href={`/product/single/${_id}`} style={{color:"white"}} >
-                        {_id}
-                    </a>
+
+                    {_id}
+
                 </td>
 
                 <td>₹ {discountPrice}</td>
@@ -40,7 +40,7 @@ function CartItem({ _id, image, title, discountPrice }) {
                 <td className={styles._cart_remove_item}>
                     <FaTrashAlt
                         size={19}
-                        color="yellow"
+                        color="red"
 
                     />
                 </td>

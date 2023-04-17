@@ -18,6 +18,7 @@ import CheckoutPage from './pages/users/CheckoutPage'
 import UserProfile from './pages/users/UserProfile'
 import PageNotFound from './components/PageNotFound'
 import About from './pages/users/About'
+import ReqAuth from './components/ReqAuth'
 
 
 function App() {
@@ -33,9 +34,9 @@ function App() {
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/changePassword" element={<ChangePassword />}></Route>
-        <Route path="/forgetPassword" element={<ForgetPassword />} ></Route>
-        <Route path="/reset_password/token/:token" element={<ResetPassword />} ></Route>
+        <Route path="/changePassword" element={<ReqAuth><ChangePassword /></ReqAuth>}></Route>
+        <Route path="/forgetPassword" element={<ReqAuth><ForgetPassword /></ReqAuth>} ></Route>
+        <Route path="/reset_password/token/:token" element={<ReqAuth><ResetPassword /></ReqAuth>} ></Route>
 
 
 
@@ -44,11 +45,11 @@ function App() {
         <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>
         <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
-        <Route path="/cart" element={<Cart />} ></Route>
+        <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<Cart />} ></Route>
-        <Route path="/orders" element={<Orders />} ></Route>
-        <Route path="/checkout" element={<CheckoutPage />} ></Route>
-        <Route path="/profile" element={<UserProfile />} ></Route>
+        <Route path="/orders" element={<ReqAuth><Orders /></ReqAuth>} ></Route>
+        <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
+        <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
 
 
 

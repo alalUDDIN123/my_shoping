@@ -108,30 +108,42 @@ function Singleproduct() {
   // add product
 
   const AddToCart = async () => {
-    const payload = {
-      quantity: 1,
-      productId: id,
-      token: CheckLogin.token
 
-    }
+    if (!CheckLogin) {
+      toast.error("Please login to add product to cart");
+      setTimeout(() => {
+        navigate("/login", {
+          state: { from: location.pathname },
+          replace: true
+        });
+      }, 2000);
 
-    // console.log("cart payload", payload);
+    } else {
+      const payload = {
+        quantity: 1,
+        productId: id,
+        token: CheckLogin.token
 
-    try {
-      const res = await dispatch(addToCartAction(payload))
-
-      if (res === undefined) {
-        throw new Error("Something went wrong")
       }
-      if (res && res.msg === "product added to cart successs") {
-        toast.success("Product added to cart successs")
-        setTimeout(() => {
-          navigate("/cart")
-    
-        }, 2500)
+
+      // console.log("cart payload", payload);
+
+      try {
+        const res = await dispatch(addToCartAction(payload))
+
+        if (res === undefined) {
+          throw new Error("Something went wrong")
+        }
+        if (res && res.msg === "product added to cart successs") {
+          toast.success("Product added to cart successs")
+          setTimeout(() => {
+            navigate("/cart")
+
+          }, 2500)
+        }
+      } catch (error) {
+        toast.error(error.message)
       }
-    } catch (error) {
-      toast.error(error.message)
     }
 
 
@@ -169,7 +181,7 @@ function Singleproduct() {
 
             <div className={styles._main_single_img}>
               <img
-                src={hoveredImage ? hoveredImage:product && product.image}
+                src={hoveredImage ? hoveredImage : product && product.image}
                 alt={`product-${product.title}`}
                 style={{ borderRadius: "5px" }}
               />
@@ -360,7 +372,7 @@ function Singleproduct() {
 
           <div className={styles._main_single_img}>
             <img
-            src={hoveredImage ? hoveredImage:product && product.image}
+              src={hoveredImage ? hoveredImage : product && product.image}
               alt={`product-${product.title}`}
               style={{ borderRadius: "5px" }}
             />
@@ -576,7 +588,7 @@ function Singleproduct() {
           <div className={styles._mobile_single_column}>
             {product?.images?.map((image, index) => (
               <img key={index}
-              src={hoveredImage ? hoveredImage:product && product.image}
+                src={hoveredImage ? hoveredImage : product && product.image}
                 alt={`Product ${index + 1}`}
                 onMouseEnter={() => handleImageHover(image)}
               />
