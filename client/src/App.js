@@ -19,6 +19,7 @@ import UserProfile from './pages/users/UserProfile'
 import PageNotFound from './components/PageNotFound'
 import About from './pages/users/About'
 import ReqAuth from './components/ReqAuth'
+import Wishlist from './pages/users/Wishlist'
 
 
 function App() {
@@ -45,8 +46,8 @@ function App() {
         <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>
         <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
-        <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
-        <Route path="/wishlist" element={<Cart />} ></Route>
+        <Route path="/cart" element={<Cart />} ></Route>
+        <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>
         <Route path="/orders" element={<ReqAuth><Orders /></ReqAuth>} ></Route>
         <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
         <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
