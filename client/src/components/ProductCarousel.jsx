@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 
 import "../styles/ProductCarousel.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../redux/AppReducer/actions";
 
 const ProductCarousel = () => {
-  const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -29,22 +29,27 @@ const ProductCarousel = () => {
     },
   };
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("http://localhost:8080/api/products/get")
-      .then((res) => res.json())
-      .then((data) => {
-        const productdata = data.products;
-        setProductData(productdata);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const dispatch = useDispatch();
+  const { products, isLoading } = useSelector(
+    (store) => store.getProductReducer
+  );
 
-  const product = productData?.map((item,ind) => (
-    <Link to="" key={ind} className="__each__link__">
+  const store = useSelector((store) => store);
+  console.log(store, "store");
+
+  console.log(products, "products");
+  console.log(isLoading, "isLoading");
+
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+
+  const product = products?.map((item, ind) => (
+    <Link
+      to={`/product/single/${item._id}`}
+      key={ind}
+      className="__each__link__"
+    >
       <div className="__each__Product__">
         <div className="__each__imgage__">
           <img src={item.image} alt="product" />
@@ -60,7 +65,7 @@ const ProductCarousel = () => {
     </Link>
   ));
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div>
         <h1
