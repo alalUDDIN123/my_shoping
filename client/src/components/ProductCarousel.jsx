@@ -35,10 +35,10 @@ const ProductCarousel = () => {
   );
 
   const store = useSelector((store) => store);
-  console.log(store, "store");
+  // console.log(store, "store");
 
-  console.log(products, "products");
-  console.log(isLoading, "isLoading");
+  // console.log(products, "products");
+  // console.log(isLoading, "isLoading");
 
   useEffect(() => {
     dispatch(getData());

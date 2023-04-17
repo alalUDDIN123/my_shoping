@@ -1,16 +1,23 @@
 import {
+    ADD_CART_REQUEST,
+    ADD_CART_REQUEST_FAILUE,
+    ADD_CART_REQUEST_SUCESS,
+
     ADD_REVIEW_REQUEST,
     ADD_REVIEW_REQUEST_FAILUE,
     ADD_REVIEW_REQUEST_SUCESS,
+
     GET_PRODUCT_DETAILS_REQUEST,
     GET_PRODUCT_DETAILS_REQUEST_FAILUE,
     GET_PRODUCT_DETAILS_REQUEST_SUCESS,
+    
     GET_PRODUCT_REQUEST,
     GET_PRODUCT_REQUEST_FAILUE,
     GET_PRODUCT_REQUEST_SUCESS,
 
 } from "../../Constant/actionTypes";
 import {
+    AddtoCartIntial,
     addReviewInitial,
     getProductDetailsInitial,
     getProductIntial
@@ -94,8 +101,35 @@ const addReviwReducer = (state = addReviewInitial, { type, payload }) => {
 }
 
 
+const addToCartReducer = (state = AddtoCartIntial, { type, payload }) => {
+    switch (type) {
+
+        case ADD_CART_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case ADD_CART_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false
+
+            }
+        case ADD_CART_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: true,
+                isLoading: false
+            }
+        default: return state
+    }
+}
+
+
 export {
     getProductReducer,
     getProductDetailsReducer,
-    addReviwReducer
+    addReviwReducer,
+    addToCartReducer
 }

@@ -76,6 +76,14 @@ const addReviewInitiaState = {
     rating: "",
     comment: ""
 }
+
+const AddtoCartIntial={
+    isLoading:false,
+    isError:false,
+    response:""
+}
+
+
 export {
     signupInitial,
     loginInitial,
@@ -89,6 +97,7 @@ export {
     getProductDetailsInitial,
     addReviewInitial,
     addReviewInitiaState,
+    AddtoCartIntial
 
 
 }

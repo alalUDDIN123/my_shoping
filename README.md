@@ -93,6 +93,17 @@
        ```
        productId: required
        ```    
+   - `AddToCart`:
+      - `Required format`
+      - `API` : http://localhost:8080/api/cart/add
+      - `method`: POST,
+      ```
+      login:true,
+      productId: product id,
+      quantity: in number
+      token : logged user token
+      ```
+
 
 
 ---
