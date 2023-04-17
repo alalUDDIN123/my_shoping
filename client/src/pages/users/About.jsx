@@ -37,7 +37,7 @@ const About = () => {
       <h1>About Us</h1>
       <p className={styles.__about__us__desc} >Reliability and dependability are key characteristics of our team members, 
         as we understand the importance of meeting deadlines and fulfilling our commitments.</p>
-      <h2>Team Memberse</h2>
+      <h2>Team Members</h2>
       <div className={styles.__team__members__container}>
         {teamMembers.map((member) => (
           <div key={member.name} className={styles.__team__member}>

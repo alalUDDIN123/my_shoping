@@ -11,7 +11,7 @@ import {
 } from "../../Constant/actionTypes";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-console.log(BASE_URL, "---------this is base url");
+// console.log(BASE_URL, "---------this is base url");
 
 const getData = (params = {}) => {
   return async (dispatch) => {
@@ -91,11 +91,11 @@ const getData = (params = {}) => {
         url += `ratings=${params.ratings}&`;
       }
 
-      console.log(url, "this is get data url");
+      // console.log(url, "this is get data url");
 
       let res = await fetch(url);
       let data = await res.json();
-      console.log("data::-", data);
+      // console.log("data::-", data);
       dispatch({ type: GET_PRODUCT_REQUEST_SUCESS, payload: data.products });
     } catch (error) {
       dispatch({ type: GET_PRODUCT_REQUEST_FAILUE });
