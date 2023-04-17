@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles/navbar.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../redux/AppReducer/actions";
+import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 
 const SearchInput = () => {
   const [inputValue, setInputValue] = useState("");
-  const [product, setProduct] = useState([]);
   const [filterData, setFilterData] = useState([]);
+
+  const dispatch = useDispatch();
+  const { products } = useSelector((store) => store.getProductReducer);
+  const navigate = useNavigate();
 
   //   making filter function
   const filter = (str) => {
     let filteredData =
       str === ""
         ? []
-        : product.filter((item) => {
+        : products.filter((item) => {
             return item.title.toLowerCase().includes(str);
           });
 
@@ -28,7 +34,7 @@ const SearchInput = () => {
 
   //handeling single product
   const handleProduct = (id) => {
-    console.log(id);
+    navigate(`/product/single/${id}`);
   };
 
   //handeling all products
@@ -36,30 +42,9 @@ const SearchInput = () => {
     console.log(inputValue);
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8080/api/products/get")
-  //     .then((res) => {
-  //       const productData = res.data.products;
-  //       setProduct(productData);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
   useEffect(() => {
-    fetch("http://localhost:8080/api/products/get")
-      .then(res => res.json())
-      .then(data => {
-        const productData = data.products;
-        setProduct(productData);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-  
+    dispatch(getData());
+  }, [dispatch]);
 
   return (
     <div>
