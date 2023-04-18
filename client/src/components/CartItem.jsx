@@ -59,10 +59,14 @@ function CartItem({ _id, image, title, quantity, discountPrice, ind, handleCompo
 
         try {
             let res = await dispatch(IncCartQuantytiAction(payload))
-
+            // console.log("response::-", res);
             if (res === undefined) {
                 throw new Error("Something went wrong")
-            } else if (res && res.hint === "incQty") {
+            } else if (res.err === `Not enough quantity available for product ${id}`) {
+                toast.error("Sorry! The requested quantity is not available for this product.")
+              
+            }
+            else if (res && res.hint === "incQty") {
                 toast.success("Product Quantity Incremented Success")
                 setTimeout(() => {
                     handleComponetChange()
