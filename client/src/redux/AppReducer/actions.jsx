@@ -14,6 +14,9 @@ import {
   ADD_CART_REQUEST,
   ADD_CART_REQUEST_FAILUE,
   ADD_CART_REQUEST_SUCESS,
+  GET_CART_REQUEST,
+  GET_CART_REQUEST_SUCESS,
+  GET_CART_REQUEST_FAILUE,
 } from "../../Constant/actionTypes";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -181,9 +184,36 @@ const addToCartAction = (payload) => async (dispatch) => {
   }
 };
 
+
+const getCartData = (token) => {
+  return async (dispatch) => {
+    dispatch({ type: GET_CART_REQUEST });
+
+    try {
+      let res = await fetch(`${BASE_URL}/api/cart/get`, {
+        method: "GET",
+        headers: {
+          'Content-Type': "application/json",
+          token: token
+        }
+      });
+      let data = await res.json();
+      // console.log(data);
+      dispatch({
+        type: GET_CART_REQUEST_SUCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({ type: GET_CART_REQUEST_FAILUE });
+    }
+  };
+};
+
+
 export {
   getData,
   getProductDetails,
   addReviewAction,
-  addToCartAction
+  addToCartAction,
+  getCartData
 };
