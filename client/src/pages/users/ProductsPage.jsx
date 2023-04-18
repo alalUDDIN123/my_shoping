@@ -4,11 +4,7 @@ import styles from "../../styles/products.module.css";
 import { useMediaQuery } from "react-responsive";
 import stylesTablet from "../../styles/products.tablet.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  brandOption,
-  categoryOption,
-  ratingOption,
-} from "../../Constant/ProductsFiltersOption";
+import { ratingOption } from "../../Constant/ProductsFiltersOption";
 import Loader from "../../components/Loader";
 import ProductCard from "../../components/ProductC";
 import TabletProductCard from "../../components/TabletProductCard";
@@ -31,6 +27,21 @@ function ProductsPage() {
   };
 
   // various filter section
+  const [categoryOption, setCategoryOption] = useState([
+    { cate: "Electronics", checked: false },
+    { cate: "accessories", checked: false },
+    { cate: "clothing", checked: false },
+  ]);
+
+  // various branding secion
+  const [brandOption, setBrandOption] = useState([
+    { brand: "Apple", checked: false },
+    { brand: "ideaPad", checked: false },
+    { brand: "aldo", checked: false },
+    { brand: "supcase", checked: false },
+    { brand: "gopgan", checked: false },
+    { brand: "adidas", checked: false },
+  ]);
 
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -40,9 +51,13 @@ function ProductsPage() {
   );
   const dispatch = useDispatch();
 
-  function handleCategoryChange(event) {
-    const { value } = event.target;
+  // this is Cateogory
+  function handleCategoryChange(event, i) {
+    const { value, checked } = event.target;
     const newSelectedCategories = [...selectedCategories];
+    const newCheckboxex = [...categoryOption];
+    newCheckboxex[i].checked = checked;
+    setCategoryOption(newCheckboxex);
     const index = newSelectedCategories.indexOf(value);
 
     if (index > -1) {
@@ -54,9 +69,13 @@ function ProductsPage() {
     setSelectedCategories(newSelectedCategories);
   }
 
-  function handleBrandChange(event) {
-    const { value } = event.target;
+  // this is brand
+  function handleBrandChange(event, i) {
+    const { value, checked } = event.target;
     const newSelectedBrands = [...selectedBrands];
+    const newBrand = [...brandOption];
+    newBrand[i].checked = checked;
+    setBrandOption(newBrand);
     const index = newSelectedBrands.indexOf(value);
 
     if (index > -1) {
@@ -72,7 +91,7 @@ function ProductsPage() {
     dispatch(getData());
   }, [dispatch]);
 
-  // console.log(selectedCategories)
+  // console.log(selectedCategories);
   // console.log(selectedBrands)
 
   return (
@@ -84,12 +103,17 @@ function ProductsPage() {
           <div className={styles._filters}>
             <div className={styles._category_div}>
               <label className={styles._label_text}>Select Category</label>
-              {categoryOption.map((cate, index) => (
+              {categoryOption.map((item, index) => (
                 <div key={index}>
                   <InputCheckbox
-                    lable={cate}
-                    value={cate}
-                    onChangeHanlde={handleCategoryChange}
+                    category="category"
+                    id={`category-${index}`}
+                    value={item.cate}
+                    checking={item.checked}
+                    onChangeHanlde={(event) =>
+                      handleCategoryChange(event, index)
+                    }
+                    index={index}
                   />
                 </div>
               ))}
@@ -98,16 +122,16 @@ function ProductsPage() {
 
             <div className={styles._brand_div}>
               <label className={styles._label_text}>Select Brand</label>
-              {brandOption.map((brand, index) => (
+              {brandOption.map((item, index) => (
                 <div key={index}>
-                  <input
-                    type="checkbox"
-                    id={`category-${index}`}
-                    name="category"
-                    value={brand}
-                    onChange={handleBrandChange}
+                  <InputCheckbox
+                    category="brand"
+                    id={`brand-${index}`}
+                    value={item.brand}
+                    checking={item.checked}
+                    onChangeHanlde={(event) => handleBrandChange(event, index)}
+                    index={index}
                   />
-                  <label htmlFor={`category-${index}`}>{brand}</label>
                 </div>
               ))}
             </div>
