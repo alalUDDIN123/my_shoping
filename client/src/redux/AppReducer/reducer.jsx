@@ -19,13 +19,23 @@ import {
     GET_PRODUCT_REQUEST_FAILUE,
     GET_PRODUCT_REQUEST_SUCESS,
 
+    REMOVE_ALL_CART_REQUEST,
+    REMOVE_ALL_CART_REQUEST_FAILUE,
+    REMOVE_ALL_CART_REQUEST_SUCESS,
+
+    REMOVE_SINGLE_CART_REQUEST,
+    REMOVE_SINGLE_CART_REQUEST_FAILUE,
+    REMOVE_SINGLE_CART_REQUEST_SUCESS,
+
 } from "../../Constant/actionTypes";
 import {
     AddtoCartIntial,
     addReviewInitial,
     getCartDataIntial,
     getProductDetailsInitial,
-    getProductIntial
+    getProductIntial,
+    removeAllCart,
+    removeSingleCart
 } from "../../objects/Objects";
 
 
@@ -157,10 +167,66 @@ const getCartDataReducer = (state = getCartDataIntial, { type, payload }) => {
     }
 }
 
+
+const RemoveSingleCartReducer = (state = removeSingleCart, { type, payload }) => {
+    switch (type) {
+
+        case REMOVE_SINGLE_CART_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case REMOVE_SINGLE_CART_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false
+
+            }
+        case REMOVE_SINGLE_CART_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: true,
+                isLoading: false
+            }
+        default: return state
+    }
+}
+
+
+const RemoveAllCartReducer = (state = removeAllCart, { type, payload }) => {
+    switch (type) {
+
+        case REMOVE_ALL_CART_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case REMOVE_ALL_CART_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false
+
+            }
+        case REMOVE_ALL_CART_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: true,
+                isLoading: false
+            }
+        default: return state
+    }
+}
+
+
+
 export {
     getProductReducer,
     getProductDetailsReducer,
     addReviwReducer,
     addToCartReducer,
-    getCartDataReducer
+    getCartDataReducer,
+    RemoveSingleCartReducer,
+    RemoveAllCartReducer
 }
