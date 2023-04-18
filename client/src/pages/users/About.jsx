@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../styles/AboutUs.module.css';
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai"
 import { CgProfile } from "react-icons/cg"
+import DocumentTitle from '../../components/Helmet';
 
 const teamMembers = [
   {
@@ -33,11 +34,13 @@ const teamMembers = [
 const About = () => {
 
   return (
-    <div className={styles.__about__us__main__container}>
+    <>
+      <DocumentTitle pageTitle={"| ABOUT US"} />
+      <div className={styles.__about__us__main__container}>
       <h1>About Us</h1>
       <p className={styles.__about__us__desc} >Reliability and dependability are key characteristics of our team members, 
         as we understand the importance of meeting deadlines and fulfilling our commitments.</p>
-      <h2>Team Memberse</h2>
+      <h2>Team Members</h2>
       <div className={styles.__team__members__container}>
         {teamMembers.map((member) => (
           <div key={member.name} className={styles.__team__member}>
@@ -62,6 +65,7 @@ const About = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

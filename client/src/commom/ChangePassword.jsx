@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import styles from '../styles/authentication.module.css';
+import DocumentTitle from '../components/Helmet';
 
 
 const ChangePassword = () => {
@@ -13,7 +14,9 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className={styles.form_wrapper}>
+    <>
+      <DocumentTitle pageTitle={"| CHANGE PASSWORD"} />
+      <div className={styles.form_wrapper}>
       <div className={styles.form_container}>
         <div className={styles.title_container}>
           <h2>Change Password</h2>
@@ -43,6 +46,7 @@ const ChangePassword = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

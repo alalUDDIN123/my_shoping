@@ -11,7 +11,9 @@ import {
 import {
     getProductReducer,
     getProductDetailsReducer,
-    addReviwReducer
+    addReviwReducer,
+    addToCartReducer,
+    getCartDataReducer
 } from "./AppReducer/reducer";
 
 
@@ -22,6 +24,8 @@ const combineReducer = combineReducers({
     resetPasswordReducer,
     getProductReducer,
     getProductDetailsReducer,
-    addReviwReducer
+    addReviwReducer,
+    addToCartReducer,
+    getCartDataReducer
 })
 export const store = legacy_createStore(combineReducer, applyMiddleware(thunk))

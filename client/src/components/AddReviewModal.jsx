@@ -83,11 +83,17 @@ function AddReviewModal({ onCloseModal, onComponentChanges }) {
     try {
       let res = await dispatch(addReviewAction(payload));
       // console.log("component response:-", res)
-      onComponentChanges()
+    
       if (res && res.message === "Review Added") {
         toast.success(res.message)
+        setTimeout(()=>{
+          onComponentChanges()
+        },1000)
       } else if (res.message === "Review updated") {
         toast.success(res.message)
+        setTimeout(()=>{
+          onComponentChanges()
+        },1000)
       }
     } catch (error) {
       setError(error.message || "Something went wrong");

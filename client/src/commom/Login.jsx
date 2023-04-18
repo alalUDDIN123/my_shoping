@@ -117,12 +117,12 @@ const Login = () => {
       <ToastContainer />
       <DocumentTitle pageTitle="| LOGIN" />
       {isLoading ? (
-        <p style={{ textAlign: "center", fontSize: "30px" }} >Login form loading...</p>
+        <p style={{ textAlign: "center", fontSize: "30px" }} >Signin form loading...</p>
       ) : (
         <div className={styles.form_wrapper}>
           <div className={styles.form_container}>
             <div className={styles.title_container}>
-              <h2>login Form</h2>
+              <h2>Signin Form</h2>
             </div>
             <div className={`${styles.row} ${styles.clearfix}`}>
               <div>
