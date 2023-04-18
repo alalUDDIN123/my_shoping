@@ -8,7 +8,7 @@ const adminAccess = async (req, res, next) => {
     if (user.role === "admin") {
         next()
     } else {
-        res.status(401).send("You are not authorised, this is for admin only")
+        res.status(401).json({msg:"You are not authorised, this is for admin only",hint:"adAcNo"})
     }
 }
 
@@ -21,7 +21,7 @@ const SuperAdminAccess = async (req, res, next) => {
     if (user.role === "superAdmin") {
         next()
     } else {
-        res.status(401).send("You are not authorised, this is for superAdmin only")
+        res.status(401).json({msg:"You are not authorised, this is for superAdmin only",hint:"suAcNo"})
     }
 }
 module.exports = {

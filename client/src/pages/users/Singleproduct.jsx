@@ -135,7 +135,7 @@ function Singleproduct() {
           throw new Error("Something went wrong")
         }
         if (res && res.msg === "product added to cart successs") {
-          toast.success("Product added to cart successs")
+          toast.success("Product added to cart success")
           setTimeout(() => {
             navigate("/cart")
 

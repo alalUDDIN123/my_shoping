@@ -90,6 +90,18 @@ const getCartDataIntial={
     response:[]
 }
 
+const removeSingleCart={
+ isLoading:false,
+ isError:false,
+ response:""   
+}
+
+const removeAllCart={
+    isLoading:false,
+    isError:false,
+    response:""   
+   }
+
 export {
     signupInitial,
     loginInitial,
@@ -104,7 +116,9 @@ export {
     addReviewInitial,
     addReviewInitiaState,
     AddtoCartIntial,
-    getCartDataIntial
+    getCartDataIntial,
+    removeSingleCart,
+    removeAllCart
 
 
 }

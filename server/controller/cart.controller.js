@@ -98,9 +98,15 @@ const getCartData = async (req, res) => {
             });
         });
 
+        const totalProducts = cartData.reduce((acc, cart) => {
+            return acc + cart.products.reduce((acc, product) => {
+                return acc + product.quantity;
+            }, 0);
+        }, 0);
+
         // console.log(totalPrice,"totalprice")
 
-        res.status(200).send({ cartItems, totalPrice: totalPrice });
+        res.status(200).send({ cartItems, totalPrice: totalPrice,totalProducts });
     } catch (error) {
         res.status(500).send({ msg: 'Something went wrong in the server', err: error.message });
     }
@@ -120,7 +126,7 @@ const removeProductFromCart = async (req, res) => {
         const cart = await cartModal.findOne({ user: userId });
 
         if (!cart) {
-            return res.status(404).send({ message: "Cart not found for the user" });
+            return res.status(404).send({ message: "Cart data not found for the user" });
         }
 
         const productIndex = cart.products.findIndex(p => p.product_id.toString() === productId);
@@ -147,6 +153,33 @@ const removeProductFromCart = async (req, res) => {
         res.status(500).send({ msg: "Something went wrong in the server", err: error.message });
     }
 }
+
+
+
+// remove all cart product 👍👍👍👍👍
+
+const removeAllProductsFromCart = async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const cart = await cartModal.findOne({ user: userId });
+
+        if (!cart) {
+            return res.status(404).send({ message: "Cart data not found for the user" });
+        }
+
+        // Remove all products from the cart
+        cart.products = [];
+
+        // saving the updated data back to database
+        await cart.save();
+
+        res.status(200).send({ msg: "All products removed from the cart", hint: "reAlSuc" });
+    } catch (error) {
+        res.status(500).send({ msg: "Something went wrong in the server", err: error.message });
+    }
+}
+
 
 // increment cart quantity 👍👍👍👍👍
 
@@ -176,7 +209,7 @@ const incrementProductQuantityInCart = async (req, res) => {
         // Decrement the stock of the product
         await decrementProductQuantity(productId, 1);
         await cart.save();
-        res.status(200).send({ msg: "Product quantity incremented in the cart" });
+        res.status(200).send({ msg: "Product quantity incremented in the cart", hint: "incQty" });
     } catch (error) {
         res.status(500).send({ msg: "Something went wrong in the server", err: error.message });
     }
@@ -224,7 +257,7 @@ const decrementProductQuantityInCart = async (req, res) => {
 
             // save the cart and send a response
             await cart.save();
-            return res.status(200).send({ message: `Product quantity decremented successfully in the cart` });
+            return res.status(200).send({ msg: `Product quantity decremented successfully in the cart`, hint: "decQty" });
         }
     } catch (error) {
         res.status(500).send({ message: "Something went wrong in the server", error: error.message });
@@ -236,6 +269,7 @@ module.exports = {
     addProductToCart,
     getCartData,
     removeProductFromCart,
+    removeAllProductsFromCart,
     incrementProductQuantityInCart,
     decrementProductQuantityInCart
 }

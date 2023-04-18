@@ -4,7 +4,8 @@ const {
     getCartData,
     removeProductFromCart,
     incrementProductQuantityInCart,
-    decrementProductQuantityInCart
+    decrementProductQuantityInCart,
+    removeAllProductsFromCart
 } = require("../controller/cart.controller");
 const authenticateUser = require("../middleware/authontication.middleware");
 
@@ -15,6 +16,7 @@ cartRouter.use(authenticateUser)
 cartRouter.post("/add", addProductToCart)
 cartRouter.get("/get",getCartData)
 cartRouter.delete("/remove",removeProductFromCart)
+cartRouter.delete("/remove/all",removeAllProductsFromCart)
 cartRouter.patch("/incrementQuantity",incrementProductQuantityInCart)
 cartRouter.patch("/decrementQuantity",decrementProductQuantityInCart)
 
