@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
@@ -15,14 +15,16 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import styles from "../styles/navbar.module.css";
 import { useMediaQuery } from "react-responsive";
 import SearchInput from "./SearchInput";
-import getLoggedUserData, {  loadUser } from "../utils/LoggedUserData";
+import getLoggedUserData, { loadUser } from "../utils/LoggedUserData";
+import { getCartData } from "../redux/AppReducer/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-function Navbar({ cartItemsCount = 2 }) {
+
+function Navbar() {
   const LoggedUser = getLoggedUserData()
-  const reGisterUer= loadUser()
+  const reGisterUer = loadUser()
   const [showRightSide, setShowRightSide] = useState(false);
   const navigate = useNavigate();
-
   const Desktop = ({ children }) => {
     const isDesktop = useMediaQuery({ minWidth: 992 });
     return isDesktop ? children : null;
@@ -36,7 +38,7 @@ function Navbar({ cartItemsCount = 2 }) {
     return isMobile ? children : null;
   };
 
-  
+
 
   const onLogout = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
@@ -44,11 +46,21 @@ function Navbar({ cartItemsCount = 2 }) {
       localStorage.removeItem("loggedUser");
       localStorage.removeItem("registration");
       window.location.reload()
-     
+
     }
   };
 
+  const { response } = useSelector(store => store.getCartDataReducer);
+  const dispatch = useDispatch();
 
+
+  useEffect(() => {
+    if (LoggedUser.token) {
+      dispatch(getCartData(LoggedUser.token));
+    }
+  }, [dispatch, LoggedUser.token]);
+
+  // console.log("response::-", response);
   return (
     <>
       <Desktop>
@@ -61,7 +73,7 @@ function Navbar({ cartItemsCount = 2 }) {
             <SearchInput />
           </div>
           <div className={styles._rightSide}>
-            {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message)? (
+            {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
               <>
                 <button onClick={() => navigate("/about")} style={{
                   fontSize: "17px",
@@ -86,7 +98,7 @@ function Navbar({ cartItemsCount = 2 }) {
                     color: "#fca311"
                   }} /> */}
 
-                  <img src={(LoggedUser && LoggedUser.avator) || (reGisterUer && reGisterUer.avator)} alt={(LoggedUser && LoggedUser.name)||(reGisterUer && reGisterUer.role)} className={styles._navbar_avator_} />
+                  <img src={(LoggedUser && LoggedUser.avator) || (reGisterUer && reGisterUer.avator)} alt={(LoggedUser && LoggedUser.name) || (reGisterUer && reGisterUer.role)} className={styles._navbar_avator_} />
                   <div className={styles.dropdown}>
                     <Link to="/profile">
                       <ImProfile style={{ marginRight: "10px", color: "white" }} />
@@ -100,12 +112,12 @@ function Navbar({ cartItemsCount = 2 }) {
                       <BsBagCheck style={{ marginRight: "10px", color: "white" }} />
                       Orders
                     </Link>
-                    {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? (
+                    {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? (
                       <Link to="/admin">
                         <SiAdminer style={{ marginRight: "10px", color: "white" }} />
                         Admin
                       </Link>
-                    ) : (LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user")? (
+                    ) : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? (
                       null
                     ) : (
                       <Link to="/superAdmin">
@@ -121,7 +133,7 @@ function Navbar({ cartItemsCount = 2 }) {
                 <div className={styles.cartIcon}>
                   <Link to="/cart">
                     <AiOutlineShoppingCart fontSize={"27px"} />
-                    {cartItemsCount > 0 && <span>{cartItemsCount}</span>}
+                    {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
                   </Link>
                 </div>
               </>
@@ -217,7 +229,7 @@ function Navbar({ cartItemsCount = 2 }) {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-                          {cartItemsCount > 0 && <span>{cartItemsCount}</span>}
+                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
                         </a>
                       </li>
                       <li>
@@ -226,12 +238,12 @@ function Navbar({ cartItemsCount = 2 }) {
                           Orders
                         </a>
                       </li>
-                      {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? <li>
+                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
                         <a href="/admin">
                           <SiAdminer style={{ marginRight: "10px" }} />
                           Admin
                         </a>
-                      </li> :(LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user") ? null : <li>
+                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
                         <a href="/superAdmin">
                           <SiMicrosoftaccess style={{ marginRight: "10px" }} />
                           SuperAdmin
@@ -292,7 +304,7 @@ function Navbar({ cartItemsCount = 2 }) {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message)? (
+                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -312,7 +324,7 @@ function Navbar({ cartItemsCount = 2 }) {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-                          {cartItemsCount > 0 && <span>{cartItemsCount}</span>}
+                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
                         </a>
                       </li>
                       <li>
@@ -322,12 +334,12 @@ function Navbar({ cartItemsCount = 2 }) {
                         </a>
                       </li>
 
-                      {(LoggedUser && LoggedUser.role==="admin") || (reGisterUer && reGisterUer.role==="admin") ? <li>
+                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
                         <a href="/admin">
                           <SiAdminer style={{ marginRight: "10px" }} />
                           Admin
                         </a>
-                      </li> : (LoggedUser && LoggedUser.role==="user") || (reGisterUer && reGisterUer.role==="user") ? null : <li>
+                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
                         <a href="/superAdmin">
                           <SiMicrosoftaccess style={{ marginRight: "10px" }} />
                           SuperAdmin

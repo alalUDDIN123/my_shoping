@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken");
 
 const authenticateUser = (req, res, next) => {
   const token = req.headers?.token;
-
+  // console.log("token::-", token);
   if (!token) {
-    return res.status(400).send("Please provide token");
+    return res.status(400).json({ msg: "Please provide token" });
   }
 
   try {
@@ -15,16 +15,16 @@ const authenticateUser = (req, res, next) => {
       req.body.userId = userId;
       next();
     } else {
-      res.status(401).send({error:"Invalid token"});
+      res.status(401).json({ error: "Invalid token" });
     }
   } catch (err) {
     // console.log("authentication error::-",err);
     if (err instanceof jwt.TokenExpiredError) {
-      return res.status(401).send({message:"Token expired"});
+      return res.status(401).json({ message: "Token expired" });
     } else if (err instanceof jwt.JsonWebTokenError) {
-      return res.status(401).send({error:"Invalid token"});
+      return res.status(401).json({ error: "Invalid token" });
     } else {
-      return res.status(500).send("Server error");
+      return res.status(500).json({ msg: "Server error" });
     }
   }
 };

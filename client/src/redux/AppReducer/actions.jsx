@@ -14,9 +14,27 @@ import {
   ADD_CART_REQUEST,
   ADD_CART_REQUEST_FAILUE,
   ADD_CART_REQUEST_SUCESS,
+
   GET_CART_REQUEST,
   GET_CART_REQUEST_SUCESS,
   GET_CART_REQUEST_FAILUE,
+
+  REMOVE_SINGLE_CART_REQUEST_SUCESS,
+  REMOVE_SINGLE_CART_REQUEST,
+  REMOVE_SINGLE_CART_REQUEST_FAILUE,
+
+  REMOVE_ALL_CART_REQUEST,
+  REMOVE_ALL_CART_REQUEST_SUCESS,
+  REMOVE_ALL_CART_REQUEST_FAILUE,
+
+  INCREMENT_CART_QUANTYTI_REQUEST,
+  INCREMENT_CART_QUANTYTI_REQUEST_SUCESS,
+  INCREMENT_CART_QUANTYTI_REQUEST_FAILUE,
+  
+  DECREMENT_CART_QUANTYTI_REQUEST,
+  DECREMENT_CART_QUANTYTI_REQUEST_SUCESS,
+  DECREMENT_CART_QUANTYTI_REQUEST_FAILUE,
+
 } from "../../Constant/actionTypes";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -209,11 +227,143 @@ const getCartData = (token) => {
   };
 };
 
+const removerSingleCartAction = (payload) => {
+  return async (dispatch) => {
+    // console.log("payload::-", payload.productId);
+    dispatch({
+      type: REMOVE_SINGLE_CART_REQUEST
+    })
+    try {
+      let res = await fetch(`http://localhost:8080/api/cart/remove`, {
+        method: "DELETE",
+        body: JSON.stringify({productId: payload.productId}),
+        headers: {
+          'Content-Type': "application/json",
+          token: payload.token
+        }
+      });
+
+      let response = await res.json();
+      if (response && response.msg === "Product removed from the cart") {
+        dispatch({
+          type: REMOVE_SINGLE_CART_REQUEST_SUCESS,
+          payload: response.msg
+        })
+      }
+      return response;
+    } catch (error) {
+      dispatch({
+        type: REMOVE_SINGLE_CART_REQUEST_FAILUE
+      })
+    }
+  }
+}
+
+const removerAllCartAction = (payload) => {
+  return async (dispatch) => {
+//  console.log("payload::-", payload)
+    dispatch({
+      type: REMOVE_ALL_CART_REQUEST
+    })
+    try {
+      let res = await fetch(`http://localhost:8080/api/cart/remove/all`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': "application/json",
+          token: payload
+        }
+      });
+
+      let response = await res.json();
+      if (response && response.hint === "reAlSuc") {
+        dispatch({
+          type: REMOVE_ALL_CART_REQUEST_SUCESS,
+          payload: response.msg
+        })
+      }
+      return response;
+    } catch (error) {
+      dispatch({
+        type: REMOVE_ALL_CART_REQUEST_FAILUE
+      })
+    }
+  }
+}
+
+const IncCartQuantytiAction = (payload) => {
+  return async (dispatch) => {
+//  console.log("payload::-", payload)
+    dispatch({
+      type: INCREMENT_CART_QUANTYTI_REQUEST
+    })
+    try {
+      let res = await fetch(`http://localhost:8080/api/cart/incrementQuantity`, {
+        method: "PATCH",
+        body: JSON.stringify({productId: payload.productId}),
+        headers: {
+          'Content-Type': "application/json",
+          token: payload.token
+        }
+      });
+
+      let response = await res.json();
+      if (response && response.hint === "incQty") {
+        dispatch({
+          type: INCREMENT_CART_QUANTYTI_REQUEST_SUCESS,
+          payload: response.msg
+        })
+      }
+      return response;
+    } catch (error) {
+      dispatch({
+        type: INCREMENT_CART_QUANTYTI_REQUEST_FAILUE
+      })
+    }
+  }
+}
+
+
+const DecCartQuantytiAction = (payload) => {
+  return async (dispatch) => {
+//  console.log("payload::-", payload)
+    dispatch({
+      type: DECREMENT_CART_QUANTYTI_REQUEST
+    })
+    try {
+      let res = await fetch(`http://localhost:8080/api/cart/decrementQuantity`, {
+        method: "PATCH",
+        body: JSON.stringify({productId: payload.productId}),
+        headers: {
+          'Content-Type': "application/json",
+          token: payload.token
+        }
+      });
+
+      let response = await res.json();
+      if (response && response.hint === "decQty") {
+        dispatch({
+          type: DECREMENT_CART_QUANTYTI_REQUEST_SUCESS,
+          payload: response.msg
+        })
+      }
+      return response;
+    } catch (error) {
+      dispatch({
+        type: DECREMENT_CART_QUANTYTI_REQUEST_FAILUE
+      })
+    }
+  }
+}
+
 
 export {
   getData,
   getProductDetails,
   addReviewAction,
   addToCartAction,
-  getCartData
+  getCartData,
+  removerSingleCartAction,
+  removerAllCartAction,
+  IncCartQuantytiAction,
+  DecCartQuantytiAction
 };

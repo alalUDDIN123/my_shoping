@@ -104,6 +104,48 @@
       token : logged user token
       ```
 
+   - `getCartData`
+      - `Required format`
+      - `API` : http://localhost:8080/api/cart/get
+      - `method` : get
+      ```
+      login :true
+      ```
+
+   - `remove single cart product`
+        - `Required format`
+        - `API` : http://localhost:8080/api/cart/remove
+        - `method` : delete
+        ```
+        login : true,
+        productId : required
+        ```
+
+   - `Increment quantity`
+        - `Required format`
+        - `API` : http://localhost:8080/api/cart/incrementQuantity
+        - `method` : patch
+        ```
+        login : true,
+        productId : required
+        ```
+        
+   - `Decrement quantity`
+        - `Required format`
+        - `API` : http://localhost:8080/api/cart/decrementQuantity
+        - `method` : patch
+        ```
+        login : true,
+        productId : required
+        ```     
+   - `removeAllCartProducts`
+      - `Required format`
+      - `API` : http://localhost:8080/api/cart/remove/all
+      - `method` : delete
+      ```
+      login : true
+      ```   
+
 
 
 ---
