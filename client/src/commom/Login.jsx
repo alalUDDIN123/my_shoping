@@ -63,7 +63,8 @@ const Login = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try {
+    try { 
+      console.log("state data:-",state);
       const res = await dispatch(SigninActionObj(state));
 
       if (res === undefined) {

@@ -34,6 +34,10 @@ import {
   DECREMENT_CART_QUANTYTI_REQUEST,
   DECREMENT_CART_QUANTYTI_REQUEST_SUCESS,
   DECREMENT_CART_QUANTYTI_REQUEST_FAILUE,
+  
+  ADD_DELIVERY_ADDRESS_REQUEST,
+  ADD_DELIVERY_ADDRESS_SUCESS,
+  ADD_DELIVERY_ADDRESS_FAILURE,
 
 } from "../../Constant/actionTypes";
 
@@ -356,6 +360,37 @@ const DecCartQuantytiAction = (payload) => {
 }
 
 
+const deliveryAddressActionObj = (payload) => async (dispatch) => {
+  dispatch({ type: ADD_DELIVERY_ADDRESS_REQUEST })
+  try {
+
+    let res = await fetch("http://localhost:8080/api/address", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': "application/json",
+        token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDA4ODQwMmJiNjA2NzBkZTQ0M2M3NTUiLCJpYXQiOjE2ODIwMDY0MzQsImV4cCI6MTY4MjA5MjgzNH0.0GBVK2lsC_hj7WBNIbxaP3Py_Vklg7MzP7gjEFS1R-g"
+      }
+    })
+
+    const response = await res.json()
+    
+    if(response && response.hint==="deSuces"){
+      dispatch({
+        type:ADD_DELIVERY_ADDRESS_SUCESS,
+        payload:response
+      })
+    }
+
+    return response;
+  } catch (error) {
+    dispatch({
+      type:ADD_DELIVERY_ADDRESS_FAILURE
+    })
+  }
+}
+
+
 export {
   getData,
   getProductDetails,
@@ -365,5 +400,6 @@ export {
   removerSingleCartAction,
   removerAllCartAction,
   IncCartQuantytiAction,
-  DecCartQuantytiAction
+  DecCartQuantytiAction,
+  deliveryAddressActionObj 
 };
