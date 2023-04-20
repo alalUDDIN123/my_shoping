@@ -7,7 +7,11 @@ import {
 } from "react-icons/ai";
 import { ImProfile } from "react-icons/im";
 import { BsBagCheck } from "react-icons/bs";
-import { SiAdminer, SiMicrosoftaccess, SiGnuprivacyguard } from "react-icons/si";
+import {
+  SiAdminer,
+  SiMicrosoftaccess,
+  SiGnuprivacyguard,
+} from "react-icons/si";
 import { GrList } from "react-icons/gr";
 import { AiOutlineLogin } from "react-icons/ai";
 import { FcAbout } from "react-icons/fc";
@@ -19,10 +23,9 @@ import getLoggedUserData, { loadUser } from "../utils/LoggedUserData";
 import { getCartData } from "../redux/AppReducer/actions";
 import { useDispatch, useSelector } from "react-redux";
 
-
 function Navbar() {
-  const LoggedUser = getLoggedUserData()
-  const reGisterUer = loadUser()
+  const LoggedUser = getLoggedUserData();
+  const reGisterUer = loadUser();
   const [showRightSide, setShowRightSide] = useState(false);
   const navigate = useNavigate();
   const Desktop = ({ children }) => {
@@ -38,31 +41,23 @@ function Navbar() {
     return isMobile ? children : null;
   };
 
-
-
   const onLogout = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (confirmed) {
       localStorage.removeItem("loggedUser");
       localStorage.removeItem("registration");
-      window.location.reload()
-
+      window.location.reload();
     }
   };
 
-  const { response } = useSelector(store => store.getCartDataReducer);
+  const { response } = useSelector((store) => store.getCartDataReducer);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
+    dispatch(getCartData());
+  }, [dispatch]);
 
-    if (LoggedUser && LoggedUser.token) {
-      dispatch(getCartData(LoggedUser.token));
-    }
-  }, [dispatch, LoggedUser]);
-
-
-  // console.log("response::-", response);
+  console.log("response::-", response);
   return (
     <>
       <Desktop>
@@ -75,35 +70,61 @@ function Navbar() {
             <SearchInput />
           </div>
           <div className={styles._rightSide}>
-            {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
+            {(LoggedUser && LoggedUser.role) ||
+            (reGisterUer && reGisterUer.message) ? (
               <>
-                <button onClick={() => navigate("/about")} style={{
-                  fontSize: "17px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "5px",
-                  margin: "0 5px",
-                  width: "200px"
-                }} > <FcAbout /> About Us</button>
-                <button onClick={onLogout} style={{
-                  fontSize: "17px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "5px",
-                  margin: "0 5px"
-                }} > <RiLogoutCircleLine />Logout</button>
+                <button
+                  onClick={() => navigate("/about")}
+                  style={{
+                    fontSize: "17px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    margin: "0 5px",
+                    width: "200px",
+                  }}
+                >
+                  {" "}
+                  <FcAbout /> About Us
+                </button>
+                <button
+                  onClick={onLogout}
+                  style={{
+                    fontSize: "17px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "5px",
+                    margin: "0 5px",
+                  }}
+                >
+                  {" "}
+                  <RiLogoutCircleLine />
+                  Logout
+                </button>
                 <div className={styles.more}>
                   {/* <CgMenuRound style={{
                     fontSize: "35px",
                     color: "#fca311"
                   }} /> */}
 
-                  <img src={(LoggedUser && LoggedUser.avator) || (reGisterUer && reGisterUer.avator)} alt={(LoggedUser && LoggedUser.name) || (reGisterUer && reGisterUer.role)} className={styles._navbar_avator_} />
+                  <img
+                    src={
+                      (LoggedUser && LoggedUser.avator) ||
+                      (reGisterUer && reGisterUer.avator)
+                    }
+                    alt={
+                      (LoggedUser && LoggedUser.name) ||
+                      (reGisterUer && reGisterUer.role)
+                    }
+                    className={styles._navbar_avator_}
+                  />
                   <div className={styles.dropdown}>
                     <Link to="/profile">
-                      <ImProfile style={{ marginRight: "10px", color: "white" }} />
+                      <ImProfile
+                        style={{ marginRight: "10px", color: "white" }}
+                      />
                       My Profile
                     </Link>
                     <Link to="/wishlist">
@@ -111,79 +132,95 @@ function Navbar() {
                       Wishlist
                     </Link>
                     <Link to="/orders">
-                      <BsBagCheck style={{ marginRight: "10px", color: "white" }} />
+                      <BsBagCheck
+                        style={{ marginRight: "10px", color: "white" }}
+                      />
                       Orders
                     </Link>
-                    {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? (
+                    {(LoggedUser && LoggedUser.role === "admin") ||
+                    (reGisterUer && reGisterUer.role === "admin") ? (
                       <Link to="/admin">
-                        <SiAdminer style={{ marginRight: "10px", color: "white" }} />
+                        <SiAdminer
+                          style={{ marginRight: "10px", color: "white" }}
+                        />
                         Admin
                       </Link>
-                    ) : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? (
-                      null
-                    ) : (
+                    ) : (LoggedUser && LoggedUser.role === "user") ||
+                      (reGisterUer && reGisterUer.role === "user") ? null : (
                       <Link to="/superAdmin">
-                        <SiMicrosoftaccess style={{ marginRight: "10px", color: "white" }} />
+                        <SiMicrosoftaccess
+                          style={{ marginRight: "10px", color: "white" }}
+                        />
                         SuperAdmin
                       </Link>
                     )}
                   </div>
-
                 </div>
-
 
                 <div className={styles.cartIcon}>
                   <Link to="/cart">
                     <AiOutlineShoppingCart fontSize={"27px"} />
 
-                    {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
-
+                    {response && response?.totalProducts > 0 ? (
+                      <span>{response.totalProducts}</span>
+                    ) : (
+                      <span>0</span>
+                    )}
                   </Link>
                 </div>
               </>
             ) : (
               <>
-                <div style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "10px"
-                }}>
-                  <button onClick={() => navigate("/about")} style={{
-                    fontSize: "19px",
+                <div
+                  style={{
                     display: "flex",
-                    alignItems: "center",
                     justifyContent: "center",
-                    gap: "5px",
-                    margin: "0 5px"
-                  }}>
+                    gap: "10px",
+                  }}
+                >
+                  <button
+                    onClick={() => navigate("/about")}
+                    style={{
+                      fontSize: "19px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "5px",
+                      margin: "0 5px",
+                    }}
+                  >
                     <FcAbout />
                     About Us
                   </button>
-                  <button onClick={() => navigate("/login")} style={{
-                    fontSize: "19px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "5px",
-                    margin: "0 5px"
-                  }}>
+                  <button
+                    onClick={() => navigate("/login")}
+                    style={{
+                      fontSize: "19px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "5px",
+                      margin: "0 5px",
+                    }}
+                  >
                     <AiOutlineLogin />
                     Sign in
                   </button>
-                  <button onClick={() => navigate("/signup")} style={{
-                    fontSize: "19px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "5px",
-                    margin: "0 5px"
-                  }}>
+                  <button
+                    onClick={() => navigate("/signup")}
+                    style={{
+                      fontSize: "19px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "5px",
+                      margin: "0 5px",
+                    }}
+                  >
                     <SiGnuprivacyguard />
                     Sign up
                   </button>
                 </div>
-
-
               </>
             )}
           </div>
@@ -202,8 +239,9 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
-              }`}
+            className={`${styles._tablet_rightSide} ${
+              showRightSide ? "showRightSide" : ""
+            }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -213,7 +251,8 @@ function Navbar() {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
+                {(LoggedUser && LoggedUser.role) ||
+                (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -234,8 +273,11 @@ function Navbar() {
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
 
-                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
-
+                          {response && response?.totalProducts > 0 ? (
+                            <span>{response.totalProducts}</span>
+                          ) : (
+                            <span>0</span>
+                          )}
                         </a>
                       </li>
                       <li>
@@ -244,40 +286,66 @@ function Navbar() {
                           Orders
                         </a>
                       </li>
-                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
-                        <a href="/admin">
-                          <SiAdminer style={{ marginRight: "10px" }} />
-                          Admin
-                        </a>
-                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
-                        <a href="/superAdmin">
-                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
-                          SuperAdmin
-                        </a>
-                      </li>
-                      }
+                      {(LoggedUser && LoggedUser.role === "admin") ||
+                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        <li>
+                          <a href="/admin">
+                            <SiAdminer style={{ marginRight: "10px" }} />
+                            Admin
+                          </a>
+                        </li>
+                      ) : (LoggedUser && LoggedUser.role === "user") ||
+                        (reGisterUer && reGisterUer.role === "user") ? null : (
+                        <li>
+                          <a href="/superAdmin">
+                            <SiMicrosoftaccess
+                              style={{ marginRight: "10px" }}
+                            />
+                            SuperAdmin
+                          </a>
+                        </li>
+                      )}
                     </ul>
                   </>
                 ) : (
                   <>
                     <ul>
                       <li>
-                        <a href="/about" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }} > <FcAbout /> About Us</a>
+                        <a
+                          href="/about"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <FcAbout /> About Us
+                        </a>
                       </li>
                       <li>
-                        <a href="/login" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }}>  <AiOutlineLogin />Signin</a>
+                        <a
+                          href="/login"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <AiOutlineLogin />
+                          Signin
+                        </a>
                       </li>
                       <li>
-                        <a href="/signup" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }}> <SiGnuprivacyguard /> Signup</a>
+                        <a
+                          href="/signup"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <SiGnuprivacyguard /> Signup
+                        </a>
                       </li>
                     </ul>
                   </>
@@ -299,8 +367,9 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
-              }`}
+            className={`${styles._tablet_rightSide} ${
+              showRightSide ? "showRightSide" : ""
+            }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -310,7 +379,8 @@ function Navbar() {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
+                {(LoggedUser && LoggedUser.role) ||
+                (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -331,8 +401,12 @@ function Navbar() {
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
 
-                       {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
-        </a>
+                          {response && response?.totalProducts > 0 ? (
+                            <span>{response.totalProducts}</span>
+                          ) : (
+                            <span>0</span>
+                          )}
+                        </a>
                       </li>
                       <li>
                         <a href="/orders">
@@ -341,44 +415,68 @@ function Navbar() {
                         </a>
                       </li>
 
-                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
-                        <a href="/admin">
-                          <SiAdminer style={{ marginRight: "10px" }} />
-                          Admin
-                        </a>
-                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
-                        <a href="/superAdmin">
-                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
-                          SuperAdmin
-                        </a>
-                      </li>
-                      }
+                      {(LoggedUser && LoggedUser.role === "admin") ||
+                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        <li>
+                          <a href="/admin">
+                            <SiAdminer style={{ marginRight: "10px" }} />
+                            Admin
+                          </a>
+                        </li>
+                      ) : (LoggedUser && LoggedUser.role === "user") ||
+                        (reGisterUer && reGisterUer.role === "user") ? null : (
+                        <li>
+                          <a href="/superAdmin">
+                            <SiMicrosoftaccess
+                              style={{ marginRight: "10px" }}
+                            />
+                            SuperAdmin
+                          </a>
+                        </li>
+                      )}
                     </ul>
                   </>
                 ) : (
                   <>
                     <ul>
                       <li>
-                        <a href="/about" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }} > <FcAbout /> About Us</a>
+                        <a
+                          href="/about"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <FcAbout /> About Us
+                        </a>
                       </li>
                       <li>
-                        <a href="/login" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }}>  <AiOutlineLogin />Signin</a>
+                        <a
+                          href="/login"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <AiOutlineLogin />
+                          Signin
+                        </a>
                       </li>
                       <li>
-                        <a href="/signup" style={{
-                          gap: "8px",
-                          margin: "0 5px"
-                        }}> <SiGnuprivacyguard /> Signup</a>
+                        <a
+                          href="/signup"
+                          style={{
+                            gap: "8px",
+                            margin: "0 5px",
+                          }}
+                        >
+                          {" "}
+                          <SiGnuprivacyguard /> Signup
+                        </a>
                       </li>
-
                     </ul>
-
                   </>
                 )}
               </div>
