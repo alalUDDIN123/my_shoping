@@ -253,7 +253,6 @@ const deliveryAddressReducer=(state=DeliveryAddressIntial,{type,payload})=>{
 }
 
 
-
 export {
     getProductReducer,
     getProductDetailsReducer,
@@ -263,4 +262,5 @@ export {
     RemoveSingleCartReducer,
     RemoveAllCartReducer,
     deliveryAddressReducer
+
 }
