@@ -31,27 +31,25 @@ function App() {
       <Routes>
 
         {/* common route */}
-{/* 
+
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/changePassword" element={<ReqAuth><ChangePassword /></ReqAuth>}></Route>
         <Route path="/forgetPassword" element={<ReqAuth><ForgetPassword /></ReqAuth>} ></Route>
-        <Route path="/reset_password/token/:token" element={<ReqAuth><ResetPassword /></ReqAuth>} ></Route> */}
+        <Route path="/reset_password/token/:token" element={<ReqAuth><ResetPassword /></ReqAuth>} ></Route>
 
 
 
         {/* Users route */}
-        {/* <Route path="/" element={<Home />} ></Route>
+        <Route path="/" element={<Home />} ></Route>
         <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>
         <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>
         <Route path="/orders" element={<ReqAuth><Orders /></ReqAuth>} ></Route>
-      
-        <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route> */}
-         <Route path="/login" element={<Login />}></Route>
+        <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
         <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
 
         {/* Admin Route */}
