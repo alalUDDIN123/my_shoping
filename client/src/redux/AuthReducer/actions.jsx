@@ -13,7 +13,7 @@ import {
   SIGNUP_REQUEST_SUCESS,
 } from "../../Constant/actionTypes";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL ="http://localhost:8080";
 
 const url = `${BASE_URL}/api/users/register`;
 
@@ -48,6 +48,7 @@ const SignupActionObj = (payload) => async (dispatch) => {
 
 const SigninActionObj = (payload) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
+
   try {
     const res = await fetch(`${BASE_URL}/api/users/login`, {
       method: "POST",

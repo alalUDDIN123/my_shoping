@@ -102,6 +102,20 @@ const removeAllCart={
     response:""   
    }
 
+   const DeliverinitialState = {
+    address1: "",
+    address2: "",
+    country: "",
+    state: "",
+    city: "",
+    postalCode: "",
+}
+   const DeliveryAddressIntial={
+    isLoading:false,
+    isError:false,
+    response:""
+}
+
 export {
     signupInitial,
     loginInitial,
@@ -118,7 +132,10 @@ export {
     AddtoCartIntial,
     getCartDataIntial,
     removeSingleCart,
-    removeAllCart
+    removeAllCart,
+    DeliverinitialState,
+    DeliveryAddressIntial
+
 
 
 }

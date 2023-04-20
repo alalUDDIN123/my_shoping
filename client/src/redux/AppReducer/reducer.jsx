@@ -3,6 +3,10 @@ import {
     ADD_CART_REQUEST_FAILUE,
     ADD_CART_REQUEST_SUCESS,
 
+    ADD_DELIVERY_ADDRESS_FAILURE,
+    ADD_DELIVERY_ADDRESS_REQUEST,
+    ADD_DELIVERY_ADDRESS_SUCESS,
+
     ADD_REVIEW_REQUEST,
     ADD_REVIEW_REQUEST_FAILUE,
     ADD_REVIEW_REQUEST_SUCESS,
@@ -30,6 +34,7 @@ import {
 } from "../../Constant/actionTypes";
 import {
     AddtoCartIntial,
+    DeliveryAddressIntial,
     addReviewInitial,
     getCartDataIntial,
     getProductDetailsInitial,
@@ -220,6 +225,33 @@ const RemoveAllCartReducer = (state = removeAllCart, { type, payload }) => {
 }
 
 
+const deliveryAddressReducer=(state=DeliveryAddressIntial,{type,payload})=>{
+
+    switch(type){
+
+    case ADD_DELIVERY_ADDRESS_REQUEST:
+        return{
+            ...state,
+            isLoading:true
+        }
+
+    case ADD_DELIVERY_ADDRESS_SUCESS:
+        return{
+            ...state,
+            response:payload,
+            isLoading:false
+        } 
+    
+    case ADD_DELIVERY_ADDRESS_FAILURE:
+        return{
+            ...state,
+            isError:true,
+            isLoading:false
+        }    
+        default:return state;
+    }
+}
+
 
 export {
     getProductReducer,
@@ -228,5 +260,7 @@ export {
     addToCartReducer,
     getCartDataReducer,
     RemoveSingleCartReducer,
-    RemoveAllCartReducer
+    RemoveAllCartReducer,
+    deliveryAddressReducer
+
 }

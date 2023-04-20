@@ -55,10 +55,12 @@ function Navbar() {
 
 
   useEffect(() => {
-    if (LoggedUser.token) {
+
+    if (LoggedUser && LoggedUser.token) {
       dispatch(getCartData(LoggedUser.token));
     }
-  }, [dispatch, LoggedUser.token]);
+  }, [dispatch, LoggedUser]);
+
 
   // console.log("response::-", response);
   return (
@@ -133,7 +135,9 @@ function Navbar() {
                 <div className={styles.cartIcon}>
                   <Link to="/cart">
                     <AiOutlineShoppingCart fontSize={"27px"} />
-                    {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
+
+                    {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
+
                   </Link>
                 </div>
               </>
@@ -229,7 +233,9 @@ function Navbar() {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
+
+                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
+
                         </a>
                       </li>
                       <li>
@@ -324,8 +330,9 @@ function Navbar() {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-                          {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : 0}
-                        </a>
+
+                       {response && response?.totalProducts > 0 ? <span>{response.totalProducts}</span> : <span>0</span>}
+        </a>
                       </li>
                       <li>
                         <a href="/orders">
