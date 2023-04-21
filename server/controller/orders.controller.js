@@ -20,7 +20,7 @@ const PostOrder = async (req, res) => {
     // Save the order in the database
     await order.save();
 
-    res.status(201).send({ message: "Order placed successfully" });
+    res.status(201).send({ message: "Order placed successfully",hint:"orSucc" });
   } catch (error) {
 
     res.status(500).send({ message: "Internal server error" });

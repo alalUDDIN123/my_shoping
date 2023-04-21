@@ -22,7 +22,7 @@ const validateOrderFields = (req, res, next) => {
     return res.status(400).send("deliveryAddressId is required");
   }
 
-  if (paymentMethod && !["cashOn", "UPI", "netBanking"].includes(paymentMethod)) {
+  if (paymentMethod && !["cashOn", "UPI", "creditCard"].includes(paymentMethod)) {
     return res.status(400).send({ message: "Valid paymentMethod required" });
   }
 
