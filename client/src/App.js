@@ -1,26 +1,25 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import AdminHome from './pages/admin/Home';
-import SuperHome from "./pages/superAdmin/Home"
-import Login from './commom/Login'
-import Cart from './pages/users/Cart'
-import CheckoutPage from './pages/users/CheckoutPage'
-import PageNotFound from './components/PageNotFound'
-import ReqAuth from './components/ReqAuth'
-import Home from './pages/users/Home'
-import Signup from './commom/Signup'
-import ForgetPassword from './commom/ForgetPassword'
-import ResetPassword from './commom/ResetPassword'
-import ChangePassword from './commom/ChangePassword'
-import Products from './pages/users/ProductsPage'
-import Singleproduct from './pages/users/Singleproduct'
-import Orders from './pages/users/Orders'
-import UserProfile from './pages/users/UserProfile'
-import About from './pages/users/About'
-import Wishlist from './pages/users/Wishlist'
-
+import Navbar from './navbar/Navbar'
+import Footer from "./components/Footer/Footer"
+import AdminHome from './admin/Home';
+import SuperHome from "./superAdmin/Home"
+import About from "./About/About"
+import PageNotFound from './components/pageNotfound/PageNotFound'
+import ReqAuth from './components/authentication/ReqAuth'
+import ForgetPassword from './components/authentication/ForgetPassword'
+import ResetPassword from "./components/authentication/ResetPassword"
+import ChangePassword from './components/authentication/ChangePassword'
+import ProductsPage from './components/products/ProductsPage';
+import Singleproduct from './components/products/Singleproduct';
+import Home from './home/Home';
+import UserProfile from './userProfile/UserProfile';
+import Wishlist from './components/products/Wishlist';
+import CheckoutPage from './components/checkoutAndOrder/CheckoutPage';
+import Orders from './components/checkoutAndOrder/Orders';
+import Login from './components/authentication/Login';
+import Cart from "./components/cart/Cart"
+import Signup from './components/authentication/Signup';
 
 function App() {
   return (
@@ -34,7 +33,6 @@ function App() {
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/changePassword" element={<ReqAuth><ChangePassword /></ReqAuth>}></Route>
         <Route path="/forgetPassword" element={<ReqAuth><ForgetPassword /></ReqAuth>} ></Route>
@@ -44,8 +42,8 @@ function App() {
 
         {/* Users route */}
         <Route path="/" element={<Home />} ></Route>
-        <Route path="/products" element={<Products />} ></Route>
-        <Route path="/products/:category" element={<Products />} ></Route>
+        <Route path="/products" element={<ProductsPage />} ></Route>
+        <Route path="/products/:category" element={<ProductsPage />} ></Route>
         <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>
