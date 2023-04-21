@@ -29,6 +29,9 @@ import {
   ADD_DELIVERY_ADDRESS_REQUEST,
   ADD_DELIVERY_ADDRESS_SUCESS,
   ADD_DELIVERY_ADDRESS_FAILURE,
+  ADD_ORDER_REQUEST,
+  ADD_ORDER_REQUEST_SUCESS,
+  ADD_ORDER_REQUEST_FAILUE,
 } from "../../Constant/actionTypes";
 import getLoggedUserData from "../../utils/LoggedUserData";
 
@@ -363,8 +366,7 @@ const deliveryAddressActionObj = (payload) => async (dispatch) => {
       body: JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
-        token:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDA4ODQwMmJiNjA2NzBkZTQ0M2M3NTUiLCJpYXQiOjE2ODIwMDY0MzQsImV4cCI6MTY4MjA5MjgzNH0.0GBVK2lsC_hj7WBNIbxaP3Py_Vklg7MzP7gjEFS1R-g",
+        token: payload.token ?? LoggedUser.token ?? "",
       },
     });
 
@@ -385,6 +387,42 @@ const deliveryAddressActionObj = (payload) => async (dispatch) => {
   }
 };
 
+const storeAddressAction = (payload) => {
+  return {
+    type: "DELIVERY_ADDRESS",
+    payload,
+  };
+};
+
+const AddOrderAction = (payload) => async (dispatch) => {
+  dispatch({ type: ADD_ORDER_REQUEST });
+  try {
+    let res = await fetch("http://localhost:8080/api/order/post", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        token: payload.token ?? LoggedUser.token ?? "",
+      },
+    });
+
+    const response = await res.json();
+
+    if (response && response.hint === "orSucc") {
+      dispatch({
+        type: ADD_ORDER_REQUEST_SUCESS,
+        payload: response,
+      });
+    }
+
+    return response;
+  } catch (error) {
+    dispatch({
+      type: ADD_ORDER_REQUEST_FAILUE,
+    });
+  }
+};
+
 export {
   getData,
   getProductDetails,
@@ -396,4 +434,6 @@ export {
   IncCartQuantytiAction,
   DecCartQuantytiAction,
   deliveryAddressActionObj,
+  storeAddressAction,
+  AddOrderAction,
 };

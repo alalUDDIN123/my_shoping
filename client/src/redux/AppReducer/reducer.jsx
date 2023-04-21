@@ -7,6 +7,12 @@ import {
     ADD_DELIVERY_ADDRESS_REQUEST,
     ADD_DELIVERY_ADDRESS_SUCESS,
 
+    ADD_ORDER_REQUEST,
+
+    ADD_ORDER_REQUEST_FAILUE,
+
+    ADD_ORDER_REQUEST_SUCESS,
+
     ADD_REVIEW_REQUEST,
     ADD_REVIEW_REQUEST_FAILUE,
     ADD_REVIEW_REQUEST_SUCESS,
@@ -31,16 +37,20 @@ import {
     REMOVE_SINGLE_CART_REQUEST_FAILUE,
     REMOVE_SINGLE_CART_REQUEST_SUCESS,
 
+
 } from "../../Constant/actionTypes";
 import {
     AddtoCartIntial,
+    DeliverAddressInitialState,
     DeliveryAddressIntial,
+    addOrderIntial,
     addReviewInitial,
     getCartDataIntial,
     getProductDetailsInitial,
     getProductIntial,
     removeAllCart,
-    removeSingleCart
+    removeSingleCart,
+  
 } from "../../objects/Objects";
 
 
@@ -198,7 +208,6 @@ const RemoveSingleCartReducer = (state = removeSingleCart, { type, payload }) =>
     }
 }
 
-
 const RemoveAllCartReducer = (state = removeAllCart, { type, payload }) => {
     switch (type) {
 
@@ -253,6 +262,46 @@ const deliveryAddressReducer=(state=DeliveryAddressIntial,{type,payload})=>{
 }
 
 
+const AddressReducer = (state = DeliverAddressInitialState, action) => {
+  switch (action.type) {
+    case "DELIVERY_ADDRESS":
+      return {
+        ...state,
+        deliveryAddress: action.payload
+      };
+    default:
+      return state;
+  }
+};
+
+const addOrderReducer=(state=addOrderIntial,{type,payload})=>{
+    switch(type){
+
+        case ADD_ORDER_REQUEST:
+            return{
+                ...state,
+                isLoading:true
+            }
+    
+        case ADD_ORDER_REQUEST_SUCESS:
+            return{
+                ...state,
+                response:payload,
+                isLoading:false
+            } 
+        
+        case ADD_ORDER_REQUEST_FAILUE:
+            return{
+                ...state,
+                isError:true,
+                isLoading:false
+            }    
+            default:return state;
+        }  
+}
+
+
+
 export {
     getProductReducer,
     getProductDetailsReducer,
@@ -261,6 +310,8 @@ export {
     getCartDataReducer,
     RemoveSingleCartReducer,
     RemoveAllCartReducer,
-    deliveryAddressReducer
+    deliveryAddressReducer,
+    AddressReducer,
+    addOrderReducer
 
 }

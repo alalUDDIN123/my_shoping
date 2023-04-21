@@ -2,22 +2,12 @@ const mongoose = require("mongoose")
 
 
 const deliveryAddressSchema = mongoose.Schema({
-    addressLine1: {
+    address: {
         type: String,
         required: true
     },
-    addressLine2: {
-        type: String
-    },
-    city: {
-        type: String,
-        required: true
-    },
+
     state: {
-        type: String,
-        required: true
-    },
-    country: {
         type: String,
         required: true
     },
@@ -25,11 +15,23 @@ const deliveryAddressSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    phone: {
+        type: Number
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    block: {
+        type: String,
+        required: true
+    },
+
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 });
 
-const deliveryAddressModel= mongoose.model("deliveryAddres",deliveryAddressSchema)
-module.exports=deliveryAddressModel
+const deliveryAddressModel = mongoose.model("deliveryAddres", deliveryAddressSchema)
+module.exports = deliveryAddressModel

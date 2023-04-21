@@ -79,6 +79,8 @@ function CartItem({ _id, image, title, quantity, discountPrice, ind, handleCompo
         }
     }
 
+
+
     const decQty = async (id) => {
         const payload = {
             productId: id,

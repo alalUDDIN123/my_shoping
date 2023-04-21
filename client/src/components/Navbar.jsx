@@ -20,8 +20,9 @@ import styles from "../styles/navbar.module.css";
 import { useMediaQuery } from "react-responsive";
 import SearchInput from "./SearchInput";
 import getLoggedUserData, { loadUser } from "../utils/LoggedUserData";
-import { getCartData } from "../redux/AppReducer/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { getCartData } from "../redux/AppReducer/actions";
+
 
 function Navbar() {
   const LoggedUser = getLoggedUserData();
@@ -57,7 +58,9 @@ function Navbar() {
     dispatch(getCartData());
   }, [dispatch]);
 
-  console.log("response::-", response);
+
+  //console.log("response::-", response);
+
   return (
     <>
       <Desktop>
@@ -160,7 +163,6 @@ function Navbar() {
                 <div className={styles.cartIcon}>
                   <Link to="/cart">
                     <AiOutlineShoppingCart fontSize={"27px"} />
-
                     {response && response?.totalProducts > 0 ? (
                       <span>{response.totalProducts}</span>
                     ) : (
@@ -252,7 +254,7 @@ function Navbar() {
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
                 {(LoggedUser && LoggedUser.role) ||
-                (reGisterUer && reGisterUer.message) ? (
+                  (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -272,7 +274,6 @@ function Navbar() {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-
                           {response && response?.totalProducts > 0 ? (
                             <span>{response.totalProducts}</span>
                           ) : (
@@ -400,7 +401,6 @@ function Navbar() {
                           <AiOutlineShoppingCart
                             style={{ marginRight: "10px", fontSize: "25px" }}
                           />
-
                           {response && response?.totalProducts > 0 ? (
                             <span>{response.totalProducts}</span>
                           ) : (
