@@ -2,7 +2,6 @@
 .__checkout__address_form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
     margin-bottom: 5px;
 }
 
@@ -11,13 +10,14 @@
     display: flex;
     flex-direction: column;
     width: 95%;
+    
 }
 
 
 .__checkout__address_form>div>label {
     margin-bottom: 5px;
+    margin-top: 5px;
     display: block;
-    margin-bottom: 5px;
     letter-spacing: 1px;
     font-weight: 600;
     font-family: sans-serif;

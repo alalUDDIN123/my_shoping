@@ -8,7 +8,7 @@ import { AiFillShopping, AiFillHeart } from "react-icons/ai";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
 import ProfileDetails from "../../components/ProfileDetails";
-import ChangePassword from "../../commom/ChangePassword";
+import ResetPassword from "../../commom/ResetPassword";
 
 function UserProfile() {
   const [active, setActive] = useState("profile");
@@ -20,7 +20,7 @@ function UserProfile() {
       }
 
       case "Password": {
-        return <ChangePassword />;
+        return <ResetPassword />;
       }
       default: {
         return null;

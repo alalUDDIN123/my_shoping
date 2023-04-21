@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../redux/AppReducer/actions";
 import Loader from "../../components/Loader";
 import getLoggedUserData from "../../utils/LoggedUserData";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { removerAllCartAction } from "../../redux/AppReducer/actions";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,7 @@ const Cart = () => {
   const { response, isLoading } = useSelector(store => store.getCartDataReducer);
   const [isComponentChange, setIsComponentChange] = useState(false)
   const dispatch = useDispatch();
-
+ const navigate=useNavigate()
 
   const handleComponetChangeUpdate = () => {
     setIsComponentChange(!isComponentChange)
@@ -108,12 +108,12 @@ const Cart = () => {
                     Total Items: <strong>{response?.cartItems?.length}</strong>
                   </p>
                   <p className={styles._cart_sub_total}>
-                    <h4>
+                   
                       Subtotal: <span> ₹ {response?.totalPrice}</span>
-                    </h4>
+                    
                   </p>
                   <p>Tax will be calculated at order time</p>
-                  <button className={styles._cart_checkout_btn}>
+                  <button className={styles._cart_checkout_btn} onClick={()=>navigate("/checkout")} >
                     Checkout
                   </button>
                 </div>

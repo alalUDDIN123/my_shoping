@@ -2,23 +2,23 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import Home from './pages/users/Home'
 import AdminHome from './pages/admin/Home';
 import SuperHome from "./pages/superAdmin/Home"
-import Signup from './commom/Signup'
 import Login from './commom/Login'
+import Cart from './pages/users/Cart'
+import CheckoutPage from './pages/users/CheckoutPage'
+import PageNotFound from './components/PageNotFound'
+import ReqAuth from './components/ReqAuth'
+import Home from './pages/users/Home'
+import Signup from './commom/Signup'
 import ForgetPassword from './commom/ForgetPassword'
 import ResetPassword from './commom/ResetPassword'
 import ChangePassword from './commom/ChangePassword'
 import Products from './pages/users/ProductsPage'
 import Singleproduct from './pages/users/Singleproduct'
-import Cart from './pages/users/Cart'
 import Orders from './pages/users/Orders'
-import CheckoutPage from './pages/users/CheckoutPage'
 import UserProfile from './pages/users/UserProfile'
-import PageNotFound from './components/PageNotFound'
 import About from './pages/users/About'
-import ReqAuth from './components/ReqAuth'
 import Wishlist from './pages/users/Wishlist'
 
 
@@ -31,9 +31,9 @@ function App() {
       <Routes>
 
         {/* common route */}
-
-        <Route path="/signup" element={<Signup />} ></Route>
+        <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/changePassword" element={<ReqAuth><ChangePassword /></ReqAuth>}></Route>
         <Route path="/forgetPassword" element={<ReqAuth><ForgetPassword /></ReqAuth>} ></Route>
@@ -42,6 +42,7 @@ function App() {
 
 
         {/* Users route */}
+
         <Route path="/" element={<Home />} ></Route>
         <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>

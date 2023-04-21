@@ -103,12 +103,12 @@ const removeAllCart={
    }
 
    const DeliverinitialState = {
-    address1: "",
-    address2: "",
-    country: "",
+    address: "",
+    block: "",
     state: "",
     city: "",
     postalCode: "",
+    
 }
    const DeliveryAddressIntial={
     isLoading:false,
@@ -116,6 +116,16 @@ const removeAllCart={
     response:""
 }
 
+const DeliverAddressInitialState = {
+    deliveryAddress: {}
+  };
+  
+
+const addOrderIntial={
+    isLoading:false,
+    isError:false,
+    response:''
+}
 export {
     signupInitial,
     loginInitial,
@@ -134,7 +144,9 @@ export {
     removeSingleCart,
     removeAllCart,
     DeliverinitialState,
-    DeliveryAddressIntial
+    DeliveryAddressIntial,
+    DeliverAddressInitialState,
+    addOrderIntial
 
 
 

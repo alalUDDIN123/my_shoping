@@ -1,12 +1,11 @@
 .user_sidebar_main {
   width: 250px;
   height: calc(100vh - 101px);
-  background-color: #fca311;
+  background-color: white;
+  border-right: 2px solid black;
   position: sticky;
   top: 101px;
   left: 0;
-  box-shadow: rgb(0, 0, 0) 0px 10px 20px -20px, rgb(0, 0, 0) 0px 10px 30px -30px,
-    rgb(0, 0, 0) 0px -2px 6px 0px inset;
 }
 
 .user_sidebar_main > h1 {
@@ -46,7 +45,7 @@
 .active {
   background: #000;
   color: white;
-  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
+  box-shadow: rgba(216, 249, 3, 0.912) 0px 5px 15px;
 }
 /* --------------------------------------------------------------------------user component  */
 .each_user_component {
