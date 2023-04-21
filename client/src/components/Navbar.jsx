@@ -23,6 +23,7 @@ import getLoggedUserData, { loadUser } from "../utils/LoggedUserData";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../redux/AppReducer/actions";
 
+
 function Navbar() {
   const LoggedUser = getLoggedUserData();
   const reGisterUer = loadUser();
@@ -41,15 +42,12 @@ function Navbar() {
     return isMobile ? children : null;
   };
 
-
-
   const onLogout = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (confirmed) {
       localStorage.removeItem("loggedUser");
       localStorage.removeItem("registration");
-      window.location.reload()
-
+      window.location.reload();
     }
   };
 
@@ -59,6 +57,9 @@ function Navbar() {
   useEffect(() => {
     dispatch(getCartData());
   }, [dispatch]);
+
+
+  //console.log("response::-", response);
 
   return (
     <>
@@ -72,7 +73,8 @@ function Navbar() {
             <SearchInput />
           </div>
           <div className={styles._rightSide}>
-            {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
+            {(LoggedUser && LoggedUser.role) ||
+            (reGisterUer && reGisterUer.message) ? (
               <>
                 <button
                   onClick={() => navigate("/about")}
@@ -110,7 +112,17 @@ function Navbar() {
                     color: "#fca311"
                   }} /> */}
 
-                  <img src={(LoggedUser && LoggedUser.avator) || (reGisterUer && reGisterUer.avator)} alt={(LoggedUser && LoggedUser.name) || (reGisterUer && reGisterUer.role)} className={styles._navbar_avator_} />
+                  <img
+                    src={
+                      (LoggedUser && LoggedUser.avator) ||
+                      (reGisterUer && reGisterUer.avator)
+                    }
+                    alt={
+                      (LoggedUser && LoggedUser.name) ||
+                      (reGisterUer && reGisterUer.role)
+                    }
+                    className={styles._navbar_avator_}
+                  />
                   <div className={styles.dropdown}>
                     <Link to="/profile">
                       <ImProfile
@@ -128,16 +140,16 @@ function Navbar() {
                       />
                       Orders
                     </Link>
-                    {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? (
+                    {(LoggedUser && LoggedUser.role === "admin") ||
+                    (reGisterUer && reGisterUer.role === "admin") ? (
                       <Link to="/admin">
                         <SiAdminer
                           style={{ marginRight: "10px", color: "white" }}
                         />
                         Admin
                       </Link>
-                    ) : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? (
-                      null
-                    ) : (
+                    ) : (LoggedUser && LoggedUser.role === "user") ||
+                      (reGisterUer && reGisterUer.role === "user") ? null : (
                       <Link to="/superAdmin">
                         <SiMicrosoftaccess
                           style={{ marginRight: "10px", color: "white" }}
@@ -229,8 +241,9 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
-              }`}
+            className={`${styles._tablet_rightSide} ${
+              showRightSide ? "showRightSide" : ""
+            }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -274,18 +287,25 @@ function Navbar() {
                           Orders
                         </a>
                       </li>
-                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
-                        <a href="/admin">
-                          <SiAdminer style={{ marginRight: "10px" }} />
-                          Admin
-                        </a>
-                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
-                        <a href="/superAdmin">
-                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
-                          SuperAdmin
-                        </a>
-                      </li>
-                      }
+                      {(LoggedUser && LoggedUser.role === "admin") ||
+                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        <li>
+                          <a href="/admin">
+                            <SiAdminer style={{ marginRight: "10px" }} />
+                            Admin
+                          </a>
+                        </li>
+                      ) : (LoggedUser && LoggedUser.role === "user") ||
+                        (reGisterUer && reGisterUer.role === "user") ? null : (
+                        <li>
+                          <a href="/superAdmin">
+                            <SiMicrosoftaccess
+                              style={{ marginRight: "10px" }}
+                            />
+                            SuperAdmin
+                          </a>
+                        </li>
+                      )}
                     </ul>
                   </>
                 ) : (
@@ -348,8 +368,9 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
-              }`}
+            className={`${styles._tablet_rightSide} ${
+              showRightSide ? "showRightSide" : ""
+            }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -359,7 +380,8 @@ function Navbar() {
             </div>
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
-                {(LoggedUser && LoggedUser.role) || (reGisterUer && reGisterUer.message) ? (
+                {(LoggedUser && LoggedUser.role) ||
+                (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -393,18 +415,25 @@ function Navbar() {
                         </a>
                       </li>
 
-                      {(LoggedUser && LoggedUser.role === "admin") || (reGisterUer && reGisterUer.role === "admin") ? <li>
-                        <a href="/admin">
-                          <SiAdminer style={{ marginRight: "10px" }} />
-                          Admin
-                        </a>
-                      </li> : (LoggedUser && LoggedUser.role === "user") || (reGisterUer && reGisterUer.role === "user") ? null : <li>
-                        <a href="/superAdmin">
-                          <SiMicrosoftaccess style={{ marginRight: "10px" }} />
-                          SuperAdmin
-                        </a>
-                      </li>
-                      }
+                      {(LoggedUser && LoggedUser.role === "admin") ||
+                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        <li>
+                          <a href="/admin">
+                            <SiAdminer style={{ marginRight: "10px" }} />
+                            Admin
+                          </a>
+                        </li>
+                      ) : (LoggedUser && LoggedUser.role === "user") ||
+                        (reGisterUer && reGisterUer.role === "user") ? null : (
+                        <li>
+                          <a href="/superAdmin">
+                            <SiMicrosoftaccess
+                              style={{ marginRight: "10px" }}
+                            />
+                            SuperAdmin
+                          </a>
+                        </li>
+                      )}
                     </ul>
                   </>
                 ) : (

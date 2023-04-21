@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import styles from "../../styles/checkout.module.css";
 import { FaCheckCircle } from "react-icons/fa";
@@ -7,6 +8,7 @@ import Payments from "../../components/Payments";
 import Confirm from "../../components/Confirm";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../redux/AppReducer/actions";
+
 function CheckoutPage() {
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -103,7 +105,5 @@ function CheckoutPage() {
     </>
   );
 }
-
-
 
 export default CheckoutPage;

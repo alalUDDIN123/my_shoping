@@ -32,6 +32,7 @@ function App() {
 
         {/* common route */}
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
+        <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/about" element={<About />}></Route>
@@ -42,7 +43,6 @@ function App() {
 
 
         {/* Users route */}
-
         <Route path="/" element={<Home />} ></Route>
         <Route path="/products" element={<Products />} ></Route>
         <Route path="/products/:category" element={<Products />} ></Route>
