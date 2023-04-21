@@ -18,10 +18,12 @@ import { FcAbout } from "react-icons/fc";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import styles from "./navbar.module.css";
 import { useMediaQuery } from "react-responsive";
-import SearchInput from "../home/SearchInput";
-import getLoggedUserData, { loadUser } from "../utils/LoggedUserData";
+import SearchInput from "../../home/SearchInput";
+
 import { useDispatch, useSelector } from "react-redux";
-import { getCartData } from "../redux/AppReducer/cart/actions";
+import getLoggedUserData, { loadUser } from "../../utils/LoggedUserData";
+import { getCartData } from "../../redux/AppReducer/cart/actions";
+
 
 
 function Navbar() {

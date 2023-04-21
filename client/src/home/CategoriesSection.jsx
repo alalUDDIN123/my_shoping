@@ -48,7 +48,7 @@ function CategoriesSection() {
         {categories?.map((item) => (
           <Link
             key={item.id}
-            to={`/products/${item.category}`}
+            to={`/products/category=${item.category}`}
             className={styles.home_link_categories}
           >
             <div>{item.icon}</div>

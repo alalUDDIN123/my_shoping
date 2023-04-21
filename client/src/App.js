@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Navbar from './navbar/Navbar'
+
 import Footer from "./components/Footer/Footer"
 import AdminHome from './admin/Home';
 import SuperHome from "./superAdmin/Home"
@@ -20,6 +20,7 @@ import Orders from './components/checkoutAndOrder/Orders';
 import Login from './components/authentication/Login';
 import Cart from "./components/cart/Cart"
 import Signup from './components/authentication/Signup';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   return (
