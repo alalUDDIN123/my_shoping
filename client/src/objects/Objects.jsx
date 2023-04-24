@@ -77,54 +77,59 @@ const addReviewInitiaState = {
     comment: ""
 }
 
-const AddtoCartIntial={
-    isLoading:false,
-    isError:false,
-    response:""
+const AddtoCartIntial = {
+    isLoading: false,
+    isError: false,
+    response: ""
 }
 
 
-const getCartDataIntial={
-    isLoading:false,
-    isError:false,
-    response:[]
+const getCartDataIntial = {
+    isLoading: false,
+    isError: false,
+    response: []
 }
 
-const removeSingleCart={
- isLoading:false,
- isError:false,
- response:""   
+const removeSingleCart = {
+    isLoading: false,
+    isError: false,
+    response: ""
 }
 
-const removeAllCart={
-    isLoading:false,
-    isError:false,
-    response:""   
-   }
+const removeAllCart = {
+    isLoading: false,
+    isError: false,
+    response: ""
+}
 
-   const DeliverinitialState = {
+const DeliverinitialState = {
     address: "",
     block: "",
     state: "",
     city: "",
     postalCode: "",
-    
+
 }
-   const DeliveryAddressIntial={
-    isLoading:false,
-    isError:false,
-    response:""
+const DeliveryAddressIntial = {
+    isLoading: false,
+    isError: false,
+    response: ""
 }
 
 const DeliverAddressInitialState = {
     deliveryAddress: {}
-  };
-  
+};
 
-const addOrderIntial={
-    isLoading:false,
-    isError:false,
-    response:''
+
+const addOrderIntial = {
+    isLoading: false,
+    isError: false,
+    response: ''
+}
+
+const intitialStateForget = {
+  password: "",
+  confirmPassword: ""
 }
 export {
     signupInitial,
@@ -146,7 +151,8 @@ export {
     DeliverinitialState,
     DeliveryAddressIntial,
     DeliverAddressInitialState,
-    addOrderIntial
+    addOrderIntial,
+    intitialStateForget
 
 
 

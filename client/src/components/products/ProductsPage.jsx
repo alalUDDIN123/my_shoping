@@ -11,6 +11,7 @@ import DocumentTitle from "../Helmet/Helmet";
 import { getProductsData } from "../../redux/AppReducer/products/actions";
 import InputCheckbox from "./InputCheckbox";
 
+
 const ratingOption = [5, 4, 3, 2, 4.5, 3.5, 2.5];
 const categoryOptionAv = [
   { cate: "Electronics", checked: false },
@@ -40,6 +41,7 @@ function ProductsPage() {
     return isMobile ? children : null;
   };
 
+
   // various filter section
   const [categoryOption, setCategoryOption] = useState(categoryOptionAv);
 
@@ -47,10 +49,15 @@ function ProductsPage() {
   const [brandOption, setBrandOption] = useState(brandOptionAv);
 
   const [selectedCategories, setSelectedCategories] = useState([]);
+
+
   const [selectedBrands, setSelectedBrands] = useState([]);
 
-  // const [minPrice, setMinPrice] = useState("");
-  // const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+
+  const [isHanldePriceClick,SetIsHanldepriceClick]=useState(false)
+  
   // const [rating, setRating] = useState("")
   // const [page, setPage] = useState(1);
 
@@ -100,78 +107,29 @@ function ProductsPage() {
   }
 
 
+  // handling price 
 
-
-// setting value in the url with key
-
-
-const setFiltersInUrl = () => {
-  const urlSearchParams = new URLSearchParams(window.location.search);
-
-
-  if (selectedBrands.length > 0) {
-    urlSearchParams.set("brand", selectedBrands.join(","));
-  } else {
-    urlSearchParams.delete("brand");
+  const hanlePrice=()=>{
+    console.log("minPrice::-",minPrice,"maxPrice::-",maxPrice);
   }
-
-  if (selectedCategories.length > 0) {
-    urlSearchParams.set("category", selectedCategories.join(","));
-  } else {
-    urlSearchParams.delete("category");
-  }
-
-  const url = `${window.location.pathname}?${urlSearchParams.toString()}`;
-  window.history.pushState({}, "", url);
-};
-
-
-
-setFiltersInUrl()
-
-
-
-function getFiltersFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get('category');
-  const brands = urlParams.get('brand');
- 
-
-  return ({
-   
-    category: category,
-    brands: brands,
-   
-  });
-
-}
-
-
-let value= getFiltersFromURL()
-console.log("filters value from URL::-",value);
-
-
-
-
-
-
-
-
-
-
 
 
   useEffect(() => {
-    dispatch(getProductsData());
-  }, [dispatch]);
+    dispatch(getProductsData({ category: selectedCategories, brand: selectedBrands }));
+  }, [selectedCategories, selectedBrands, dispatch]);
+  
+  
+  
+  
 
-  console.log(selectedCategories);
-  console.log(selectedBrands)
+  // console.log("selected categories::-",selectedCategories,"selectedBrands::-",selectedBrands);
+
 
   return (
     <>
       <DocumentTitle pageTitle="| PRODUCTS" />
       <Dekstop>
+      <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={styles._main_div}>
           {/* filters container */}
           <div className={styles._filters}>
@@ -219,14 +177,14 @@ console.log("filters value from URL::-",value);
               </label>
               <div>
                 <label htmlFor=""> Min price</label>
-                <input type="number" />
+                <input type="number" value={minPrice || ''} onChange={(e) => setMinPrice(Number(e.target.value))} />
               </div>
               <div>
                 <label htmlFor="">Max price</label>
-                <input type="number" />
+              <input type="number" value={maxPrice || ''} onChange={(e) => setMaxPrice(Number(e.target.value))} />
               </div>
 
-              <button className={styles._apply_button}>Apply</button>
+              <button className={styles._apply_button} onClick={hanlePrice} >Apply</button>
             </div>
             <hr />
 
@@ -256,7 +214,7 @@ console.log("filters value from URL::-",value);
                 products && products?.map((el) => <ProductCard key={el._id} {...el} />)
               )}
             </div>
-         
+
           </div>
         </main>
       </Dekstop>
@@ -264,6 +222,7 @@ console.log("filters value from URL::-",value);
       {/* Tablet*/}
 
       <Tablet>
+      <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={stylesTablet._tablet_main_div}>
           {/* filters container */}
           <div className={stylesTablet._tablet_filters}>
@@ -348,7 +307,7 @@ console.log("filters value from URL::-",value);
                 products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
               )}
             </div>
-            
+
           </div>
         </main>
       </Tablet>
@@ -356,6 +315,7 @@ console.log("filters value from URL::-",value);
       {/* Mobile */}
 
       <Mobile>
+      <DocumentTitle pageTitle="| PRODUCTS" />
         <div className={stylesTablet._mobile_products_container}>
           <div className={stylesTablet._mobile_products}>
             {isLoading ? (
@@ -366,7 +326,7 @@ console.log("filters value from URL::-",value);
               products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
             )}
           </div>
-        
+
         </div>
       </Mobile>
     </>

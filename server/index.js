@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 const app = express()
 const cors = require("cors")
 
+
+
 // requiring file path 👍👍👍
 const ConnectDb = require("./config/Db.connect")
 const userRouter = require("./routes/user.route");
@@ -29,11 +31,16 @@ app.use(cors({
 }))
 
 
+
 // home route 👍👍👍
 app.use(express.static('public'));
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+
+app.use("/api", orderAddressRouter)
+
 
 
 
@@ -42,7 +49,9 @@ app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/order", orderRouter)
-app.use("/api", orderAddressRouter)
+
+
+
 
 
 const PORT = process.env.PORT || 8085;
