@@ -10,22 +10,15 @@ import TabletProductCard from "./TabletProductCard";
 import DocumentTitle from "../Helmet/Helmet";
 import { getProductsData } from "../../redux/AppReducer/products/actions";
 import InputCheckbox from "./InputCheckbox";
+import {
+  brandOptionAv,
+  categoryOptionAv,
+  priceRanges,
+  ratingOption
+} from "../../Constant/ProductsFiltersOption";
 
 
-const ratingOption = [5, 4, 3, 2, 4.5, 3.5, 2.5];
-const categoryOptionAv = [
-  { cate: "Electronics", checked: false },
-  { cate: "accessories", checked: false },
-  { cate: "clothing", checked: false },
-];
-const brandOptionAv = [
-  { brand: "Apple", checked: false },
-  { brand: "ideaPad", checked: false },
-  { brand: "aldo", checked: false },
-  { brand: "supcase", checked: false },
-  { brand: "gopgan", checked: false },
-  { brand: "adidas", checked: false },
-];
+
 
 function ProductsPage() {
   const Dekstop = ({ children }) => {
@@ -41,24 +34,26 @@ function ProductsPage() {
     return isMobile ? children : null;
   };
 
-
   // various filter section
   const [categoryOption, setCategoryOption] = useState(categoryOptionAv);
-
   // various branding secion
   const [brandOption, setBrandOption] = useState(brandOptionAv);
-
   const [selectedCategories, setSelectedCategories] = useState([]);
-
-
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState("")
+  const [minPrice, maxPrice] = selectedPriceRange.split('-');
+  const [rating, setRating] = useState("")
+  const pathname = window.location.pathname
 
-  const [minPrice, setMinPrice] = useState(null);
-  const [maxPrice, setMaxPrice] = useState(null);
+  if (pathname === "/products") {
+    console.log("no need");
+  } else {
+    const Categegoryvalue = pathname.split("=")[1];
+    console.log(Categegoryvalue);
 
-  const [isHanldePriceClick,SetIsHanldepriceClick]=useState(false)
-  
-  // const [rating, setRating] = useState("")
+    // setCategoryFromURL(Categegoryvalue)
+  }
+
   // const [page, setPage] = useState(1);
 
 
@@ -107,29 +102,29 @@ function ProductsPage() {
   }
 
 
-  // handling price 
-
-  const hanlePrice=()=>{
-    console.log("minPrice::-",minPrice,"maxPrice::-",maxPrice);
-  }
 
 
   useEffect(() => {
-    dispatch(getProductsData({ category: selectedCategories, brand: selectedBrands }));
-  }, [selectedCategories, selectedBrands, dispatch]);
-  
-  
-  
-  
+    dispatch(getProductsData({
+      category: selectedCategories,
+      brand: selectedBrands,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      ratings: rating,
+    }));
+  }, [ selectedCategories, selectedBrands, dispatch, minPrice, maxPrice, rating]);
 
-  // console.log("selected categories::-",selectedCategories,"selectedBrands::-",selectedBrands);
+
+  // console.log("minPrice::-",minPrice,'maxprice:-',maxPrice);
+  // console.log("rating:-", rating);
+  // console.log("parsms:-", param);
 
 
   return (
     <>
       <DocumentTitle pageTitle="| PRODUCTS" />
       <Dekstop>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={styles._main_div}>
           {/* filters container */}
           <div className={styles._filters}>
@@ -173,24 +168,25 @@ function ProductsPage() {
               <label
                 className={`${styles._label_text} ${styles._label_text_price}`}
               >
-                Enter price range
+                Choose price range
               </label>
-              <div>
-                <label htmlFor=""> Min price</label>
-                <input type="number" value={minPrice || ''} onChange={(e) => setMinPrice(Number(e.target.value))} />
-              </div>
-              <div>
-                <label htmlFor="">Max price</label>
-              <input type="number" value={maxPrice || ''} onChange={(e) => setMaxPrice(Number(e.target.value))} />
-              </div>
+              <select value={selectedPriceRange}
+                className={styles.__select__priceRange}
+                onChange={(e) => setSelectedPriceRange(e.target.value)}>
+                <option value="" disabled>-- Select price range --</option>
+                {priceRanges.slice(1).map(range => (
+                  <option key={range.value} value={range.value}>
+                    {range.label}
+                  </option>
+                ))}
+              </select>
 
-              <button className={styles._apply_button} onClick={hanlePrice} >Apply</button>
             </div>
             <hr />
 
             <div className={styles._rating_div}>
               <label>Choose rating</label>
-              <select>
+              <select onChange={(e) => setRating(Number(e.target.value))} >
                 <option value="" disabled>
                   Ratings
                 </option>
@@ -208,8 +204,8 @@ function ProductsPage() {
             <div className={styles._products}>
               {isLoading ? (
                 <Loader />
-              ) : products.length === 0 ? (
-                <h1>products not available</h1>
+              ) : products === undefined || products.length === 0 ? (
+                <h1 style={{ textAlign: "center", marginLeft: "10%" }}>Products not available</h1>
               ) : (
                 products && products?.map((el) => <ProductCard key={el._id} {...el} />)
               )}
@@ -222,7 +218,7 @@ function ProductsPage() {
       {/* Tablet*/}
 
       <Tablet>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={stylesTablet._tablet_main_div}>
           {/* filters container */}
           <div className={stylesTablet._tablet_filters}>
@@ -301,8 +297,8 @@ function ProductsPage() {
             <div className={stylesTablet._tablet_products}>
               {isLoading ? (
                 <Loader />
-              ) : products.length === 0 ? (
-                <h1>products not available</h1>
+              ) : products === undefined || products.length === 0 ? (
+                <h1>Products not available</h1>
               ) : (
                 products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
               )}
@@ -315,13 +311,13 @@ function ProductsPage() {
       {/* Mobile */}
 
       <Mobile>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <div className={stylesTablet._mobile_products_container}>
           <div className={stylesTablet._mobile_products}>
             {isLoading ? (
               <Loader />
-            ) : products.length === 0 ? (
-              <h1>products not available</h1>
+            ) : products === undefined || products.length === 0 ? (
+              <h1>Products not available</h1>
             ) : (
               products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
             )}

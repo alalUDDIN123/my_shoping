@@ -152,6 +152,12 @@ function Singleproduct() {
   }
 
 
+  // redirect user to checkout page when click Buy now
+
+  const handleCheckoutRedirect=()=>{
+    navigate("/checkout")
+  }
+
 
 
 
@@ -194,7 +200,7 @@ function Singleproduct() {
                 </div>
               ) : (
                 <div className={styles._main_single_buttons}>
-                  <button className={styles.buyButton}>
+                  <button className={styles.buyButton} onClick={handleCheckoutRedirect} >
                     Buy Now
                     <TiShoppingCart
                       style={{ paddingLeft: "10px", fontSize: "30px" }}
@@ -385,7 +391,7 @@ function Singleproduct() {
               </div>
             ) : (
               <div className={styles._main_single_buttons}>
-                <button className={styles.buyButton}>
+                <button className={styles.buyButton} onClick={handleCheckoutRedirect} >
                   Buy Now
                   <TiShoppingCart
                     style={{ paddingLeft: "10px", fontSize: "30px" }}
@@ -603,7 +609,7 @@ function Singleproduct() {
           </div>
         ) : (
           <div className={styles._main_single_buttons}>
-            <button className={styles.buyButton}>
+            <button className={styles.buyButton} onClick={handleCheckoutRedirect} >
               Buy Now
               <TiShoppingCart
                 style={{ paddingLeft: "10px", fontSize: "30px" }}
