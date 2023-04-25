@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangePasswordAction } from '../../redux/AuthReducer/actions';
+import { CHANGE_PASSWORD_REQUEST_FAILUE, CHANGE_PASSWORD_REQUEST_SUCESS } from '../../Constant/actionTypes';
 
 
 
@@ -20,6 +21,8 @@ const ChangePassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formLoading, SetFormLoading] = useState(true)
   const { isLoading, isError, response } = useSelector(store => store.ChangePasswordReducer)
+
+
   const dispatch = useDispatch()
   setTimeout(() => {
     SetFormLoading(false)
@@ -41,12 +44,7 @@ const ChangePassword = () => {
 
     // Validate the input and show any error messages
     if (name === "email") {
-      if (!value) {
-        setShowMessage((prevState) => ({
-          ...prevState,
-          email: "Email is required",
-        }));
-      } else if (!isValidEmail(value)) {
+      if (!isValidEmail(value)) {
         setShowMessage((prevState) => ({
           ...prevState,
           email: "Please provide a valid email address",
@@ -58,12 +56,7 @@ const ChangePassword = () => {
         }));
       }
     } else if (name === "currentPassword" || name === "newPassword") {
-      if (!value) {
-        setShowMessage((prevState) => ({
-          ...prevState,
-          [name]: "Password is required",
-        }));
-      } else if (value.length < 6) {
+       if (value.length < 6) {
         setShowMessage((prevState) => ({
           ...prevState,
           [name]: "Password must be at least 6 characters long",
@@ -95,6 +88,9 @@ const ChangePassword = () => {
         }));
       }
     }
+
+
+   
   };
 
 
@@ -108,27 +104,37 @@ const ChangePassword = () => {
       password: state.currentPassword,
       newPassword: state.newPassword
     }
-  
+
     dispatch(ChangePasswordAction(payload))
   }
-  
+
   if (isError) {
     if (isError === "User not found") {
-      toast.error(isError)
+      toast.error(isError, { autoClose: 2000 });
+      dispatch({ type: CHANGE_PASSWORD_REQUEST_FAILUE, payload: null })
+      setState(changePasswordInitialState)
+
     } else if (isError === "Invalid old password") {
-      toast.error(isError)
+      toast.error(isError, { autoClose: 2000 });
+      dispatch({ type: CHANGE_PASSWORD_REQUEST_FAILUE, payload: null })
+      setState(changePasswordInitialState)
+
     } else {
-      toast.error("Something went wrong")
+      toast.error("Something went wrong", { autoClose: 2000 })
+      dispatch({ type: CHANGE_PASSWORD_REQUEST_FAILUE, payload: null })
+      setState(changePasswordInitialState)
     }
-  
+
   }
-  
+
   if (response) {
     if (response === "Password updated successfully") {
-      toast.success(response)
+      toast.success(response, { autoClose: 2000 })
+      dispatch({ type: CHANGE_PASSWORD_REQUEST_SUCESS, payload: null })
+      setState(changePasswordInitialState)
     }
   }
-  
+
 
   return (
     <>
@@ -151,15 +157,18 @@ const ChangePassword = () => {
                     <input type="email"
                       name="email" placeholder="Email"
                       onChange={handleInputChange}
-                      value={state.email} />
+                      value={state.email}
+                      required />
                   </div>
 
                   {showMessage && <p className={styles._show_indcator} >{showMessage.email}</p>}
 
                   <div className={styles.input_field}>
                     <input type={showPassword ? 'text' : 'password'}
-                      name="currentPassword" placeholder="Current password" onChange={handleInputChange}
-                      value={state.currentPassword} />
+                      name="currentPassword" placeholder="Current password"
+                       onChange={handleInputChange}
+                      value={state.currentPassword}
+                      required />
                     <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
 
@@ -172,14 +181,18 @@ const ChangePassword = () => {
                       name="newPassword"
                       placeholder="New password"
                       onChange={handleInputChange}
-                      value={state.newPassword} />
+                      value={state.newPassword}
+                      required />
                     <span onClick={handleToggleConfirmPassword}>{showConfirmPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
 
 
                   {showMessage && <p className={styles._show_indcator} >{showMessage.newPassword}</p>}
 
-                  <input className={styles.button} type="submit" value={isLoading ? "Fetching..." : "Submit"} />
+                  <input className={styles.button} 
+                  type="submit" 
+             
+                  value={isLoading ? "Fetching..." : "Change Password"} />
 
                 </form>
               </div>
