@@ -1,6 +1,10 @@
 
 
 import {
+    CHANGE_PASSWORD_REQUEST,
+    CHANGE_PASSWORD_REQUEST_FAILUE,
+    CHANGE_PASSWORD_REQUEST_SUCESS,
+
     FORGET_PASSWORD_REQUEST,
     FORGET_PASSWORD_REQUEST_FAILUE,
     FORGET_PASSWORD_REQUEST_SUCESS,
@@ -21,6 +25,7 @@ import {
 } from "../../Constant/actionTypes";
 
 import {
+    changePasswordInitial,
     forgetPasswordInitial,
     loginInitial,
     resetPasswordIntial,
@@ -141,10 +146,39 @@ const resetPasswordReducer = (state = resetPasswordIntial,{type,payload})=>{
     }
 }
 
+const ChangePasswordReducer = (state = changePasswordInitial, { type, payload }) => {
+    switch (type) {
+      case CHANGE_PASSWORD_REQUEST:
+        return {
+          ...state,
+          isLoading: true,
+        };
+  
+      case CHANGE_PASSWORD_REQUEST_SUCESS:
+        return {
+          ...state,
+          response: payload,
+          isLoading: false,
+          isError: null,
+        };
+  
+      case CHANGE_PASSWORD_REQUEST_FAILUE:
+        return {
+          ...state,
+          isError: payload,
+          isLoading: false,
+        };
+  
+      default:
+        return state;
+    }
+  };
+
 
 export {
     signupReducer,
     loginReducer,
     forgetPasswordReducer,
-    resetPasswordReducer
+    resetPasswordReducer,
+    ChangePasswordReducer
 }

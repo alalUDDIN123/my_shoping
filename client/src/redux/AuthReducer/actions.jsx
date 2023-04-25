@@ -1,16 +1,24 @@
-import {
+import { 
+   CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_REQUEST_FAILUE,
+  CHANGE_PASSWORD_REQUEST_SUCESS,
+
   FORGET_PASSWORD_REQUEST,
   FORGET_PASSWORD_REQUEST_FAILUE,
   FORGET_PASSWORD_REQUEST_SUCESS,
+
   LOGIN_REQUEST,
-  LOGIN_REQUEST_FAILUE,
+  LOGIN_REQUEST_FAILUE, 
   LOGIN_REQUEST_SUCESS,
+
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST_FAILUE,
   RESET_PASSWORD_REQUEST_SUCESS,
+
   SIGNUP_REQUEST,
   SIGNUP_REQUEST_FAILUE,
   SIGNUP_REQUEST_SUCESS,
+
 } from "../../Constant/actionTypes";
 
 const BASE_URL ="http://localhost:8080";
@@ -137,9 +145,42 @@ const ResetPassActionObj = (payload) => async (dispatch) => {
   }
 };
 
+const ChangePasswordAction = (payload) => async (dispatch) => {
+  dispatch({ type: CHANGE_PASSWORD_REQUEST });
+  let responseData = null;
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/users/change/password`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    responseData = await res.json();
+
+    if (res.ok) {
+      dispatch({ type: CHANGE_PASSWORD_REQUEST_SUCESS, payload: responseData.msg });
+    } else {
+      dispatch({
+        type: CHANGE_PASSWORD_REQUEST_FAILUE,
+        payload: responseData && responseData.msg,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: CHANGE_PASSWORD_REQUEST_FAILUE,
+      payload: responseData ? responseData.msg : error.message,
+    });
+  }
+};
+
+
 export {
   SignupActionObj,
   SigninActionObj,
   ForgetPassActionObj,
   ResetPassActionObj,
+  ChangePasswordAction
 };

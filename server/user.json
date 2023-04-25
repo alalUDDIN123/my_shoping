@@ -45,5 +45,11 @@
         "password": "Abhit23@?+",
         "mobile": 3454385387,
         "role": "admin"
+    },{
+        "name":"Tayaba",
+        "email":"tayaba@gmail.com",
+        "password":"Tabyab123/?",
+        "mobile":6002576453,
+        "role":"admin"
     }
 ]

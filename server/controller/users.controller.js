@@ -277,13 +277,13 @@ const ChangePassword = async (req, res) => {
     try {
         const user = await userModal.findOne({ email });
         if (!user) {
-            return res.status(404).send("User not found");
+            return res.status(404).send({msg:"User not found"});
         }
 
         // check if old password matches the one in the database
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).send("Invalid old password");
+            return res.status(401).send({msg:"Invalid old password"});
         }
 
         // hash and update user's password with the new password
@@ -291,7 +291,7 @@ const ChangePassword = async (req, res) => {
         user.password = hashedPassword;
         await user.save();
 
-        res.status(200).send("Password updated successfully");
+        res.status(200).send({msg:"Password updated successfully"});
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
