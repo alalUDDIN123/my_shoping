@@ -1,10 +1,8 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-
 import Footer from "./components/Footer/Footer"
-import AdminHome from './admin/Home';
+import AdminHome from "./admin/Home"
 import SuperHome from "./superAdmin/Home"
-import About from "./About/About"
 import PageNotFound from './components/pageNotfound/PageNotFound'
 import ReqAuth from './components/authentication/ReqAuth'
 import ForgetPassword from './components/authentication/ForgetPassword'
@@ -21,6 +19,7 @@ import Login from './components/authentication/Login';
 import Cart from "./components/cart/Cart"
 import Signup from './components/authentication/Signup';
 import Navbar from './components/navbar/Navbar';
+import About from './About/About'
 
 function App() {
   return (
@@ -35,7 +34,7 @@ function App() {
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/changePassword" element={<ReqAuth><ChangePassword /></ReqAuth>}></Route>
+        <Route path="/changePassword" element={<ChangePassword />}></Route>
         <Route path="/forgetPassword" element={<ForgetPassword />} ></Route>
         <Route path="/reset_password/token/:token" element={<ResetPassword />} ></Route>
 

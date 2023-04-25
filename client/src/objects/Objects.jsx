@@ -22,6 +22,18 @@ const resetPasswordIntial = {
     response: ""
 }
 
+const changePasswordInitialState={
+    email: "",
+    currentPassword: "",
+    newPassword: "",
+}
+
+const changePasswordInitial={
+    isLoading:false,
+    isError:"",
+    response:""
+}
+
 const ResetIntitialState = {
     password: "",
     confirmPassword: ""
@@ -136,6 +148,8 @@ export {
     loginInitial,
     forgetPasswordInitial,
     resetPasswordIntial,
+    changePasswordInitialState,
+    changePasswordInitial,
     ResetIntitialState,
     signupIntialState,
     loginInitialState,

@@ -5,7 +5,8 @@ import {
     signupReducer,
     loginReducer,
     forgetPasswordReducer,
-    resetPasswordReducer
+    resetPasswordReducer,
+    ChangePasswordReducer
 } from "./AuthReducer/reducer";
 
 import {
@@ -34,13 +35,17 @@ const combineReducer = combineReducers({
     loginReducer,
     forgetPasswordReducer,
     resetPasswordReducer,
+    ChangePasswordReducer,
+
     getProductReducer,
     getProductDetailsReducer,
     addReviwReducer,
+    
     addToCartReducer,
     getCartDataReducer,
     RemoveSingleCartReducer,
     RemoveAllCartReducer,
+
     deliveryAddressReducer,
     AddressReducer,
     addOrderReducer
