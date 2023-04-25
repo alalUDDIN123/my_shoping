@@ -96,10 +96,10 @@ input[type="checkbox"]+label {
   margin-bottom: 1rem;
 }
 
-._price_div>div>input {
+.__select__priceRange{
   width: 100%;
   padding: 7px;
-  border-radius: 2px;
+  border-radius: 3px;
   /* border: 1px solid black; */
 }
 
