@@ -75,43 +75,55 @@ const getWishlist = async (req, res) => {
 // remove wishlist 👍👍👍👍
 
 const removeFromWishlist = async (req, res) => {
-    const { userId, productId } = req.body;
 
-    if(!productId){
-        return res.status(400).json({ msg: "productId required" });
+  const { userId, productId } = req.body;
+
+  if (!productId) {
+    return res.status(400).json({ msg: "productId required" });
+  }
+
+  try {
+    // Find all wishlists of the user
+    const wishlists = await Wishlist.find({ userId });
+
+    // Check if the user has any wishlists
+    if (!wishlists || wishlists.length === 0) {
+      return res.status(404).send({ msg: "Wishlist not found" });
     }
 
-    try {
-        // Find all wishlists of the user
-        const wishlists = await Wishlist.find({ userId });
-       
+    let productFound = false;
 
-        // Check if the user has any wishlists
-        if (!wishlists || wishlists.length === 0 || wishlists[0].products.length === 0) {
-            return res.status(404).send({ msg: 'Wishlist not found' });
+    // Loop through all wishlists to find the product to remove
+    for (let i = 0; i < wishlists.length; i++) {
+      const wishlist = wishlists[i];
+      const productIndex = wishlist.products.findIndex(
+        (p) => p.productId.toString() === productId.toString()
+      );
+      if (productIndex !== -1) {
+        // Remove the product from the wishlist
+        wishlist.products.splice(productIndex, 1);
+
+        if (wishlist.products.length === 0) {
+          // Remove the wishlist if it has no products left
+          await Wishlist.findByIdAndDelete(wishlist._id);
+        } else {
+          await wishlist.save();
         }
 
-        // Loop through all wishlists to find the product to remove
-        for (let i = 0; i < wishlists.length; i++) {
-            // console.log("wishlists of i",wishlists[i]);
-            const wishlist = wishlists[i];
-            const productIndex = wishlist.products.findIndex(p => p.productId.toString() === productId.toString());
-
-            if (productIndex !== -1) {
-                // Remove the product from the wishlist
-                wishlist.products.splice(productIndex, 1);
-                await wishlist.save();
-
-                return res.status(200).json({ msg: "Product removed from wishlist", hint: "reSuc" });
-            }else{
-                return res.status(404).json({ msg: "Product not found in wishlist" });
-            }
-        }
-  
-
-    } catch (error) {
-        res.status(500).json({ msg: "Server error", err: error.message });
+        productFound = true;
+      }
     }
+
+    if (productFound) {
+      return res
+        .status(200)
+        .json({ msg: "Product removed from wishlist", hint: "reSuc" });
+    } else {
+      return res.status(404).json({ msg: "Product not found in wishlist" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: "Server error", err: error.message });
+  }
 };
 
 

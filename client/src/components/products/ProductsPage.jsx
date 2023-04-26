@@ -43,8 +43,6 @@ function ProductsPage() {
   const [selectedPriceRange, setSelectedPriceRange] = useState("")
   const [minPrice, maxPrice] = selectedPriceRange.split('-');
   const [rating, setRating] = useState("")
-
-
   // const [page, setPage] = useState(1);
 
 
@@ -104,7 +102,6 @@ function ProductsPage() {
       ratings: rating,
     }));
   }, [ selectedCategories, selectedBrands, dispatch, minPrice, maxPrice, rating]);
-
 
   // console.log("minPrice::-",minPrice,'maxprice:-',maxPrice);
   // console.log("rating:-", rating);
