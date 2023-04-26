@@ -156,11 +156,13 @@ const getWishlistInitial = {
     data: []
 }
 
+
 const removeWishListInitial={
     isLoading:false,
     isError:false,
     response:""
 }
+
 
 export {
     signupInitial,
@@ -189,6 +191,7 @@ export {
     addWishlistInitial,
     getWishlistInitial,
     removeWishListInitial
+
 
 
 

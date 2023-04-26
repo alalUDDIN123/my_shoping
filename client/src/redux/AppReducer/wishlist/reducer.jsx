@@ -8,6 +8,7 @@ import {
     GET_WISHLIST_REQUEST_FAILUE,
     GET_WISHLIST_REQUEST_SUCESS,
 
+
     REMOVE_WISHLIST_REQUEST,
     REMOVE_WISHLIST_REQUEST_FAILUE,
     REMOVE_WISHLIST_REQUEST_SUCESS,
@@ -18,6 +19,7 @@ import {
     addWishlistInitial, 
     getWishlistInitial,
     removeWishListInitial,
+
 } from "../../../objects/Objects";
 
 
@@ -73,6 +75,7 @@ const getWishListReducer = (state = getWishlistInitial, { type, payload }) => {
     }
 }
 
+
 const removeWishListReducer = (state = removeWishListInitial, { type, payload }) => {
     switch (type) {
 
@@ -103,4 +106,5 @@ export {
     addWishListReducer,
     getWishListReducer,
     removeWishListReducer
+
 }

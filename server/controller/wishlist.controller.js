@@ -75,6 +75,7 @@ const getWishlist = async (req, res) => {
 // remove wishlist 👍👍👍👍
 
 const removeFromWishlist = async (req, res) => {
+
   const { userId, productId } = req.body;
 
   if (!productId) {
@@ -124,8 +125,6 @@ const removeFromWishlist = async (req, res) => {
     res.status(500).json({ msg: "Server error", err: error.message });
   }
 };
-
-  
 
 
 

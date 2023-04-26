@@ -3,12 +3,19 @@ import {
     ADD_WISHLIST_REQUEST_FAILUE,
     ADD_WISHLIST_REQUEST_SUCESS,
 
+
     GET_WISHLIST_REQUEST,
     GET_WISHLIST_REQUEST_FAILUE,
     GET_WISHLIST_REQUEST_SUCESS,
+    
     REMOVE_WISHLIST_REQUEST,
     REMOVE_WISHLIST_REQUEST_FAILUE,
     REMOVE_WISHLIST_REQUEST_SUCESS,
+
+    GET_WISHLIST_REQUEST,
+    GET_WISHLIST_REQUEST_FAILUE,
+    GET_WISHLIST_REQUEST_SUCESS,
+
 
 } from "../../../Constant/actionTypes";
 
@@ -64,7 +71,8 @@ const GetWishListAction = (payload) => async (dispatch) => {
         // console.log("responseData:-", responseData);
 
         if (res.ok) {
-            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist });
+            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist});
+
         } else {
             dispatch({
                 type: GET_WISHLIST_REQUEST_FAILUE,
@@ -78,6 +86,7 @@ const GetWishListAction = (payload) => async (dispatch) => {
         });
     }
 };
+
 
 const RemoveWishListAction = (payload) => async (dispatch) => {
     dispatch({ type: REMOVE_WISHLIST_REQUEST });
@@ -116,4 +125,5 @@ export {
     AddWishListAction,
     GetWishListAction,
     RemoveWishListAction
+
 }

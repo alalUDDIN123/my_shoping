@@ -20,6 +20,7 @@ import Cart from "./components/cart/Cart"
 import Signup from './components/authentication/Signup';
 import Navbar from './components/navbar/Navbar';
 import About from './About/About'
+
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
