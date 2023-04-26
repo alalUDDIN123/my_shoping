@@ -43,7 +43,7 @@ function ProductsPage() {
   const [selectedPriceRange, setSelectedPriceRange] = useState("")
   const [minPrice, maxPrice] = selectedPriceRange.split('-');
   const [rating, setRating] = useState("")
- 
+
 
   // const [page, setPage] = useState(1);
 
