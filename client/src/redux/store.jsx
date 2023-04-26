@@ -26,7 +26,8 @@ import {
 
 import{
     addWishListReducer,
-    getWishListReducer
+    getWishListReducer,
+    removeWishListReducer
 } from "./AppReducer/wishlist/reducer"
 
 import {
@@ -56,6 +57,7 @@ const combineReducer = combineReducers({
     addOrderReducer,
 
     addWishListReducer,
-    getWishListReducer
+    getWishListReducer,
+    removeWishListReducer
 })
 export const store = legacy_createStore(combineReducer, applyMiddleware(thunk))

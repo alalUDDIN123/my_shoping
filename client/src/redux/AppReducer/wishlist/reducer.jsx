@@ -7,11 +7,17 @@ import {
     GET_WISHLIST_REQUEST,
     GET_WISHLIST_REQUEST_FAILUE,
     GET_WISHLIST_REQUEST_SUCESS,
+
+    REMOVE_WISHLIST_REQUEST,
+    REMOVE_WISHLIST_REQUEST_FAILUE,
+    REMOVE_WISHLIST_REQUEST_SUCESS,
+
 } from "../../../Constant/actionTypes";
 
 import {
     addWishlistInitial, 
     getWishlistInitial,
+    removeWishListInitial,
 } from "../../../objects/Objects";
 
 
@@ -67,7 +73,34 @@ const getWishListReducer = (state = getWishlistInitial, { type, payload }) => {
     }
 }
 
+const removeWishListReducer = (state = removeWishListInitial, { type, payload }) => {
+    switch (type) {
+
+        case REMOVE_WISHLIST_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+        case REMOVE_WISHLIST_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false,
+                isError: null
+
+            }
+        case REMOVE_WISHLIST_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: payload,
+                isLoading: false
+            }
+        default: return state
+    }
+}
+
 export {
     addWishListReducer,
-    getWishListReducer
+    getWishListReducer,
+    removeWishListReducer
 }

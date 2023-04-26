@@ -156,6 +156,12 @@ const getWishlistInitial = {
     data: []
 }
 
+const removeWishListInitial={
+    isLoading:false,
+    isError:false,
+    response:""
+}
+
 export {
     signupInitial,
     loginInitial,
@@ -181,7 +187,8 @@ export {
     addOrderIntial,
     intitialStateForget,
     addWishlistInitial,
-    getWishlistInitial
+    getWishlistInitial,
+    removeWishListInitial
 
 
 

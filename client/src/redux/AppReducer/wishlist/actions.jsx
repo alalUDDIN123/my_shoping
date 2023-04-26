@@ -2,9 +2,13 @@ import {
     ADD_WISHLIST_REQUEST,
     ADD_WISHLIST_REQUEST_FAILUE,
     ADD_WISHLIST_REQUEST_SUCESS,
+
     GET_WISHLIST_REQUEST,
     GET_WISHLIST_REQUEST_FAILUE,
     GET_WISHLIST_REQUEST_SUCESS,
+    REMOVE_WISHLIST_REQUEST,
+    REMOVE_WISHLIST_REQUEST_FAILUE,
+    REMOVE_WISHLIST_REQUEST_SUCESS,
 
 } from "../../../Constant/actionTypes";
 
@@ -60,7 +64,7 @@ const GetWishListAction = (payload) => async (dispatch) => {
         // console.log("responseData:-", responseData);
 
         if (res.ok) {
-            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist});
+            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist });
         } else {
             dispatch({
                 type: GET_WISHLIST_REQUEST_FAILUE,
@@ -75,7 +79,41 @@ const GetWishListAction = (payload) => async (dispatch) => {
     }
 };
 
+const RemoveWishListAction = (payload) => async (dispatch) => {
+    dispatch({ type: REMOVE_WISHLIST_REQUEST });
+    let responseData = null;
+    // console.log("token::-", payload);
+    try {
+        const res = await fetch(`${BASE_URL}/api/wishlist/remove`, {
+            method: "DELETE",
+            body: JSON.stringify({productId:payload.productId}),
+            headers: {
+                "Content-Type": "application/json",
+                token: payload.token
+            },
+        });
+
+        responseData = await res.json();
+        // console.log("responseData:-", responseData);
+
+        if (res.ok) {
+            dispatch({ type: REMOVE_WISHLIST_REQUEST_SUCESS, payload: responseData.hint });
+        } else {
+            dispatch({
+                type: REMOVE_WISHLIST_REQUEST_FAILUE,
+                payload: responseData && responseData.msg,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: REMOVE_WISHLIST_REQUEST_FAILUE,
+            payload: responseData ? responseData.msg : error.message,
+        });
+    }
+};
+
 export {
     AddWishListAction,
-    GetWishListAction
+    GetWishListAction,
+    RemoveWishListAction
 }
