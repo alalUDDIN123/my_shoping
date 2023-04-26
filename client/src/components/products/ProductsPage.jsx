@@ -43,16 +43,7 @@ function ProductsPage() {
   const [selectedPriceRange, setSelectedPriceRange] = useState("")
   const [minPrice, maxPrice] = selectedPriceRange.split('-');
   const [rating, setRating] = useState("")
-  const pathname = window.location.pathname
 
-  if (pathname === "/products") {
-    console.log("no need");
-  } else {
-    const Categegoryvalue = pathname.split("=")[1];
-    console.log(Categegoryvalue);
-
-    // setCategoryFromURL(Categegoryvalue)
-  }
 
   // const [page, setPage] = useState(1);
 

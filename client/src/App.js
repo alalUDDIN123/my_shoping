@@ -21,11 +21,17 @@ import Signup from './components/authentication/Signup';
 import Navbar from './components/navbar/Navbar';
 import About from './About/About'
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
+
 function App() {
   return (
     <>
 
       <Navbar />
+
+      <ToastContainer />
 
       <Routes>
 
@@ -43,7 +49,6 @@ function App() {
         {/* Users route */}
         <Route path="/" element={<Home />} ></Route>
         <Route path="/products" element={<ProductsPage />} ></Route>
-        <Route path="/products/:category" element={<ProductsPage />} ></Route>
         <Route path="/product/single/:id" element={<Singleproduct />} ></Route>
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>

@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./home.module.css";
-import { Link } from "react-router-dom";
 import { MdOutlineElectricalServices } from "react-icons/md";
 import { BsLaptop } from "react-icons/bs";
 import { GiClothes } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -24,7 +24,7 @@ const categories = [
 ];
 
 function CategoriesSection() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   // const Dekstaop = ({ children }) => {
   //     const isDekstop = useMediaQuery({ minWidth: 992 })
 
@@ -42,18 +42,23 @@ function CategoriesSection() {
   //     return isMobile ? children : null
   // }
 
+  const handleNavigate=(cat)=>{
+    localStorage.setItem("homeCategory",JSON.stringify(cat))
+    navigate("/products")
+  }
+
   return (
     <>
       <div className={styles.home_categories}>
         {categories?.map((item) => (
-          <Link
+          <div
             key={item.id}
-            to={`/products/category=${item.category}`}
+         onClick={()=>handleNavigate(item.category)}
             className={styles.home_link_categories}
           >
             <div>{item.icon}</div>
             <div>{item.category}</div>
-          </Link>
+          </div>
         ))}
       </div>
       {/* Dekstop */}
