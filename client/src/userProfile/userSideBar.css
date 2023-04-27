@@ -1,10 +1,21 @@
+.main__user__profile__section {
+  display: flex;
+  border: 1px solid #fca311;
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  box-shadow: rgba(0, 0, 0, 0.698) 0px 5px 15px;
+  border-radius: 5px;
+}
+
 .user_sidebar_main {
   width: 250px;
-  height: calc(100vh - 101px);
+  height: 100vh;
   background-color: #fca311;
-  position: sticky;
+  /* position: sticky;
   top: 101px;
-  left: 0;
+  left: 0; */
   box-shadow: rgb(0, 0, 0) 0px 10px 20px -20px, rgb(0, 0, 0) 0px 10px 30px -30px,
     rgb(0, 0, 0) 0px -2px 6px 0px inset;
 }
@@ -18,9 +29,10 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border-bottom: 2px solid black;
+  text-transform: capitalize;
 }
 
-.user_sidebar_main > div {
+.user_sidebar_main > div > div {
   border: 1px solid transparent;
   display: flex;
   gap: 10px;
@@ -32,7 +44,7 @@
   font-weight: 500;
 }
 
-.user_sidebar_main > div:hover {
+.user_sidebar_main > div > div:hover {
   background: #000;
   color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -78,12 +90,13 @@
 /* --------------------------------------------------------------- form details  */
 
 .user_profile_form_details {
-  width: 300px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   margin: auto;
   gap: 10px;
   margin-bottom: 30px;
+  padding: 10px;
 }
 
 .user_profile_form_details > label {
@@ -111,4 +124,32 @@
   color: black;
   border: 2px solid black;
   font-weight: bold;
+}
+
+/* responsie  */
+
+@media (max-width: 610px) {
+  .main__user__profile__section {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .user_sidebar_main {
+    width: 100%;
+    height: auto;
+    background-color: #fca311;
+    position: static;
+  }
+
+  .small_profile_design {
+    margin-top: -20px;
+  }
+
+  /*.user_sidebar_main > .small_profile_design > div {
+    
+  } */
+
+  .each_user_component {
+    width: auto;
+  }
 }
