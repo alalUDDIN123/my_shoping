@@ -17,11 +17,8 @@ import {
   brandOptionAv,
   categoryOptionAv,
   priceRanges,
-  ratingOption
+  ratingOption,
 } from "../../Constant/ProductsFiltersOption";
-
-
-
 
 function ProductsPage() {
   const Dekstop = ({ children }) => {
@@ -49,17 +46,14 @@ function ProductsPage() {
     setIsModalOpen(true);
   };
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState("")
-  const [minPrice, maxPrice] = selectedPriceRange.split('-');
-  const [rating, setRating] = useState("")
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [minPrice, maxPrice] = selectedPriceRange.split("-");
+  const [rating, setRating] = useState("");
   // const [page, setPage] = useState(1);
-
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  const [isHanldePriceClick, SetIsHanldepriceClick] = useState(false);
 
   // const [rating, setRating] = useState("")
   // const [page, setPage] = useState(1);
@@ -108,14 +102,23 @@ function ProductsPage() {
   // handling price
 
   useEffect(() => {
-    dispatch(getProductsData({
-      category: selectedCategories,
-      brand: selectedBrands,
-      minPrice: minPrice,
-      maxPrice: maxPrice,
-      ratings: rating,
-    }));
-  }, [ selectedCategories, selectedBrands, dispatch, minPrice, maxPrice, rating]);
+    dispatch(
+      getProductsData({
+        category: selectedCategories,
+        brand: selectedBrands,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        ratings: rating,
+      })
+    );
+  }, [
+    selectedCategories,
+    selectedBrands,
+    dispatch,
+    minPrice,
+    maxPrice,
+    rating,
+  ]);
 
   // console.log("minPrice::-",minPrice,'maxprice:-',maxPrice);
   // console.log("rating:-", rating);
@@ -123,7 +126,6 @@ function ProductsPage() {
 
   return (
     <>
-      <DocumentTitle pageTitle="| PRODUCTS" />
       <Dekstop>
         <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={styles._main_div}>
@@ -171,23 +173,26 @@ function ProductsPage() {
               >
                 Choose price range
               </label>
-              <select value={selectedPriceRange}
+              <select
+                value={selectedPriceRange}
                 className={styles.__select__priceRange}
-                onChange={(e) => setSelectedPriceRange(e.target.value)}>
-                <option value="" disabled>-- Select price range --</option>
-                {priceRanges.slice(1).map(range => (
+                onChange={(e) => setSelectedPriceRange(e.target.value)}
+              >
+                <option value="" disabled>
+                  -- Select price range --
+                </option>
+                {priceRanges.slice(1).map((range) => (
                   <option key={range.value} value={range.value}>
                     {range.label}
                   </option>
                 ))}
               </select>
-
             </div>
             <hr />
 
             <div className={styles._rating_div}>
               <label>Choose rating</label>
-              <select onChange={(e) => setRating(Number(e.target.value))} >
+              <select onChange={(e) => setRating(Number(e.target.value))}>
                 <option value="" disabled>
                   Ratings
                 </option>
@@ -206,7 +211,9 @@ function ProductsPage() {
               {isLoading ? (
                 <Loader />
               ) : products === undefined || products.length === 0 ? (
-                <h1 style={{ textAlign: "center", marginLeft: "10%" }}>Products not available</h1>
+                <h1 style={{ textAlign: "center", marginLeft: "10%" }}>
+                  Products not available
+                </h1>
               ) : (
                 products &&
                 products?.map((el) => <ProductCard key={el._id} {...el} />)

@@ -20,9 +20,9 @@ import Cart from "./components/cart/Cart"
 import Signup from './components/authentication/Signup';
 import Navbar from './components/navbar/Navbar';
 import About from './About/About'
-
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+
 
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
 
       <ToastContainer />
 
+
       <Routes>
 
         {/* common route */}
@@ -40,6 +41,7 @@ function App() {
         <Route path="/signup" element={<Signup />} ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/about" element={<About />}></Route>
+        <Route path="/changePassword" element={<ChangePassword />}></Route>
         <Route path="/changePassword" element={<ChangePassword />}></Route>
         <Route path="/forgetPassword" element={<ForgetPassword />} ></Route>
         <Route path="/reset_password/token/:token" element={<ResetPassword />} ></Route>

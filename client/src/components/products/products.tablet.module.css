@@ -135,6 +135,30 @@ hr {
   align-items: center;
 }
 
+._mobile_products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+._mobile_pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+._mobile_pagination span {
+  padding: 7px 9px;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+._mobile_pagination__disable {
+  opacity: 0.5;
+  cursor: default;
+}
+
 ._sroting_filtering_ {
   width: 100%;
   display: flex;
@@ -159,28 +183,4 @@ hr {
 
 ._sroting_filtering_ > div:active {
   background-color: #4caf50;
-}
-
-._mobile_products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-._mobile_pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-._mobile_pagination span {
-  padding: 7px 9px;
-  border: 1px solid gray;
-  cursor: pointer;
-}
-
-._mobile_pagination__disable {
-  opacity: 0.5;
-  cursor: default;
 }

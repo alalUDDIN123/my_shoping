@@ -1,4 +1,4 @@
-const ratingOption = [5, 4, 3, 2, 1];
+const ratingOption = [1, 2, 3, 4, 5];
 const categoryOptionAv = [
   { cate: "Electronics", checked: false },
   { cate: "accessories", checked: false },
@@ -14,12 +14,11 @@ const brandOptionAv = [
 ];
 
 const priceRanges = [
-  { value: '', label: '-- Select price range --' },
-  { value: '200-1000', label: '₹200 - ₹1000' },
-  { value: '15000-20000', label: '₹15000 - ₹20000' },
-  { value: '400600-600000', label: '₹400600 - ₹600000' },
-  { value: '50000-60000', label: '₹50000 - ₹60000' },
+  { value: "", label: "-- Select price range --" },
+  { value: "200-1000", label: "₹200 - ₹1000" },
+  { value: "15000-20000", label: "₹15000 - ₹20000" },
+  { value: "400600-600000", label: "₹400600 - ₹600000" },
+  { value: "50000-60000", label: "₹50000 - ₹60000" },
 ];
 
-
-export { ratingOption, categoryOptionAv, brandOptionAv,priceRanges };
+export { ratingOption, categoryOptionAv, brandOptionAv, priceRanges };
