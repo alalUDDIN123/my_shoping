@@ -24,6 +24,13 @@ import {
     RemoveAllCartReducer,
 } from "./AppReducer/cart/reducer";
 
+import{
+    addWishListReducer,
+    getWishListReducer,
+    removeWishListReducer
+
+} from "./AppReducer/wishlist/reducer"
+
 import {
     deliveryAddressReducer,
     AddressReducer,
@@ -48,6 +55,11 @@ const combineReducer = combineReducers({
 
     deliveryAddressReducer,
     AddressReducer,
-    addOrderReducer
+    addOrderReducer,
+
+    addWishListReducer,
+    getWishListReducer,
+    removeWishListReducer
+
 })
 export const store = legacy_createStore(combineReducer, applyMiddleware(thunk))

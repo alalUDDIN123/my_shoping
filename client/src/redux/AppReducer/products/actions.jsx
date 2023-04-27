@@ -15,52 +15,43 @@ import {
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
-
 const getProductsData = (params = {}) => {
-    return async (dispatch) => {
-      // console.log("params from action:-", params);
-  
-      dispatch({ type: GET_PRODUCT_REQUEST });
-      try {
-        let url = `${BASE_URL}/api/products/get`;
-  
-        const queryParams = [];
-        for (const key in params) {
-          if (Array.isArray(params[key])) {
-            // console.log("params[key]::-",params[key],"key::-",key);
-            if (params[key].length === 1) {
-              queryParams.push(`${key}=${params[key][0]}`);
-            } else if (params[key].length > 1) {
-              params[key].forEach((value) => {
-                queryParams.push(`${key}=${value}`);
-              });
-            }
-          } else {
-            queryParams.push(`${key}=${params[key]}`);
-          }
-        }
+  // console.log("params::-",params);
+  return async (dispatch) => {
+    dispatch({ type: GET_PRODUCT_REQUEST });
+    try {
+      let url = `${BASE_URL}/api/products/get`;
 
-        console.log('queryParams::-',queryParams);
-  
-        const query = queryParams.join("&");
-  
-        //    console.log("query::-",query);
-        if (query) {
-          url += `?${query}`;
+      const queryParams = [];
+      for (const key in params) {
+        if (Array.isArray(params[key])) {
+          if (params[key].length === 1) {
+            queryParams.push(`${key}=${params[key][0]}`);
+          } else if (params[key].length > 1) {
+            params[key].forEach((value) => {
+              queryParams.push(`${key}=${value}`);
+            });
+          }
+        } else if (params[key] !== undefined) {
+          queryParams.push(`${key}=${params[key]}`);
         }
-  
-        console.log(url, "this is get data url");
-  
-        let res = await fetch(url);
-        let data = await res.json();
-        // console.log("data::-", data);
-        dispatch({ type: GET_PRODUCT_REQUEST_SUCESS, payload: data.products });
-      } catch (error) {
-        dispatch({ type: GET_PRODUCT_REQUEST_FAILUE });
       }
-    };
+
+      const query = queryParams.join("&");
+
+      if (query) {
+        url += `?${query}`;
+      }
+
+      // console.log("url::-",url);
+      let res = await fetch(url);
+      let data = await res.json();
+      dispatch({ type: GET_PRODUCT_REQUEST_SUCESS, payload: data.products });
+    } catch (error) {
+      dispatch({ type: GET_PRODUCT_REQUEST_FAILUE });
+    }
   };
-  
+};
 
 const getProductDetails = (id) => {
     return async (dispatch) => {

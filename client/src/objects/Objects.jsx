@@ -143,6 +143,27 @@ const intitialStateForget = {
   password: "",
   confirmPassword: ""
 }
+
+const addWishlistInitial={
+    isLoading:false,
+    isError:"",
+    response:""
+}
+
+const getWishlistInitial = {
+    isLoading: false,
+    isError: "",
+    data: []
+}
+
+
+const removeWishListInitial={
+    isLoading:false,
+    isError:false,
+    response:""
+}
+
+
 export {
     signupInitial,
     loginInitial,
@@ -166,7 +187,11 @@ export {
     DeliveryAddressIntial,
     DeliverAddressInitialState,
     addOrderIntial,
-    intitialStateForget
+    intitialStateForget,
+    addWishlistInitial,
+    getWishlistInitial,
+    removeWishListInitial
+
 
 
 
