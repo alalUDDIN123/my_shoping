@@ -10,7 +10,9 @@ import TabletProductCard from "./TabletProductCard";
 import DocumentTitle from "../Helmet/Helmet";
 import { getProductsData } from "../../redux/AppReducer/products/actions";
 import InputCheckbox from "./InputCheckbox";
-
+import { GoSettings } from "react-icons/go";
+import { FiChevronDown } from "react-icons/fi";
+import FilterModal from "../../modals/FilterModal";
 
 const ratingOption = [5, 4, 3, 2, 4.5, 3.5, 2.5];
 const categoryOptionAv = [
@@ -41,7 +43,6 @@ function ProductsPage() {
     return isMobile ? children : null;
   };
 
-
   // various filter section
   const [categoryOption, setCategoryOption] = useState(categoryOptionAv);
 
@@ -50,20 +51,24 @@ function ProductsPage() {
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-
   const [selectedBrands, setSelectedBrands] = useState([]);
 
   const [minPrice, setMinPrice] = useState(null);
   const [maxPrice, setMaxPrice] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [isHanldePriceClick,SetIsHanldepriceClick]=useState(false)
-  
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const [isHanldePriceClick, SetIsHanldepriceClick] = useState(false);
+
   // const [rating, setRating] = useState("")
   // const [page, setPage] = useState(1);
-
-
-
-
 
   const { products, isLoading } = useSelector(
     (store) => store.getProductReducer
@@ -106,30 +111,25 @@ function ProductsPage() {
     setSelectedBrands(newSelectedBrands);
   }
 
+  // handling price
 
-  // handling price 
-
-  const hanlePrice=()=>{
-    console.log("minPrice::-",minPrice,"maxPrice::-",maxPrice);
-  }
-
+  const hanlePrice = () => {
+    console.log("minPrice::-", minPrice, "maxPrice::-", maxPrice);
+  };
 
   useEffect(() => {
-    dispatch(getProductsData({ category: selectedCategories, brand: selectedBrands }));
+    dispatch(
+      getProductsData({ category: selectedCategories, brand: selectedBrands })
+    );
   }, [selectedCategories, selectedBrands, dispatch]);
-  
-  
-  
-  
 
   // console.log("selected categories::-",selectedCategories,"selectedBrands::-",selectedBrands);
-
 
   return (
     <>
       <DocumentTitle pageTitle="| PRODUCTS" />
       <Dekstop>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={styles._main_div}>
           {/* filters container */}
           <div className={styles._filters}>
@@ -177,14 +177,24 @@ function ProductsPage() {
               </label>
               <div>
                 <label htmlFor=""> Min price</label>
-                <input type="number" value={minPrice || ''} onChange={(e) => setMinPrice(Number(e.target.value))} />
+                <input
+                  type="number"
+                  value={minPrice || ""}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
+                />
               </div>
               <div>
                 <label htmlFor="">Max price</label>
-              <input type="number" value={maxPrice || ''} onChange={(e) => setMaxPrice(Number(e.target.value))} />
+                <input
+                  type="number"
+                  value={maxPrice || ""}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                />
               </div>
 
-              <button className={styles._apply_button} onClick={hanlePrice} >Apply</button>
+              <button className={styles._apply_button} onClick={hanlePrice}>
+                Apply
+              </button>
             </div>
             <hr />
 
@@ -211,10 +221,10 @@ function ProductsPage() {
               ) : products.length === 0 ? (
                 <h1>products not available</h1>
               ) : (
-                products && products?.map((el) => <ProductCard key={el._id} {...el} />)
+                products &&
+                products?.map((el) => <ProductCard key={el._id} {...el} />)
               )}
             </div>
-
           </div>
         </main>
       </Dekstop>
@@ -222,7 +232,7 @@ function ProductsPage() {
       {/* Tablet*/}
 
       <Tablet>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={stylesTablet._tablet_main_div}>
           {/* filters container */}
           <div className={stylesTablet._tablet_filters}>
@@ -234,9 +244,9 @@ function ProductsPage() {
                 <option value="" disabled selected>
                   -Select Category-
                 </option>
-                {categoryOption.map((categ, index) => (
-                  <option key={index} value={categ}>
-                    {categ}
+                {categoryOption.map((item, index) => (
+                  <option key={index} value={item.cate}>
+                    {item.cate}
                   </option>
                 ))}
               </select>
@@ -251,9 +261,9 @@ function ProductsPage() {
                 <option value="" disabled selected>
                   -Select brand-
                 </option>
-                {brandOption.map((brand, index) => (
-                  <option key={index} value={brand}>
-                    {brand}
+                {brandOption.map((item, index) => (
+                  <option key={index} value={item.brand}>
+                    {item.brand}
                   </option>
                 ))}
               </select>
@@ -304,10 +314,12 @@ function ProductsPage() {
               ) : products.length === 0 ? (
                 <h1>products not available</h1>
               ) : (
-                products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
+                products &&
+                products?.map((el) => (
+                  <TabletProductCard key={el._id} {...el} />
+                ))
               )}
             </div>
-
           </div>
         </main>
       </Tablet>
@@ -315,19 +327,30 @@ function ProductsPage() {
       {/* Mobile */}
 
       <Mobile>
-      <DocumentTitle pageTitle="| PRODUCTS" />
+        <DocumentTitle pageTitle="| PRODUCTS" />
         <div className={stylesTablet._mobile_products_container}>
+          <div className={stylesTablet._sroting_filtering_}>
+            <div onClick={handleOpenModal}>
+              <FiChevronDown />
+              Sort by
+            </div>
+            <div>
+              <GoSettings /> Filter
+            </div>
+          </div>
           <div className={stylesTablet._mobile_products}>
             {isLoading ? (
               <Loader />
             ) : products.length === 0 ? (
               <h1>products not available</h1>
             ) : (
-              products && products?.map((el) => <TabletProductCard key={el._id} {...el} />)
+              products &&
+              products?.map((el) => <TabletProductCard key={el._id} {...el} />)
             )}
           </div>
-
         </div>
+
+        {isModalOpen && <FilterModal onClose={handleCloseModal} />}
       </Mobile>
     </>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./userSideBar.css";
+import getLoggedUserData from "../utils/LoggedUserData";
 
 const ProfileDetails = () => {
   const handleEditSubmit = (event) => {
@@ -8,16 +9,14 @@ const ProfileDetails = () => {
     console.log("form");
   };
 
+  const LoggedUser = getLoggedUserData();
+
   return (
     <div>
       {/* profile avtar  */}
       <div className="profile_avtar">
         <div className="img_profile_div">
-          <img
-            className="user_profile_img"
-            src="https://www.transparentpng.com/thumb/man/vkarWM-download-man-png-image-png-image-freepngimg.png"
-            alt=""
-          />
+          <img className="user_profile_img" src={LoggedUser.avator} alt="" />
         </div>
       </div>
 
