@@ -3,72 +3,81 @@ const Wishlist = require("../modals/wishlist.modal");
 
 // create wislist or add to wishlist 👍👍👍👍
 
-
 const addToWishList = async (req, res) => {
-    const { userId, productId } = req.body;
+  const { userId, productId } = req.body;
 
-    if (!productId) {
-        return res.status(400).json({ msg: "productId required" });
+  if (!productId) {
+    return res.status(400).json({ message: 'Product ID is required' });
+  }
+
+  try {
+    let wishlist = await Wishlist.findOne({ userId })
+      .populate({
+        path: 'products.productId',
+        model: 'product'
+      });
+
+    if (!wishlist) {
+      // If user's wishlist doesn't exist, create a new document
+      wishlist = new Wishlist({ userId });
+    } else {
+      // If user's wishlist already exists, check if product exists in the array
+      const productExists = wishlist.products.some(
+        (product) => product.productId._id.toString() === productId
+      );
+
+      if (productExists) {
+        return res.status(400).json({ message: 'Product already exists in wishlist' });
+      }
     }
 
-    try {
-        // Find all the user's wishlists
-        const wishlists = await Wishlist.find({ userId });
+    // Add the new product to the wishlist and save the document
+    wishlist.products.push({ productId });
+    const newWishlist = await wishlist.save();
 
-        // Check if the product is already in any of the user's wishlists
-        let productExists = false;
-        for (let i = 0; i < wishlists.length; i++) {
-            const wishlist = wishlists[i];
-            if (wishlist.products.some(p => p.productId.toString() === productId.toString())) {
-                productExists = true;
-                break;
-            }
-        }
+    // Populate the productId field of the newly added product in the response
+    const populatedWishlist = await Wishlist.findOne({ _id: newWishlist._id })
+      .populate({
+        path: 'products.productId',
+        model: 'product'
+      })
+      .lean();
 
-        if (productExists) {
-            return res.status(400).json({ msg: "Product already in wishlist" });
-        }
+    return res.status(201).json({ message: 'Product added to wishlist', newWishlist: populatedWishlist });
 
-        // If the product is not in any of the user's wishlists, create a new wishlist 
-        const newWishlist = new Wishlist({
-            userId,
-            products: [
-                {
-                    productId: productId
-                }
-            ],
-        });
-        await newWishlist.save();
-        return res.status(201).json({ msg: "Wishlist created",newWishlist });
-    } catch (error) {
-        res.status(500).json({ msg: "Server error", err: error.message });
-    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
+
+
+
 
 
 // get wishlist 👍👍👍👍
 const getWishlist = async (req, res) => {
-    const { userId } = req.body
+  const { userId } = req.body
 
-    try {
-        // Find the user's wishlist and populate 
-        const wishlist = await Wishlist
-            .find({ userId })
-            .populate({
-                path: 'products.productId',
-                model: 'product'
-            })
-            .lean();
+  try {
+    // Find the user's wishlist and populate 
+    const wishlist = await Wishlist
+      .find({ userId })
+      .populate({
+        path: 'products.productId',
+        model: 'product'
+      })
+      .lean();
 
-        //  console.log("wishlist::-",wishlist);   
-        if (!wishlist || wishlist.length === 0 ) {
-            return res.status(404).send({ msg: 'Wishlist not found' });
-        } else {
-            return res.status(200).json({ wishlist });
-        }
-    } catch (error) {
-        res.status(500).json({ msg: "Server error", err: error.message });
+    //  console.log("wishlist::-",wishlist);   
+    if (!wishlist || wishlist.length === 0) {
+      return res.status(404).send({ msg: 'Wishlist not found' });
+    } else {
+      return res.status(200).json(wishlist);
     }
+  } catch (error) {
+    res.status(500).json({ msg: "Server error", err: error.message });
+  }
 }
 
 
@@ -129,7 +138,7 @@ const removeFromWishlist = async (req, res) => {
 
 
 module.exports = {
-    addToWishList,
-    getWishlist,
-    removeFromWishlist
+  addToWishList,
+  getWishlist,
+  removeFromWishlist
 }

@@ -26,6 +26,8 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, _i
       navigate(`/product/single/${_id}`);
     }
   }, [isHeartClicked, navigate, _id]);
+
+
   const handleHeartClick = useCallback(async () => {
     if (loggedUser && loggedUser.token) {
       const payload = {
@@ -41,9 +43,9 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, _i
           throw new Error("Something went wrong",{autoClose:2000})
         }
 
-        if( res && res==="Wishlist created"){
+        if( res && res==="Product added to wishlist"){
           toast.success("Product added to wish list success",{autoClose:2000})
-        }else if(res==="Product already in wishlist"){
+        }else if(res==="Product already exists in wishlist"){
           toast.error(res,{autoClose:2000})
         }
         setIsHeartClicked(true);
@@ -60,9 +62,6 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, _i
       });
     }
   }, [dispatch, loggedUser, _id, navigate, location.pathname]);
-
-
-
 
 
 

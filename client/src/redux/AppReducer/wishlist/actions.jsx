@@ -34,21 +34,23 @@ const AddWishListAction = (payload) => async (dispatch) => {
 
         responseData = await res.json();
 
-        // console.log("responseData:-",responseData);
+        // console.log("responseData:-", responseData);
 
-        if (res.ok) {
-            dispatch({ type: ADD_WISHLIST_REQUEST_SUCESS, payload: responseData });
+        if (responseData && responseData.message === "Product added to wishlist") {
+
+            // console.log("responseData:-", responseData.newWishlist);
+            dispatch({ type: ADD_WISHLIST_REQUEST_SUCESS, payload: responseData.newWishlist });
         } else {
             dispatch({
                 type: ADD_WISHLIST_REQUEST_FAILUE,
-                payload: responseData && responseData.msg,
+                payload: responseData && responseData.message,
             });
         }
-        return responseData.msg;
+        return responseData.message;
     } catch (error) {
         dispatch({
             type: ADD_WISHLIST_REQUEST_FAILUE,
-            payload: responseData ? responseData.msg : error.message,
+            payload: responseData ? responseData.message : error.message,
         });
     }
 };
@@ -68,10 +70,10 @@ const GetWishListAction = (payload) => async (dispatch) => {
         });
 
         responseData = await res.json();
-        // console.log("responseData:-", responseData);
+        // console.log("responseData:-", responseData[0].products);
 
-        if (res.ok) {
-            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist });
+        if ( responseData &&  responseData[0].userId) {
+            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData[0].products});
 
         } else {
             dispatch({
@@ -105,7 +107,7 @@ const RemoveWishListAction = (payload) => async (dispatch) => {
         responseData = await res.json();
         // console.log("responseData:-", responseData);
 
-        if (res.ok) {
+        if (responseData && responseData.hint==="reSuc") {
             dispatch({ type: REMOVE_WISHLIST_REQUEST_SUCESS, payload: payload.productId });
         } else {
             dispatch({

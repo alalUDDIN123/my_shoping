@@ -9,32 +9,26 @@
 
 //   // ratings 
 
-//   const ratingOption=[1,2,3,4,5]
+  const ratingOption=[1,2,3,4,5]
 
-//   const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(null);
 
 
-//  const handleRatingChange = (event) => {
-//     setSelectedRating(Number(event.target.value));
-//   };
+ const handleRatingChange = (event) => {
+    setSelectedRating(Number(event.target.value));
+  };
 
-//   console.log(selectedRating);
 
-//   useEffect(()=>{
-//     dispatch(
-//         getProductsData({  ratings: selectedRating }));
-//   },[selectedRating])
-
-//   <div className={styles._rating_div}>
-//   <label>Choose rating</label>
-//   <select onChange={handleRatingChange }>
-//     <option value="" disabled>
-//       Ratings
-//     </option>
-//     {ratingOption.map((rate, index) => (
-//       <option key={index} value={rate}>
-//         {rate}
-//       </option>
-//     ))}
-//   </select>
-// </div>
+<div className={styles._rating_div}>
+<label>Choose rating</label>
+<select onChange={handleRatingChange} value={selectedRating}>
+  <option value="" disabled>
+    Ratings
+  </option>
+  {ratingOption.map((rate, index) => (
+    <option key={index} value={rate} selected={selectedRating === rate}>
+      {rate}
+    </option>
+  ))}
+</select>
+</div>

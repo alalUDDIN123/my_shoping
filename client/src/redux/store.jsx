@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, legacy_createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, legacy_createStore } from "redux";
 import thunk from "redux-thunk";
 
 import {
@@ -34,6 +34,8 @@ import {
     addOrderReducer
 } from "./AppReducer/checkoutAndOder/reducer";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
 const combineReducer = combineReducers({
     signupReducer,
     loginReducer,
@@ -58,4 +60,4 @@ const combineReducer = combineReducers({
 
     wishlistReducer
 })
-export const store = legacy_createStore(combineReducer, applyMiddleware(thunk))
+export const store = legacy_createStore(combineReducer, composeEnhancers(applyMiddleware(thunk)))

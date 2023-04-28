@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import DocumentTitle from "../Helmet/Helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { GetWishListAction } from "../../redux/AppReducer/wishlist/actions";
@@ -11,7 +11,7 @@ import WishlistCard from "./WishlistCard";
 function Wishlist() {
   const loggedUser = getLoggedUserData();
   const dispatch = useDispatch();
-  const {isError, data, isLoading } = useSelector((store) => store.wishlistReducer);
+  const { isError, data, isLoading } = useSelector((store) => store.wishlistReducer);
 
 
   useEffect(() => {
@@ -27,7 +27,13 @@ function Wishlist() {
     return <Loader />;
   }
 
-  // console.log("isError::-",isError);
+  // if (isError) {
+  //   if (isError === "Wishlist not found") {
+  //     return <EmptyWishlist />
+  //   }
+  // }
+
+  // console.log("isError::-", isError);
   // console.log("data::-", data);
 
   if (isError) {
@@ -52,17 +58,17 @@ function Wishlist() {
         <p>Click on image to see details</p>
       </div>
       <div className={styles.__parent_container}>
-        {data?.length > 0 &&
-          data?.map((el) =>
-            el.products.map((product) => (
-              <WishlistCard
-                key={product._id}
-                {...product}
-
-              />
-            ))
-          )}
+        {data.length > 0 && data.map((el) => {
+          // console.log(el); 
+          return (
+            <WishlistCard
+              key={el._id}
+              {...el}
+            />
+          );
+        })}
       </div>
+
     </>
   );
 }

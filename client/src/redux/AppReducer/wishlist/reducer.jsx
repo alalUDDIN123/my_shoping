@@ -17,7 +17,7 @@ const initialWishlistState = {
     isLoading: false,
     isError: "",
     data: [],
-    isExits: ""
+   
 };
 
 function wishlistReducer(state = initialWishlistState, action) {
@@ -33,25 +33,15 @@ function wishlistReducer(state = initialWishlistState, action) {
 
 
         case ADD_WISHLIST_REQUEST_SUCESS:
-            // here these condtion action.payload and action.payload.newWishlist 
-            //  will help to prevent throwing error from undefined or null if occurence
-            if (action.payload && action.payload.newWishlist) {
+         
                 return {
                     ...state,
                     isLoading: false,
                     isError: null,
-                    data: [...state.data, action.payload.newWishlist],
-                    isExits: action.payload.msg,
+                    data: [...state.data, action.payload],
+                   
                 };
-            } else {
-                return {
-                    ...state,
-                    isLoading: false,
-                    isError: null,
-                    isExits: action.payload?action.payload.msg:"Added",
-                };
-            }
-
+            
 
         case GET_WISHLIST_REQUEST_SUCESS:
             return {
@@ -63,11 +53,13 @@ function wishlistReducer(state = initialWishlistState, action) {
         case REMOVE_WISHLIST_REQUEST_SUCESS:
             // console.log(" state.data::-", state.data);
             // console.log("action payload:-",action.payload);
+
+            const updatedData= state.data.filter((item) => item.productId._id !== action.payload)
             return {
                 ...state,
                 isLoading: false,
                 isError: null,
-                data: state.data.filter((item) => item.id !== action.payload.id),
+                data: updatedData
             };
         case ADD_WISHLIST_REQUEST_FAILUE:
         case GET_WISHLIST_REQUEST_FAILUE:

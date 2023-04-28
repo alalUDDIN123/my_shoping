@@ -6,15 +6,16 @@ import { useDispatch } from "react-redux";
 import { RemoveWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import { toast } from "react-toastify";
 function WishlistCard(props) {
+
+  // console.log("propsData:-",props);
   const navigate = useNavigate();
   const loggedUser = getLoggedUserData()
-  const productId = props.productId._id
   const token = loggedUser.token
   const dispatch = useDispatch()
 
   const handleWishlistRemove = async () => {
     const payload = {
-      productId: productId,
+      productId: props.productId._id,
       token: token
     };
 
@@ -27,7 +28,7 @@ function WishlistCard(props) {
       }
 
       if (res && res.hint === "reSuc") {
-        localStorage.removeItem(`product_${productId}`);
+        localStorage.removeItem(`product_${props.productId._id}`);
         toast.success(res.msg, { autoClose: 2000 })
       }
     } catch (error) {

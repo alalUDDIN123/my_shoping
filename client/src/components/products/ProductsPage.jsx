@@ -40,7 +40,7 @@ function ProductsPage() {
 
   // ratings 
 
-  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedRating, setSelectedRating] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -127,7 +127,7 @@ function ProductsPage() {
     setSelectedRating(Number(event.target.value));
   };
 
-  console.log(selectedRating);
+  // console.log(selectedRating);
 
 
   return (
@@ -203,7 +203,7 @@ function ProductsPage() {
                   Ratings
                 </option>
                 {ratingOption.map((rate, index) => (
-                  <option key={index} value={rate} selected={selectedRating === rate}>
+                  <option key={index} value={rate}>
                     {rate}
                   </option>
                 ))}
@@ -275,7 +275,7 @@ function ProductsPage() {
               <label
                 className={`${styles._tablet_label_text} ${styles._tablet__label_text_price}`}
               >
-                Choose price range ::  
+                Choose price range ::
               </label>
               <select
                 value={selectedPriceRange}
