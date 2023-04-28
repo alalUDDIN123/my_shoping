@@ -39,7 +39,7 @@ const addToWishList = async (req, res) => {
             ],
         });
         await newWishlist.save();
-        return res.status(201).json({ msg: "Wishlist created" });
+        return res.status(201).json({ msg: "Wishlist created",newWishlist });
     } catch (error) {
         res.status(500).json({ msg: "Server error", err: error.message });
     }

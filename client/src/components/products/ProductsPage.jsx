@@ -3,7 +3,6 @@ import styles from "./products.module.css";
 import { useMediaQuery } from "react-responsive";
 import stylesTablet from "./products.tablet.module.css";
 import { useDispatch, useSelector } from "react-redux";
-// import { brandOption,categoryOption ,ratingOption} from "../../Constant/ProductsFiltersOption";
 import Loader from "../loader/Loader";
 import ProductCard from "./ProductCard";
 import TabletProductCard from "./TabletProductCard";
@@ -38,25 +37,26 @@ function ProductsPage() {
   const [categoryOption, setCategoryOption] = useState(categoryOptionAv);
   // various branding secion
   const [brandOption, setBrandOption] = useState(brandOptionAv);
-  const [selectedCategories, setSelectedCategories] = useState([]);
 
+  // ratings 
+
+  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
+
+
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [minPrice, maxPrice] = selectedPriceRange.split("-");
-  const [rating, setRating] = useState("");
-  // const [page, setPage] = useState(1);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
 
-  // const [rating, setRating] = useState("")
-  // const [page, setPage] = useState(1);
 
   const { products, isLoading } = useSelector(
     (store) => store.getProductReducer
@@ -108,7 +108,7 @@ function ProductsPage() {
         brand: selectedBrands,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        ratings: rating,
+        ratings: selectedRating,
       })
     );
   }, [
@@ -117,12 +117,18 @@ function ProductsPage() {
     dispatch,
     minPrice,
     maxPrice,
-    rating,
+    selectedRating,
   ]);
 
-  // console.log("minPrice::-",minPrice,'maxprice:-',maxPrice);
-  // console.log("rating:-", rating);
-  // console.log("parsms:-", param);
+
+
+
+  const handleRatingChange = (event) => {
+    setSelectedRating(Number(event.target.value));
+  };
+
+  console.log(selectedRating);
+
 
   return (
     <>
@@ -192,17 +198,18 @@ function ProductsPage() {
 
             <div className={styles._rating_div}>
               <label>Choose rating</label>
-              <select onChange={(e) => setRating(Number(e.target.value))}>
+              <select onChange={handleRatingChange} value={selectedRating}>
                 <option value="" disabled>
                   Ratings
                 </option>
                 {ratingOption.map((rate, index) => (
-                  <option key={index} value={rate}>
+                  <option key={index} value={rate} selected={selectedRating === rate}>
                     {rate}
                   </option>
                 ))}
               </select>
             </div>
+
           </div>
 
           {/* products container */}
@@ -229,76 +236,79 @@ function ProductsPage() {
         <DocumentTitle pageTitle="| PRODUCTS" />
         <main className={stylesTablet._tablet_main_div}>
           {/* filters container */}
-          <div className={stylesTablet._tablet_filters}>
+          <div className={stylesTablet._tablet_category_div}>
             <div className={stylesTablet._tablet_category_div}>
-              <label className={stylesTablet._tablet__label_text}>
-                Select Category
-              </label>
-              <select>
-                <option value="" disabled selected>
-                  -Select Category-
-                </option>
-                {categoryOption.map((item, index) => (
-                  <option key={index} value={item.cate}>
-                    {item.cate}
-                  </option>
-                ))}
-              </select>
+              <label className={stylesTablet._tablet_label_text}>Select Category :: </label>
+              {categoryOption.map((item, index) => (
+                <div key={index}>
+                  <input
+                    type="checkbox"
+                    id={`category-${index}`}
+                    value={item.cate}
+                    checked={item.checked}
+                    onChange={(event) => handleCategoryChange(event, index)}
+                  />
+                  <label htmlFor={`category-${index}`}>{item.cate}</label>
+                </div>
+              ))}
             </div>
             <hr />
 
-            <div className={stylesTablet._tablet_brand_div}>
-              <label className={stylesTablet._tablet_label_text}>
-                Select Brand
-              </label>
-              <select>
-                <option value="" disabled selected>
-                  -Select brand-
-                </option>
-                {brandOption.map((item, index) => (
-                  <option key={index} value={item.brand}>
-                    {item.brand}
-                  </option>
-                ))}
-              </select>
+            <div className={styles._tablet_brand_div}>
+              <label className={styles._tablet_label_text}>Select Brand :: </label>
+              {brandOption.map((item, index) => (
+                <div key={index}>
+                  <input
+                    type="checkbox"
+                    id={`brand-${index}`}
+                    value={item.brand}
+                    checked={item.checked}
+                    onChange={(event) => handleBrandChange(event, index)}
+                  />
+                  <label htmlFor={`brand-${index}`}>{item.brand}</label>
+                </div>
+              ))}
             </div>
             <hr />
 
-            <div className={stylesTablet._tablet_price_div}>
+            <div className={styles._tablet_price_div}>
               <label
-                className={`${stylesTablet._tablet_label_text} ${stylesTablet._label_text_price}`}
+                className={`${styles._tablet_label_text} ${styles._tablet__label_text_price}`}
               >
-                Enter price range
+                Choose price range ::  
               </label>
-              <div>
-                <label htmlFor=""> Min price</label>
-                <input type="number" />
-              </div>
-              <div>
-                <label htmlFor="">Max price</label>
-                <input type="number" />
-              </div>
-
-              <button className={stylesTablet._tablet_apply_button}>
-                Apply
-              </button>
+              <select
+                value={selectedPriceRange}
+                className={styles._tablet__select__priceRange}
+                onChange={(e) => setSelectedPriceRange(e.target.value)}
+              >
+                <option value="" disabled>
+                  -- Select price range --
+                </option>
+                {priceRanges.slice(1).map((range) => (
+                  <option key={range.value} value={range.value}>
+                    {range.label}
+                  </option>
+                ))}
+              </select>
             </div>
             <hr />
 
-            <div className={stylesTablet._tablet_rating_div}>
-              <label>Choose rating</label>
-              <select>
+            <div className={styles._tablet_rating_div}>
+              <label>Choose rating :: </label>
+              <select onChange={handleRatingChange} value={selectedRating} >
                 <option value="" disabled>
                   Ratings
                 </option>
                 {ratingOption.map((rate, index) => (
-                  <option key={index} value={rate}>
+                  <option key={index} value={rate} selected={selectedRating === rate}>
                     {rate}
                   </option>
                 ))}
               </select>
             </div>
           </div>
+
 
           {/* products container */}
           <div className={stylesTablet._tablet_products_container}>

@@ -32,6 +32,10 @@
     object-fit: cover;
 }
 
+.__heartIconDiv__{
+    background-color: red;
+}
+
 .icons_container {
     position: absolute;
     top: 5px;
@@ -39,20 +43,6 @@
     display: flex;
 }
 
-/* .icon_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    margin-left: 0.5rem;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  } */
 
 .product_details {
     padding: 1rem;

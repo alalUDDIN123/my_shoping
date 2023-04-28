@@ -1,95 +1,79 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
 import styles from "./productCard.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import DocumentTitle from "../../components/Helmet/Helmet";
 import getLoggedUserData from "../../utils/LoggedUserData";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { AddWishListAction } from "../../redux/AppReducer/wishlist/actions";
-import {
-  ADD_WISHLIST_REQUEST_FAILUE,
-  ADD_WISHLIST_REQUEST_SUCESS,
-} from "../../Constant/actionTypes";
 
-const ProductCard = ({
-  image,
-  title,
-  brand,
-  category,
-  ratings,
-  discountPrice,
-  _id,
-}) => {
+import DocumentTitle from "../Helmet/Helmet";
+
+const ProductCard = ({ image, title, brand, category, ratings, discountPrice, _id }) => {
   const loggedUser = getLoggedUserData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isError, response } = useSelector(
-    (store) => store.addWishListReducer
-  );
+
+
   const [isHeartClicked, setIsHeartClicked] = useState(() => {
     const storedValue = localStorage.getItem(`product_${_id}`);
     return storedValue ? JSON.parse(storedValue) : false;
   });
 
-  const handleProductDetails = () => {
+  const handleProductDetails = useCallback(() => {
     if (!isHeartClicked) {
       navigate(`/product/single/${_id}`);
     }
-  };
+  }, [isHeartClicked, navigate, _id]);
+  const handleHeartClick = useCallback(async () => {
+    if (loggedUser && loggedUser.token) {
+      const payload = {
+        token: loggedUser.token,
+        productId: _id,
+      };
 
-  const handleHeartClick = () => {
-    const payload = {
-      token: loggedUser.token,
-      productId: _id,
-    };
-    dispatch(AddWishListAction(payload));
-    setIsHeartClicked(true);
-    localStorage.setItem(`product_${_id}`, JSON.stringify(true));
-  };
+      try {
+        const res = await dispatch(AddWishListAction(payload));
+        // console.log("res:-", res);
 
-  const handleWishListAdd = () => {
-    if (!loggedUser) {
-      toast.error("Please login to add review");
+        if (res === undefined) {
+          throw new Error("Something went wrong",{autoClose:2000})
+        }
 
-      setTimeout(() => {
-        navigate("/login", {
-          state: { from: location.pathname },
-          replace: true,
-        });
-      }, 2000);
-      return;
-    }
+        if( res && res==="Wishlist created"){
+          toast.success("Product added to wish list success",{autoClose:2000})
+        }else if(res==="Product already in wishlist"){
+          toast.error(res,{autoClose:2000})
+        }
+        setIsHeartClicked(true);
+        localStorage.setItem(`product_${_id}`, JSON.stringify(true));
+      } catch (error) {
+        toast.error(error.message,{autoClose:2000});
+      }
 
-    handleHeartClick();
-  };
-
-  if (isError) {
-    if (isError === "Product already in wishlist") {
-      toast.error(isError, { autoClose: 2000 });
-      dispatch({ type: ADD_WISHLIST_REQUEST_FAILUE, payload: null });
     } else {
-      toast.error("Something went wrong", { autoClose: 2000 });
-      dispatch({ type: ADD_WISHLIST_REQUEST_FAILUE, payload: null });
+      toast.error("Please login to add product to wishlist", { autoClose: 2000 });
+      navigate("/login", {
+        state: { from: location.pathname },
+        replace: true,
+      });
     }
-  }
+  }, [dispatch, loggedUser, _id, navigate, location.pathname]);
 
-  if (response) {
-    if (response === "Wishlist created") {
-      toast.success("Added to wishlist success", { autoClose: 2000 });
 
-      dispatch({ type: ADD_WISHLIST_REQUEST_SUCESS, payload: null });
-    }
-  }
 
-  // console.log("response::-",response,"isError:-",isError);
+
+
 
   return (
     <>
-      <DocumentTitle pageTitle="| PRODUCT-DETAILS" />
-      <div className={styles.product_card} onClick={handleProductDetails}>
-        <div className={styles.product_image_container}>
+      <DocumentTitle pageTitle={`| ${title}`} />
+      <div className={styles.product_card}>
+        <div
+          className={styles.product_image_container}
+          onClick={handleProductDetails}
+        >
           <img src={image} alt={title} className={styles.product_image} />
         </div>
         <div className={styles.product_details}>
@@ -107,9 +91,8 @@ const ProductCard = ({
               .map((_, i) => (
                 <span
                   key={i}
-                  className={`${styles.star} ${
-                    i < Math.floor(ratings) ? styles.star_active : ""
-                  }`}
+                  className={`${styles.star} ${i < Math.floor(ratings) ? styles.star_active : ""
+                    }`}
                 >
                   <FaStar />
                 </span>
@@ -121,13 +104,15 @@ const ProductCard = ({
             <button className={styles.icon_button_shop}>
               <FaShoppingCart />
             </button>
+
             <button
-              className={`${styles.icon_button_heart} ${
-                isHeartClicked ? styles.icon_button_heart_active : ""
-              }`}
-              onClick={handleWishListAdd}
+              className={`${styles.icon_button_heart} ${isHeartClicked ? styles.icon_button_heart_active : ""
+                }`}
+              onClick={handleHeartClick}
             >
-              <FaHeart style={{ color: isHeartClicked ? "#fff" : "#333" }} />
+              <FaHeart
+                style={{ color: isHeartClicked ? "#fff" : "#333" }}
+              />
             </button>
           </div>
         </div>

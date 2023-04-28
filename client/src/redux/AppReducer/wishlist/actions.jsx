@@ -7,7 +7,7 @@ import {
     GET_WISHLIST_REQUEST,
     GET_WISHLIST_REQUEST_FAILUE,
     GET_WISHLIST_REQUEST_SUCESS,
-    
+
     REMOVE_WISHLIST_REQUEST,
     REMOVE_WISHLIST_REQUEST_FAILUE,
     REMOVE_WISHLIST_REQUEST_SUCESS,
@@ -34,14 +34,17 @@ const AddWishListAction = (payload) => async (dispatch) => {
 
         responseData = await res.json();
 
+        // console.log("responseData:-",responseData);
+
         if (res.ok) {
-            dispatch({ type: ADD_WISHLIST_REQUEST_SUCESS, payload: responseData.msg });
+            dispatch({ type: ADD_WISHLIST_REQUEST_SUCESS, payload: responseData });
         } else {
             dispatch({
                 type: ADD_WISHLIST_REQUEST_FAILUE,
                 payload: responseData && responseData.msg,
             });
         }
+        return responseData.msg;
     } catch (error) {
         dispatch({
             type: ADD_WISHLIST_REQUEST_FAILUE,
@@ -68,7 +71,7 @@ const GetWishListAction = (payload) => async (dispatch) => {
         // console.log("responseData:-", responseData);
 
         if (res.ok) {
-            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist});
+            dispatch({ type: GET_WISHLIST_REQUEST_SUCESS, payload: responseData.wishlist });
 
         } else {
             dispatch({
@@ -92,7 +95,7 @@ const RemoveWishListAction = (payload) => async (dispatch) => {
     try {
         const res = await fetch(`${BASE_URL}/api/wishlist/remove`, {
             method: "DELETE",
-            body: JSON.stringify({productId:payload.productId}),
+            body: JSON.stringify({ productId: payload.productId }),
             headers: {
                 "Content-Type": "application/json",
                 token: payload.token
@@ -103,13 +106,15 @@ const RemoveWishListAction = (payload) => async (dispatch) => {
         // console.log("responseData:-", responseData);
 
         if (res.ok) {
-            dispatch({ type: REMOVE_WISHLIST_REQUEST_SUCESS, payload: responseData.hint });
+            dispatch({ type: REMOVE_WISHLIST_REQUEST_SUCESS, payload: payload.productId });
         } else {
             dispatch({
                 type: REMOVE_WISHLIST_REQUEST_FAILUE,
                 payload: responseData && responseData.msg,
             });
         }
+
+        return responseData;
     } catch (error) {
         dispatch({
             type: REMOVE_WISHLIST_REQUEST_FAILUE,

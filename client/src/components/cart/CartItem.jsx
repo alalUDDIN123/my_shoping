@@ -44,13 +44,13 @@ function CartItem({
         if (res === undefined) {
           throw new Error("Something went wrong");
         } else if (res && res.msg === "Product removed from the cart") {
-          toast.success("Product removed from the cart success");
+          toast.success("Product removed from the cart success", { autoClose: 2000 });
           setTimeout(() => {
             handleComponetChange();
           }, 2500);
         }
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error.message, { autoClose: 2000 });
       }
     }
   };
@@ -70,11 +70,10 @@ function CartItem({
       } else if (
         res.err === `Not enough quantity available for product ${id}`
       ) {
-        toast.error(
-          "Sorry! The requested quantity is not available for this product."
-        );
-      } else if (res && res.hint === "incQty") {
-        toast.success("Product Quantity Incremented Success");
+        toast.error("Sorry! The requested quantity is not available for this product.", { autoClose: 2000 });
+      }
+      else if (res && res.hint === "incQty") {
+        toast.success("Product Quantity Incremented Success", { autoClose: 2000 });
         setTimeout(() => {
           handleComponetChange();
         }, 2500);

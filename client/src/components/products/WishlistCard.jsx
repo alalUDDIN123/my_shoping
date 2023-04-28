@@ -1,47 +1,42 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./wishlist.module.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import getLoggedUserData from "../../utils/LoggedUserData";
+import { useDispatch } from "react-redux";
 import { RemoveWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import { toast } from "react-toastify";
-import { REMOVE_WISHLIST_REQUEST_SUCESS } from "../../Constant/actionTypes";
 function WishlistCard(props) {
-  // console.log("props productId id:;-",props.productId._id);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isError, response } = useSelector(
-    (store) => store.removeWishListReducer
-  );
-  const loggedUser = getLoggedUserData();
+  const loggedUser = getLoggedUserData()
+  const productId = props.productId._id
+  const token = loggedUser.token
+  const dispatch = useDispatch()
 
-  const handleWishlistRemove = () => {
+  const handleWishlistRemove = async () => {
     const payload = {
-      token: loggedUser.token,
-      productId: props.productId._id,
+      productId: productId,
+      token: token
     };
 
-    dispatch(RemoveWishListAction(payload));
+    try {
+      let res = await dispatch(RemoveWishListAction(payload));
+      // console.log("res:-", res);
 
-    //  console.log("payload:-",payload,"props:-",props);
+      if (res === undefined) {
+        throw new Error("Something went wrong", { autoClose: 2000 })
+      }
+
+      if (res && res.hint === "reSuc") {
+        localStorage.removeItem(`product_${productId}`);
+        toast.success(res.msg, { autoClose: 2000 })
+      }
+    } catch (error) {
+      toast.error(error.message, { autoClose: 2000 });
+    }
   };
-  useEffect(() => {
-    if (isError) {
-      if (isError) {
-        return <h1 style={{ textAlign: "center" }}>Something went wrong</h1>;
-      }
-    }
 
-    if (response) {
-      if (response === "reSuc") {
-        toast.success("Product Remove From Wish List Success", {
-          autoClose: 2000,
-        });
-        props.setIsComponentChange((prevState) => !prevState);
-        dispatch({ type: REMOVE_WISHLIST_REQUEST_SUCESS, payload: null });
-      }
-    }
-  }, [isError, response, dispatch, props]);
+
+
 
   return (
     <>

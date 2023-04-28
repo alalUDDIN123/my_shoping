@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import DocumentTitle from "../Helmet/Helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { GetWishListAction } from "../../redux/AppReducer/wishlist/actions";
@@ -11,40 +11,37 @@ import WishlistCard from "./WishlistCard";
 function Wishlist() {
   const loggedUser = getLoggedUserData();
   const dispatch = useDispatch();
-  const { isError, data, isLoading } = useSelector(
-    (store) => store.getWishListReducer
-  );
-  const [isComponentChange, setIsComponentChange] = useState(false);
+  const {isError, data, isLoading } = useSelector((store) => store.wishlistReducer);
 
-  // const handleIsComponentChange = () => {
-  //   setIsComponentChange(!isComponentChange)
-  // }
 
   useEffect(() => {
     const payload = {
       token: loggedUser.token,
     };
     dispatch(GetWishListAction(payload));
-    console.log("isComponentChange::-", isComponentChange);
-  }, [dispatch, loggedUser.token, isComponentChange]);
 
-  console.log("componentChange::-");
+  }, [dispatch, loggedUser.token]);
+
 
   if (isLoading) {
     return <Loader />;
   }
 
   // console.log("isError::-",isError);
-  // console.log("data::-",data);
-  if (!data || data.length === 0) {
-    return <EmptyWishlist />;
-  }
+  // console.log("data::-", data);
 
   if (isError) {
     if (isError === "Failed to fetch" || isError === "Server error") {
       return <h1 style={{ textAlign: "center" }}>Something went wrong</h1>;
     }
   }
+
+
+  if (!data || data.length === 0) {
+    return <EmptyWishlist />;
+  }
+
+
 
   return (
     <>
@@ -61,7 +58,7 @@ function Wishlist() {
               <WishlistCard
                 key={product._id}
                 {...product}
-                setIsComponentChange={setIsComponentChange}
+
               />
             ))
           )}
