@@ -105,6 +105,33 @@ hr {
   margin: 20px 0;
 }
 
+
+/* star css start */
+
+
+.product_rating {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 6px;
+  font-size: 0.9rem;
+}
+
+.product_rating .star {
+  color: #ccc;
+  margin-right: 0.25rem;
+}
+
+.product_rating .star_active {
+  color: #ffcc00;
+}
+
+.product_rating .star_inactive {
+  color: #ddd;
+}
+
+/* start css end */
+
+
 /* tablet filters end */
 
 

@@ -95,7 +95,7 @@ function CartItem({
       if (res === undefined) {
         throw new Error("Something went wrong");
       } else if (res && res.hint === "decQty") {
-        toast.success("Product Quantity Decremented Success");
+        toast.success("Product Quantity Decremented Success",{autoClose:2000});
         setTimeout(() => {
           handleComponetChange();
         }, 2500);

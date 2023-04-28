@@ -65,6 +65,11 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.icon_button_shop_red_bg{
+    background-color: red;
+    cursor: not-allowed;
+}
+
 
 .icon_button_heart {
     display: flex;

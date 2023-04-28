@@ -296,12 +296,12 @@ function ProductsPage() {
 
             <div className={styles._tablet_rating_div}>
               <label>Choose rating :: </label>
-              <select onChange={handleRatingChange} value={selectedRating} >
+              <select onChange={handleRatingChange} value={selectedRating}>
                 <option value="" disabled>
                   Ratings
                 </option>
                 {ratingOption.map((rate, index) => (
-                  <option key={index} value={rate} selected={selectedRating === rate}>
+                  <option key={index} value={rate}>
                     {rate}
                   </option>
                 ))}
