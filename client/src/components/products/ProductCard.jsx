@@ -10,12 +10,20 @@ import { AddWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import DocumentTitle from "../Helmet/Helmet";
 import { addToCartAction } from "../../redux/AppReducer/cart/actions";
 
-const ProductCard = ({ image, title, brand, category, ratings, discountPrice, Stock, _id }) => {
+const ProductCard = ({
+  image,
+  title,
+  brand,
+  category,
+  ratings,
+  discountPrice,
+  Stock,
+  _id,
+}) => {
   const loggedUser = getLoggedUserData();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-
 
   const [isHeartClicked, setIsHeartClicked] = useState(() => {
     const storedValue = localStorage.getItem(`product_${_id}`);
@@ -27,7 +35,6 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
       navigate(`/product/single/${_id}`);
     }
   }, [isHeartClicked, navigate, _id]);
-
 
   const handleHeartClick = useCallback(async () => {
     if (loggedUser && loggedUser.token) {
@@ -41,22 +48,25 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
         // console.log("res:-", res);
 
         if (res === undefined) {
-          throw new Error("Something went wrong", { autoClose: 2000 })
+          throw new Error("Something went wrong", { autoClose: 2000 });
         }
 
         if (res && res === "Product added to wishlist") {
-          toast.success("Product added to wish list success", { autoClose: 2000 })
+          toast.success("Product added to wish list success", {
+            autoClose: 2000,
+          });
         } else if (res === "Product already exists in wishlist") {
-          toast.error(res, { autoClose: 2000 })
+          toast.error(res, { autoClose: 2000 });
         }
         setIsHeartClicked(true);
         localStorage.setItem(`product_${_id}`, JSON.stringify(true));
       } catch (error) {
         toast.error(error.message, { autoClose: 2000 });
       }
-
     } else {
-      toast.error("Please login to add product to wishlist", { autoClose: 2000 });
+      toast.error("Please login to add product to wishlist", {
+        autoClose: 2000,
+      });
       navigate("/login", {
         state: { from: location.pathname },
         replace: true,
@@ -64,58 +74,48 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
     }
   }, [dispatch, loggedUser, _id, navigate, location.pathname]);
 
-
-
   // add product to cart
   const AddToCart = async () => {
-
     if (!loggedUser) {
       toast.error("Please login to add product to cart", { autoClose: 2000 });
       setTimeout(() => {
         navigate("/login", {
           state: { from: location.pathname },
-          replace: true
+          replace: true,
         });
       }, 2000);
-
     } else {
       const payload = {
         quantity: 1,
         productId: _id,
-        token: loggedUser.token
-
-      }
-
-
+        token: loggedUser.token,
+      };
 
       try {
-        const res = await dispatch(addToCartAction(payload))
-        // console.log("res", res);
+        const res = await dispatch(addToCartAction(payload));
+        //console.log("res", res);
+
         if (res === undefined) {
-          throw new Error("Something went wrong")
+          throw new Error("Something went wrong");
         }
         if (res && res.msg === "product added to cart successs") {
-          toast.success("Product added to cart success", { autoClose: 2000 })
+          toast.success("Product added to cart success", { autoClose: 2000 });
           setTimeout(() => {
-            navigate("/cart")
-
-          }, 2500)
+            navigate("/cart");
+          }, 2500);
         } else if (res.msg === "product quantity updated in cart") {
-          toast.success("Product quantity updated in cart", { autoClose: 2000 })
+          toast.success("Product quantity updated in cart", {
+            autoClose: 2000,
+          });
           setTimeout(() => {
-            navigate("/cart")
-
-          }, 2500)
+            navigate("/cart");
+          }, 2500);
         }
       } catch (error) {
-        toast.error(error.message, { autoClose: 2000 })
+        toast.error(error.message, { autoClose: 2000 });
       }
     }
-
-
-  }
-
-
+  };
 
   return (
     <>
@@ -142,8 +142,9 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
               .map((_, i) => (
                 <span
                   key={i}
-                  className={`${styles.star} ${i < Math.floor(ratings) ? styles.star_active : ""
-                    }`}
+                  className={`${styles.star} ${
+                    i < Math.floor(ratings) ? styles.star_active : ""
+                  }`}
                 >
                   <FaStar />
                 </span>
@@ -152,22 +153,26 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
 
           <p className={styles.product_price}> ₹ {discountPrice}</p>
           <div className={styles.icons_container}>
-            <button className={`${styles.icon_button_shop} ${Stock <= 0 ? styles.icon_button_shop_red_bg : ""
+            <button
+              className={`${styles.icon_button_shop} ${
+                Stock <= 0 ? styles.icon_button_shop_red_bg : ""
               }`}
-              onClick={AddToCart} >
-              {Stock <= 0 ? <MdOutlineRemoveShoppingCart
-                style={{ color: "white" }} /> :
-                <FaShoppingCart />}
+              onClick={AddToCart}
+            >
+              {Stock <= 0 ? (
+                <MdOutlineRemoveShoppingCart style={{ color: "white" }} />
+              ) : (
+                <FaShoppingCart />
+              )}
             </button>
 
             <button
-              className={`${styles.icon_button_heart} ${isHeartClicked ? styles.icon_button_heart_active : ""
-                }`}
+              className={`${styles.icon_button_heart} ${
+                isHeartClicked ? styles.icon_button_heart_active : ""
+              }`}
               onClick={handleHeartClick}
             >
-              <FaHeart
-                style={{ color: isHeartClicked ? "#fff" : "#333" }}
-              />
+              <FaHeart style={{ color: isHeartClicked ? "#fff" : "#333" }} />
             </button>
           </div>
         </div>
