@@ -146,24 +146,7 @@ const intitialStateForget = {
   confirmPassword: ""
 }
 
-const addWishlistInitial={
-    isLoading:false,
-    isError:"",
-    response:""
-}
 
-const getWishlistInitial = {
-    isLoading: false,
-    isError: "",
-    data: []
-}
-
-
-const removeWishListInitial={
-    isLoading:false,
-    isError:false,
-    response:""
-}
 
 
 export {
@@ -190,9 +173,7 @@ export {
     DeliverAddressInitialState,
     addOrderIntial,
     intitialStateForget,
-    addWishlistInitial,
-    getWishlistInitial,
-    removeWishListInitial
+ 
 
 
 
