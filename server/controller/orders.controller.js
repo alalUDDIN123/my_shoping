@@ -6,6 +6,20 @@ const PostOrder = async (req, res) => {
   const { products, paymentMethod, orderStatus, deliveryAddressId, userId } = req.body;
   try {
 
+    // Check if the user has an existing order with the same products
+    const existingOrder = await orderModel.findOne({
+      user: userId,
+      'products.productId': {
+        $in: products.map(p => p.productId)
+      }
+    });
+
+    // console.log("existingOrder:-", existingOrder);
+
+    if (existingOrder) {
+      return res.status(400).send({ message: "Order already exists", hint: "orderExist" });
+    }
+
     // Create the order object
     const order = new orderModel({
       user: userId,
@@ -20,12 +34,29 @@ const PostOrder = async (req, res) => {
     // Save the order in the database
     await order.save();
 
-    res.status(201).send({ message: "Order placed successfully",hint:"orSucc" });
+    // Populate the order object with its associated data
+     //
+     const populatedOrder = await orderModel.findOne({ _id: order._id })
+     .populate({
+      path: "products.productId",
+      model: "product",
+    })
+    .populate({
+      path: "deliveryAddress",
+      model: "deliveryAddres",
+    })
+     .lean();
+
+    res.status(201).send({ message: "Order placed successfully", hint: "orSucc", order: populatedOrder });
   } catch (error) {
 
     res.status(500).send({ message: "Internal server error" });
   }
 };
+
+
+
+
 
 
 // retrive orders 👍👍👍
@@ -45,24 +76,23 @@ const GetOrders = async (req, res) => {
       })
       .lean();
 
-    if (!orders || orders.length === 0 || orders[0].products.length === 0) {
+    if (!orders || orders.length === 0) {
       return res.status(404).send({ msg: 'No order data found for this user' });
     }
 
-    const totalPrice = orders.reduce((total, order) => {
-      // console.log("orders total::-",total,"__and order::-",order) 
-      const orderTotal = order.products.reduce((subtotal, product) => {
-        return subtotal + product.productId.discountPrice;
-      }, 0);
-      return total + orderTotal;
-    }, 0);
+    const simplifiedOrders = orders.map(order => {
+  
+      const { _id, paymentMethod, orderStatus, deliveryAddress, products,created } = order;
+     
+      return {_id,paymentMethod,orderStatus,deliveryAddress,created,products};
+    });
 
-    res.status(200).send({ orders, totalPrice });
+    res.status(200).send(simplifiedOrders);
   } catch (error) {
-
     res.status(500).send({ message: "Internal server error" });
   }
 };
+
 
 
 // get single order  👍👍👍
@@ -102,12 +132,15 @@ const getSingleOrder = async (req, res) => {
     }
     // console.log("single order::-", singleOrder)
 
-    res.status(200).json({ singleOrder });
+    res.status(200).json(singleOrder );
   } catch (err) {
 
     res.status(500).json({ message: 'Internal server error' });
   }
 }
+
+
+// super admin
 
 const getallOrders = async (req, res) => {
   const orders = await orderModel.find();

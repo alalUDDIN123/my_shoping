@@ -14,7 +14,7 @@ import Home from './home/Home';
 import UserProfile from './userProfile/UserProfile';
 import Wishlist from './components/products/Wishlist';
 import CheckoutPage from './components/checkoutAndOrder/CheckoutPage';
-import Orders from './components/checkoutAndOrder/Orders';
+import Orders from './components/checkoutAndOrder/Orders/Orders';
 import Login from './components/authentication/Login';
 import Cart from "./components/cart/Cart"
 import Signup from './components/authentication/Signup';
@@ -22,6 +22,7 @@ import Navbar from './components/navbar/Navbar';
 import About from './About/About'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import OrdersDetails from './components/checkoutAndOrder/Orders/OrdersDetails'
 
 
 
@@ -55,6 +56,7 @@ function App() {
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>
         <Route path="/orders" element={<ReqAuth><Orders /></ReqAuth>} ></Route>
+        <Route path="/orders/details/:orderId" element={<ReqAuth><OrdersDetails /></ReqAuth>} ></Route>
         <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
         <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
 

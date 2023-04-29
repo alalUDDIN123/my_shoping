@@ -7,7 +7,7 @@ import { DeliverinitialState } from "../../objects/Objects";
 import {
   deliveryAddressActionObj,
   storeAddressAction,
-} from "../../redux/AppReducer/checkoutAndOder/actions";
+} from "../../redux/AppReducer/checkout/actions";
 import getLoggedUserData from "../../utils/LoggedUserData";
 
 function Address({ handleNext }) {
