@@ -12,9 +12,7 @@ function Wishlist() {
   const [timer, setTimer] = useState(true);
   const loggedUser = getLoggedUserData();
   const dispatch = useDispatch();
-  const { isError, data, isLoading } = useSelector(
-    (store) => store.wishlistReducer
-  );
+  const { isError, data } = useSelector((store) => store.wishlistReducer);
 
   useEffect(() => {
     const payload = {
@@ -29,7 +27,7 @@ function Wishlist() {
     }, 2000);
   }, []);
 
-  if (isLoading) {
+  if (timer) {
     return <Loader />;
   }
 
@@ -54,26 +52,18 @@ function Wishlist() {
 
   return (
     <>
-      {timer ? (
-        <h1 style={{ textAlign: "center" }}>
-          Please wait while we are Loading wishlist
-        </h1>
-      ) : (
-        <>
-          <DocumentTitle pageTitle={"| MY WISHLIST"} />
-          <div className={styles.__top__}>
-            <h2>My Wishlist</h2>
+      <DocumentTitle pageTitle={"| MY WISHLIST"} />
+      <div className={styles.__top__}>
+        <h2>My Wishlist</h2>
 
-            <p>Click on image to see details</p>
-          </div>
-          <div className={styles.__parent_container}>
-            {data?.length > 0 &&
-              data?.map((el) => {
-                return <WishlistCard key={el._id} {...el} />;
-              })}
-          </div>
-        </>
-      )}
+        <p>Click on image to see details</p>
+      </div>
+      <div className={styles.__parent_container}>
+        {data?.length > 0 &&
+          data?.map((el) => {
+            return <WishlistCard key={el._id} {...el} />;
+          })}
+      </div>
     </>
   );
 }
