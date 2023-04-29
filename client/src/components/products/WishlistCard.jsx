@@ -6,17 +6,17 @@ import { useDispatch } from "react-redux";
 import { RemoveWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import { toast } from "react-toastify";
 function WishlistCard(props) {
+  // console.log("propsData:-", props.productId);
 
-  // console.log("propsData:-",props);
   const navigate = useNavigate();
-  const loggedUser = getLoggedUserData()
-  const token = loggedUser.token
-  const dispatch = useDispatch()
+  const loggedUser = getLoggedUserData();
+  const token = loggedUser.token;
+  const dispatch = useDispatch();
 
-  const handleWishlistRemove = async () => {
+  const handleWishlistRemove = async (id) => {
     const payload = {
-      productId: props.productId._id,
-      token: token
+      productId: id,
+      token: token,
     };
 
     try {
@@ -24,20 +24,17 @@ function WishlistCard(props) {
       // console.log("res:-", res);
 
       if (res === undefined) {
-        throw new Error("Something went wrong", { autoClose: 2000 })
+        throw new Error("Something went wrong", { autoClose: 2000 });
       }
 
       if (res && res.hint === "reSuc") {
         localStorage.removeItem(`product_${props.productId._id}`);
-        toast.success(res.msg, { autoClose: 2000 })
+        toast.success(res.msg, { autoClose: 2000 });
       }
     } catch (error) {
       toast.error(error.message, { autoClose: 2000 });
     }
   };
-
-
-
 
   return (
     <>
@@ -51,7 +48,9 @@ function WishlistCard(props) {
         <p>{props?.productId?.title}</p>
         <div className={styles.__buttons__div}>
           <button>BUY NOW</button>
-          <button onClick={handleWishlistRemove}>REMOVE</button>
+          <button onClick={() => handleWishlistRemove(props.productId._id)}>
+            REMOVE
+          </button>
         </div>
       </div>
     </>
