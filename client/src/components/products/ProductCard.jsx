@@ -90,7 +90,7 @@ const ProductCard = ({ image, title, brand, category, ratings, discountPrice, St
 
       try {
         const res = await dispatch(addToCartAction(payload))
-        console.log("res", res);
+        // console.log("res", res);
         if (res === undefined) {
           throw new Error("Something went wrong")
         }

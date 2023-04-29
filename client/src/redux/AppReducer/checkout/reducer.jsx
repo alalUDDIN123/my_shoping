@@ -5,16 +5,14 @@ import {
     ADD_DELIVERY_ADDRESS_REQUEST,
     ADD_DELIVERY_ADDRESS_SUCESS,
   
-    ADD_ORDER_REQUEST,
-    ADD_ORDER_REQUEST_FAILUE,
-    ADD_ORDER_REQUEST_SUCESS,
+   
   
   } from "../../../Constant/actionTypes";
 
 import {
     DeliverAddressInitialState,
     DeliveryAddressIntial,
-    addOrderIntial,
+  
   
 } from "../../../objects/Objects";
 
@@ -60,39 +58,12 @@ const AddressReducer = (state = DeliverAddressInitialState, action) => {
   }
 };
 
-const addOrderReducer=(state=addOrderIntial,{type,payload})=>{
-    switch(type){
-
-        case ADD_ORDER_REQUEST:
-            return{
-                ...state,
-                isLoading:true
-            }
-    
-        case ADD_ORDER_REQUEST_SUCESS:
-            return{
-                ...state,
-                response:payload,
-                isLoading:false
-            } 
-        
-        case ADD_ORDER_REQUEST_FAILUE:
-            return{
-                ...state,
-                isError:true,
-                isLoading:false
-            }    
-            default:return state;
-        }  
-}
-
-
 
 export {
  
 
     deliveryAddressReducer,
     AddressReducer,
-    addOrderReducer
+ 
 
 }

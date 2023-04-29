@@ -3,9 +3,6 @@ import {
   ADD_DELIVERY_ADDRESS_REQUEST,
   ADD_DELIVERY_ADDRESS_SUCESS,
 
-  ADD_ORDER_REQUEST,
-  ADD_ORDER_REQUEST_FAILUE,
-  ADD_ORDER_REQUEST_SUCESS,
 
 } from "../../../Constant/actionTypes";
 
@@ -53,38 +50,11 @@ const storeAddressAction = (payload) => {
   };
 };
 
-const AddOrderAction = (payload) => async (dispatch) => {
-  dispatch({ type: ADD_ORDER_REQUEST });
-  try {
-    let res = await fetch("http://localhost:8080/api/order/post", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-        token: payload.token ?? LoggedUser.token ?? "",
-      },
-    });
 
-    const response = await res.json();
-
-    if (response && response.hint === "orSucc") {
-      dispatch({
-        type: ADD_ORDER_REQUEST_SUCESS,
-        payload: response,
-      });
-    }
-
-    return response;
-  } catch (error) {
-    dispatch({
-      type: ADD_ORDER_REQUEST_FAILUE,
-    });
-  }
-};
 
 export {
 
   deliveryAddressActionObj,
   storeAddressAction,
-  AddOrderAction,
+ 
 };

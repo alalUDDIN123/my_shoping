@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styles from "./confirm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPaymentOption } from "../../utils/PaymentOption";
-import { AddOrderAction} from "../../redux/AppReducer/checkoutAndOder/actions";
+import { AddOrderAction} from "../../redux/AppReducer/orders/actions";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import getLoggedUserData from "../../utils/LoggedUserData";

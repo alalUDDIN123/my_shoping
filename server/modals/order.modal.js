@@ -19,14 +19,13 @@ const orderSchema = mongoose.Schema(
     paymentMethod: {
       type: String,
       enum: ["cashOn", "UPI", "creditCard"],
-      default: "cashOn",
       required: true,
     },
     orderStatus: {
       type: String,
       enum: ["pending", "packed", "dispatch", "cancelled", "delivered"],
       default: "pending",
-      required: true,
+    
     },
     deliveryAddress: {
       type: mongoose.Schema.Types.ObjectId,

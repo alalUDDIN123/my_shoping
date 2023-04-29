@@ -31,8 +31,10 @@ import wishlistReducer from "./AppReducer/wishlist/reducer"
 import {
     deliveryAddressReducer,
     AddressReducer,
-    addOrderReducer
-} from "./AppReducer/checkoutAndOder/reducer";
+
+} from "./AppReducer/checkout/reducer";
+
+import OrdersReducer from "./AppReducer/orders/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -56,8 +58,10 @@ const combineReducer = combineReducers({
 
     deliveryAddressReducer,
     AddressReducer,
-    addOrderReducer,
 
-    wishlistReducer
+
+    wishlistReducer,
+
+    OrdersReducer
 })
 export const store = legacy_createStore(combineReducer, composeEnhancers(applyMiddleware(thunk)))
