@@ -13,6 +13,10 @@ import {
   ADD_ORDER_REQUEST_SUCCESS,
   ADD_ORDER_REQUEST_FAILUE,
 
+  GET_SINGLE_ORDER_REQUEST,
+  GET_SINGLE_ORDER_REQUEST_SUCCESS,
+  GET_SINGLE_ORDER_REQUEST_FAILUE,
+
 
 } from "../../../Constant/actionTypes";
 
@@ -25,11 +29,22 @@ const orderInitial = {
   status: ""
 };
 
+const getSingleOrderInitial = {
+  isLoading: false,
+  isError: "",
+  order: [],
+  deliveryAddress: {},
+  payMethod: "",
+  status: ""
+};
+
+
 const OrdersReducer = (state = orderInitial, { type, payload }) => {
   switch (type) {
     case ADD_ORDER_REQUEST:
     case GET_ORDERS_REQUEST:
     case CANCEL_ORDER_REQUEST:
+
       return {
         ...state,
         isLoading: true,
@@ -43,9 +58,11 @@ const OrdersReducer = (state = orderInitial, { type, payload }) => {
         deliveryAddress: {}
       };
     case GET_ORDERS_REQUEST_SUCCESS:
-      // console.log("payload data from action", payload);
+
+      // console.log("payload data from action for all products", payload);
       const pay = [];
       const sta = [];
+      const orderId=[]
 
       const orders = [];
       const deliveryAddresses = [];
@@ -55,15 +72,18 @@ const OrdersReducer = (state = orderInitial, { type, payload }) => {
         pay.push(item.paymentMethod)
         sta.push(item.orderStatus)
         orders.push(...item.products);
+        orderId.push(item._id)
         deliveryAddresses.push(item.deliveryAddress);
       });
 
+      // console.log("orderId:-",orderId);
       return {
         ...state,
         isLoading: false,
         orders,
         deliveryAddress: deliveryAddresses,
         payMethod: pay,
+        orderId,
         status: sta,
         isError: ""
       };
@@ -91,5 +111,36 @@ const OrdersReducer = (state = orderInitial, { type, payload }) => {
 };
 
 
+const GetSingleOrderReducer = (state = getSingleOrderInitial, { type, payload }) => {
+  switch (type) {
 
-export default OrdersReducer
+    case GET_SINGLE_ORDER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        isError: ""
+      }
+
+    case GET_SINGLE_ORDER_REQUEST_SUCCESS:
+      console.log("payload from action for single order in reducer:",payload);
+      return {
+        ...state,
+        isLoading: false,
+        isError: "",
+      }
+
+    case GET_SINGLE_ORDER_REQUEST_FAILUE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: payload
+      }
+    default: return state;
+  }
+}
+
+
+export {
+  OrdersReducer,
+  GetSingleOrderReducer
+}

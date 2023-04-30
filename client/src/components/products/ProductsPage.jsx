@@ -43,15 +43,27 @@ function ProductsPage() {
   const [selectedRating, setSelectedRating] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [minPrice, maxPrice] = selectedPriceRange.split("-");
+
+  let categoryfromLs = (localStorage.getItem("homeCategory") || "").replace(/"/g, "");
+
+  if (selectedCategories.length > 0 && categoryfromLs) {
+    // Check if categoryfromLs is present in selectedCategories
+    const index = selectedCategories.indexOf(categoryfromLs);
+    if (index !== -1) {
+      // Remove the category from selectedCategories
+      selectedCategories.splice(index, 1);
+    }
+  }
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
 
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedPriceRange, setSelectedPriceRange] = useState("");
-  const [minPrice, maxPrice] = selectedPriceRange.split("-");
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -99,12 +111,12 @@ function ProductsPage() {
     setSelectedBrands(newSelectedBrands);
   }
 
-  // handling price
+
 
   useEffect(() => {
     dispatch(
       getProductsData({
-        category: selectedCategories,
+        category:categoryfromLs?categoryfromLs:selectedCategories,
         brand: selectedBrands,
         minPrice: minPrice,
         maxPrice: maxPrice,
@@ -118,6 +130,7 @@ function ProductsPage() {
     minPrice,
     maxPrice,
     selectedRating,
+    categoryfromLs
   ]);
 
 
@@ -127,7 +140,7 @@ function ProductsPage() {
     setSelectedRating(Number(event.target.value));
   };
 
-  // console.log(selectedRating);
+  console.log("categoryfromLs:",categoryfromLs);
 
 
   return (

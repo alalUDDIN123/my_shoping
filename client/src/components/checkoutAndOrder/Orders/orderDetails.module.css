@@ -1,0 +1,174 @@
+.__orderDetails__info {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 0px 3px 1px;
+    margin: 30px auto;
+}
+
+.__orderDetails__info>div {
+    width: 33%;
+    height: 210px;
+    border-right: 1px solid plum;
+    padding: 10px 0px 20px 30px;
+}
+
+.__orderDetails__info>div:last-child {
+    border-right: none;
+}
+
+.__orderDetails__info>div>p:first-child {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.__orderDetails__info_download_invoice {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: -20px;
+}
+
+
+.__orderDetails__info_download_invoice button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0077c2;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 40px;
+    width: 150px;
+}
+
+.__orderDetails__info_download_invoice button:hover {
+    background-color: #005ea6;
+}
+
+.__orderDetails__info_download_invoice button svg {
+    margin-left: 0.5rem;
+}
+
+
+/* product info */
+
+.__orderDetails__Order_info {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 0px 3px 1px;
+    margin: 30px auto;
+}
+
+.__orderDetails__Order_info>div {
+    width: 33%;
+    height: 210px;
+    padding: 10px 0px 20px 30px;
+}
+
+.__orderDetails__Order_info>div:first-child {
+    margin-right: 2rem;
+}
+
+.__orderDetails__Order_info img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.__orderDetails__Order_info p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+}
+
+.__orderDetails__Order_info p:first-of-type {
+    font-weight: bold;
+}
+
+.__orderDetails__info_download_invoice_mobile {
+    display: none;
+}
+
+
+/* responsive */
+@media screen and (max-width: 767px) {
+    .__orderDetails__info {
+        display: none;
+    }
+
+    .__orderDetails__Order_info {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+        /* border: 2px solid blue; */
+    }
+
+    .__orderDetails__Order_info>div {
+        width: 100%;
+        border-bottom: 1px solid palevioletred;
+    }
+
+    .__orderDetails__Order_info>div:first-child {
+        margin-bottom: 1rem;
+        /* border: 1px solid red; */
+
+    }
+
+    .__orderDetails__Order_info img {
+        width: 6rem;
+        height: 6rem;
+    }
+
+    .__orderDetails__info_download_invoice_mobile {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        display: block;
+        margin-left: 150px;
+      }
+      
+
+    .__orderDetails__info_download_invoice_mobile p {
+        margin: 0;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .__orderDetails__info_download_invoice_mobile button {
+        background-color: #337ab7;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+    }
+
+    .__orderDetails__info_download_invoice_mobile button:hover {
+        background-color: #286090;
+    }
+
+    .__orderDetails__info_download_invoice_mobile button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(51, 122, 183, 0.4);
+    }
+
+}

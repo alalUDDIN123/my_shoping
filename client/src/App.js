@@ -56,7 +56,7 @@ function App() {
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>
         <Route path="/wishlist" element={<ReqAuth><Wishlist /></ReqAuth>} ></Route>
         <Route path="/orders" element={<ReqAuth><Orders /></ReqAuth>} ></Route>
-        <Route path="/orders/details/:orderId" element={<ReqAuth><OrdersDetails /></ReqAuth>} ></Route>
+        <Route path="/orders/details/orderId/:orderId/productId/:productId" element={<ReqAuth><OrdersDetails /></ReqAuth>} ></Route>
         <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
         <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
 
