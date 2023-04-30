@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";
 import getLoggedUserData from "../../../utils/LoggedUserData";
 import Loader from "../../loader/Loader";
+import ExpiredToken from "../../authentication/ExpiredToken";
 function Orders() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LoggedUser = getLoggedUserData()
-  const {isLoading,isError,orders,status} = useSelector(store => store.OrdersReducer)
+  const {isLoading,isError,orders,status,orderId } = useSelector(store => store.OrdersReducer)
+
   // console.log(status);
  
    useEffect(() => {
@@ -24,11 +26,13 @@ function Orders() {
   }
 
   if(isError){
-    console.log(isError);
+   if(isError.message==="Token expired"){
+    return <ExpiredToken loginMess={"Login"} />
+   }
   }
  
 
-
+// console.log("orderId:",orderId[0]);
   return (
     <>
       <DocumentTitle pageTitle={"| MY ORDERS"} />
@@ -55,7 +59,7 @@ function Orders() {
             <tr key={el._id} >
               <td>{index + 1}</td>
               <td> <img src={el.productId.image} alt={el._id} /> </td>
-              <td onClick={() => navigate(`/orders/details/${el._id}`)} >{el._id}</td>
+              <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
               <td>₹ {el.productId.discountPrice} </td>
               <td> {status[index]} </td>
               <td> <FaTrashAlt size={19} color="red" />

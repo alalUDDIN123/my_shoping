@@ -34,7 +34,10 @@ import {
 
 } from "./AppReducer/checkout/reducer";
 
-import OrdersReducer from "./AppReducer/orders/reducer";
+import {
+    OrdersReducer,
+    GetSingleOrderReducer
+} from "./AppReducer/orders/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -62,6 +65,7 @@ const combineReducer = combineReducers({
 
     wishlistReducer,
 
-    OrdersReducer
+    OrdersReducer,
+    GetSingleOrderReducer
 })
 export const store = legacy_createStore(combineReducer, composeEnhancers(applyMiddleware(thunk)))
