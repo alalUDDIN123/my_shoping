@@ -59,6 +59,7 @@ function App() {
         <Route path="/orders/details/orderId/:orderId/productId/:productId" element={<ReqAuth><OrdersDetails /></ReqAuth>} ></Route>
         <Route path="/profile" element={<ReqAuth><UserProfile /></ReqAuth>} ></Route>
         <Route path="/checkout" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
+        <Route path="/checkout/buyNow/:productId" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
 
         {/* Admin Route */}
         <Route path='/admin' element={<AdminHome />}></Route>
