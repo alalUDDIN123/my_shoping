@@ -60,7 +60,7 @@ const Login = () => {
     e.preventDefault();
 
     try { 
-      console.log("state data:-",state);
+      // console.log("state data:-",state);
       const res = await dispatch(SigninActionObj(state));
 
       if (res === undefined) {

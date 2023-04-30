@@ -141,8 +141,23 @@ function Singleproduct() {
   // redirect user to checkout page when click Buy now
 
   const handleCheckoutRedirect = () => {
-    navigate("/checkout");
-  };
+    if (!CheckLogin) {
+      toast.error("Please login to add product to cart");
+      setTimeout(() => {
+        navigate("/login", {
+          state: { from: location.pathname },
+          replace: true
+        });
+      }, 2000);
+
+    }else{
+      navigate(`/checkout/buyNow/${id}`)
+    }
+  }
+
+
+
+
 
   if (isLoading) {
     return <Loader />;
