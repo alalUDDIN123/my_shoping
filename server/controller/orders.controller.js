@@ -1,5 +1,6 @@
 
 const orderModel = require("../modals/order.modal");
+const decrementProductQuantity = require("./decrementProductQuantity.controller");
 
 // post order 👍👍👍
 const PostOrder = async (req, res) => {
@@ -34,25 +35,29 @@ const PostOrder = async (req, res) => {
     // Save the order in the database
     await order.save();
 
+    // Decrement the product stock for each product in the order
+    for (const product of products) {
+      await decrementProductQuantity(product.productId, 1);
+    }
+
     // Populate the order object with its associated data
-     //
-     const populatedOrder = await orderModel.findOne({ _id: order._id })
-     .populate({
-      path: "products.productId",
-      model: "product",
-    })
-    .populate({
-      path: "deliveryAddress",
-      model: "deliveryAddres",
-    })
-     .lean();
+    const populatedOrder = await orderModel.findOne({ _id: order._id })
+      .populate({
+        path: "products.productId",
+        model: "product",
+      })
+      .populate({
+        path: "deliveryAddress",
+        model: "deliveryAddres",
+      })
+      .lean();
 
     res.status(201).send({ message: "Order placed successfully", hint: "orSucc", order: populatedOrder });
   } catch (error) {
-
-    res.status(500).send({ message: "Internal server error" });
+    res.status(500).send({ message: "Internal server error",err:error.message });
   }
 };
+
 
 
 
