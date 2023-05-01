@@ -16,8 +16,6 @@ function Orders() {
   const {isLoading,isError,orders,status,orderId } = useSelector(store => store.OrdersReducer)
 
 
-  // console.log(status);
-
   useEffect(() => {
     dispatch(GetOrderAction({ token: LoggedUser.token }));
   }, [dispatch, LoggedUser.token]);

@@ -6,8 +6,8 @@ import {
     loginReducer,
     forgetPasswordReducer,
     resetPasswordReducer,
-    ChangePasswordReducer
-   
+    ChangePasswordReducer,
+ 
 } from "./AuthReducer/reducer";
 
 import {
@@ -47,6 +47,7 @@ const combineReducer = combineReducers({
     forgetPasswordReducer,
     resetPasswordReducer,
     ChangePasswordReducer,
+
 
     getProductReducer,
     getProductDetailsReducer,

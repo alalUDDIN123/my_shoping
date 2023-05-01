@@ -19,10 +19,11 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import styles from "./navbar.module.css";
 import { useMediaQuery } from "react-responsive";
 import SearchInput from "../../home/SearchInput";
-
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
 import getLoggedUserData, { loadUser } from "../../utils/LoggedUserData";
 import { getCartData } from "../../redux/AppReducer/cart/actions";
+import { LogoutActionCreator } from "../../redux/AuthReducer/actions";
 
 
 
@@ -30,7 +31,13 @@ function Navbar() {
   const LoggedUser = getLoggedUserData();
   const reGisterUer = loadUser();
   const [showRightSide, setShowRightSide] = useState(false);
-  const navigate = useNavigate();
+
+  const { response } = useSelector((store) => store.getCartDataReducer);
+  const storeProperties = useSelector(store => store.loginReducer)
+
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  // responsive start for
   const Desktop = ({ children }) => {
     const isDesktop = useMediaQuery({ minWidth: 992 });
     return isDesktop ? children : null;
@@ -44,24 +51,25 @@ function Navbar() {
     return isMobile ? children : null;
   };
 
+  // responsive end
+
   const onLogout = () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (confirmed) {
-      localStorage.removeItem("loggedUser");
-      localStorage.removeItem("registration");
-      window.location.reload();
+      dispatch(LogoutActionCreator())
     }
   };
 
-  const { response } = useSelector((store) => store.getCartDataReducer);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartData());
   }, [dispatch]);
 
 
-  //console.log("response::-", response);
+ 
+  if (storeProperties?.message) {
+    toast.success(storeProperties.message,{autoClose:1500});
+  }
 
   return (
     <>
@@ -76,7 +84,7 @@ function Navbar() {
           </div>
           <div className={styles._rightSide}>
             {(LoggedUser && LoggedUser.role) ||
-            (reGisterUer && reGisterUer.message) ? (
+              (reGisterUer && reGisterUer.message) ? (
               <>
                 <button
                   onClick={() => navigate("/about")}
@@ -143,7 +151,7 @@ function Navbar() {
                       Orders
                     </Link>
                     {(LoggedUser && LoggedUser.role === "admin") ||
-                    (reGisterUer && reGisterUer.role === "admin") ? (
+                      (reGisterUer && reGisterUer.role === "admin") ? (
                       <Link to="/admin">
                         <SiAdminer
                           style={{ marginRight: "10px", color: "white" }}
@@ -243,9 +251,8 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${
-              showRightSide ? "showRightSide" : ""
-            }`}
+            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
+              }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -290,7 +297,7 @@ function Navbar() {
                         </a>
                       </li>
                       {(LoggedUser && LoggedUser.role === "admin") ||
-                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        (reGisterUer && reGisterUer.role === "admin") ? (
                         <li>
                           <a href="/admin">
                             <SiAdminer style={{ marginRight: "10px" }} />
@@ -370,9 +377,8 @@ function Navbar() {
           </div>
 
           <div
-            className={`${styles._tablet_rightSide} ${
-              showRightSide ? "showRightSide" : ""
-            }`}
+            className={`${styles._tablet_rightSide} ${showRightSide ? "showRightSide" : ""
+              }`}
           >
             <div
               className={styles.hamburgerIcon}
@@ -383,7 +389,7 @@ function Navbar() {
             {showRightSide && (
               <div className={styles._tablet_rightSidebar}>
                 {(LoggedUser && LoggedUser.role) ||
-                (reGisterUer && reGisterUer.message) ? (
+                  (reGisterUer && reGisterUer.message) ? (
                   <>
                     <ul>
                       <li>
@@ -418,7 +424,7 @@ function Navbar() {
                       </li>
 
                       {(LoggedUser && LoggedUser.role === "admin") ||
-                      (reGisterUer && reGisterUer.role === "admin") ? (
+                        (reGisterUer && reGisterUer.role === "admin") ? (
                         <li>
                           <a href="/admin">
                             <SiAdminer style={{ marginRight: "10px" }} />

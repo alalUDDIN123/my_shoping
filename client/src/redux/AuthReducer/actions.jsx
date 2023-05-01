@@ -14,6 +14,11 @@ import {
   LOGIN_REQUEST_SUCESS,
 
 
+  LOGOUT_REQUEST,
+  LOGOUT_REQUEST_FAILUE,
+  LOGOUT_REQUEST_SUCCESS,
+
+
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST_FAILUE,
   RESET_PASSWORD_REQUEST_SUCESS,
@@ -181,12 +186,20 @@ const ChangePasswordAction = (payload) => async (dispatch) => {
   }
 };
 
+const LogoutActionCreator=()=>(dispatch)=>{
+ 
+  dispatch({type:LOGOUT_REQUEST})
+  dispatch({type:LOGOUT_REQUEST_SUCCESS})
+  dispatch({type:LOGOUT_REQUEST_FAILUE})
+}
+
 
 export {
   SignupActionObj,
   SigninActionObj,
   ForgetPassActionObj,
   ResetPassActionObj,
-  ChangePasswordAction
+  ChangePasswordAction,
+  LogoutActionCreator
 
 };

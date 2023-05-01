@@ -166,6 +166,7 @@ function Singleproduct() {
   // console.log("product.Stock", product && product.Stock);
   return (
     <>
+
       <DocumentTitle pageTitle="| PRODUCT | DETAILS" />
       <Dekstop>
         <div className={styles._main_single_container}>
