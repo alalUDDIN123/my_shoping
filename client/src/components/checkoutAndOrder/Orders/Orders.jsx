@@ -8,6 +8,7 @@ import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";
 import getLoggedUserData from "../../../utils/LoggedUserData";
 import Loader from "../../loader/Loader";
 import ExpiredToken from "../../authentication/ExpiredToken";
+import NoOrderFound from "./NoOrderFound";
 function Orders() {
 
   const navigate = useNavigate()
@@ -24,15 +25,17 @@ function Orders() {
     return <Loader />;
   }
 
-  if(isError){
-   if(isError.message==="Token expired"){
-    return <ExpiredToken loginMess={"Login"} />
-   }
+  if (isError) {
+    // console.log("isError:",isError);
+    if (isError.message === "Token expired") {
+      return <ExpiredToken loginMess={"Login"} />
+    } else if (isError.msg === "No order data found for this user") {
+      return <NoOrderFound />
+    }
   }
- 
 
-// console.log("orderId:",orderId[0]);
 
+  // console.log("orderId:",orderId[0]);
   return (
     <>
       <DocumentTitle pageTitle={"| MY ORDERS"} />
@@ -66,6 +69,7 @@ function Orders() {
                 <p className={styles.__order__id__res}>{el._id}</p>
               </td>
               <td> <img src={el.productId.image} alt={el._id} /> </td>
+              <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
               <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
               <td>₹ {el.productId.discountPrice} </td>
               <td> {status[index]} </td>
