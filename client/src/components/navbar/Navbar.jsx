@@ -63,13 +63,17 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(getCartData());
-  }, [dispatch]);
+    if (storeProperties?.message) {
+      toast.success(storeProperties.message, { autoClose: 1500 });
+      // set message to null after displaying else it will show again and again since
+      // message properties will not get null
+      storeProperties.message = null;
+      navigate("/")
+    }
+  }, [dispatch, storeProperties, storeProperties?.message, navigate]);
 
 
- 
-  if (storeProperties?.message) {
-    toast.success(storeProperties.message,{autoClose:1500});
-  }
+
 
   return (
     <>
@@ -112,7 +116,7 @@ function Navbar() {
                     margin: "0 5px",
                   }}
                 >
-                  {" "}
+
                   <RiLogoutCircleLine />
                   Logout
                 </button>
@@ -315,6 +319,20 @@ function Navbar() {
                           </a>
                         </li>
                       )}
+
+                      <li onClick={onLogout} style={{
+                        fontSize: "23px",
+                        marginLeft: "30px",
+                        display: "flex",
+                        alignItems: "center",
+                        borderBottom: "1px solid white",
+                        paddingBottom: "5px",
+                        color: 'white'
+                      }}>
+                        <RiLogoutCircleLine style={{ marginRight: "10px" }} />
+                        Logout
+                      </li>
+
                     </ul>
                   </>
                 ) : (
@@ -442,6 +460,18 @@ function Navbar() {
                           </a>
                         </li>
                       )}
+                      <li onClick={onLogout} style={{
+                        fontSize: "23px",
+                        marginLeft: "30px",
+                        display: "flex",
+                        alignItems: "center",
+                        borderBottom: "1px solid white",
+                        paddingBottom: "5px",
+                        color: 'white'
+                      }}>
+                        <RiLogoutCircleLine style={{ marginRight: "10px" }} />
+                        Logout
+                      </li>
                     </ul>
                   </>
                 ) : (

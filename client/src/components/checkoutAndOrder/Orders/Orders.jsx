@@ -8,31 +8,35 @@ import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";
 import getLoggedUserData from "../../../utils/LoggedUserData";
 import Loader from "../../loader/Loader";
 import ExpiredToken from "../../authentication/ExpiredToken";
+import NoOrderFound from "./NoOrderFound";
 function Orders() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LoggedUser = getLoggedUserData()
-  const {isLoading,isError,orders,status,orderId } = useSelector(store => store.OrdersReducer)
+  const { isLoading, isError, orders, status, orderId } = useSelector(store => store.OrdersReducer)
 
   // console.log(status);
- 
-   useEffect(() => {
+
+  useEffect(() => {
     dispatch(GetOrderAction({ token: LoggedUser.token }));
 
-  }, [dispatch,LoggedUser.token]);
+  }, [dispatch, LoggedUser.token]);
 
-  if(isLoading){
+  if (isLoading) {
     return <Loader />
   }
 
-  if(isError){
-   if(isError.message==="Token expired"){
-    return <ExpiredToken loginMess={"Login"} />
-   }
+  if (isError) {
+    // console.log("isError:",isError);
+    if (isError.message === "Token expired") {
+      return <ExpiredToken loginMess={"Login"} />
+    } else if (isError.msg === "No order data found for this user") {
+      return <NoOrderFound />
+    }
   }
- 
 
-// console.log("orderId:",orderId[0]);
+
+  // console.log("orderId:",orderId[0]);
   return (
     <>
       <DocumentTitle pageTitle={"| MY ORDERS"} />

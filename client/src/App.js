@@ -26,6 +26,7 @@ import OrdersDetails from './components/checkoutAndOrder/Orders/OrdersDetails'
 
 
 
+
 function App() {
   return (
     <>
@@ -36,6 +37,9 @@ function App() {
 
 
       <Routes>
+
+        {/* test purpose */}
+     
 
         {/* common route */}
         <Route path="/cart" element={<ReqAuth><Cart /></ReqAuth>} ></Route>

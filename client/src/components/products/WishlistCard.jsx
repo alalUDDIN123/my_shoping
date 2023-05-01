@@ -47,7 +47,7 @@ function WishlistCard(props) {
         </div>
         <p>{props?.productId?.title}</p>
         <div className={styles.__buttons__div}>
-          <button>BUY NOW</button>
+          <button onClick={()=>navigate(`/checkout/buyNow/${props.productId._id}`)} >BUY NOW</button>
           <button onClick={() => handleWishlistRemove(props.productId._id)}>
             REMOVE
           </button>

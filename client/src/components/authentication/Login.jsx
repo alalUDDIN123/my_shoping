@@ -1,15 +1,15 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import styles from './authentication.module.css';
 import { useDispatch } from 'react-redux';
 import ErrorShowModal from '../../modals/ErrorShowModal';
-import { handleValidation } from '../../Validation/signupValidation';
 import DocumentTitle from '../Helmet/Helmet';
 import { toast } from 'react-toastify';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import { initialMessages, loginInitialState } from '../../objects/Objects';
 import { SigninActionObj } from '../../redux/AuthReducer/actions';
+import { validateInputValue } from '../../Validation/validateInput';
+
 
 const sendData = {
   title: "Login Failed",
@@ -34,32 +34,41 @@ const Login = () => {
 
   const [showModal, setShowModal] = useState(true);
   const [showMessage, setShowMessage] = useState(initialMessages);
+
+  const [validation, setValidation] = useState({
+    email: false,
+    password: false,
+  });
+
   const [emailSave, SetEmailSave] = useState("")
   const dispatch = useDispatch()
+
   const isFormValid = () => {
-    const formValid = !showMessage.email && !showMessage.password;
+    const formValid =
+      validation.email !== false &&
+      validation.password !== false
     return formValid;
   };
 
-  const Passhanlde = (name) => {
-    handleValidation(name, state, showMessage, setShowMessage)
+  const Passhanlde = (name, value) => {
+    validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage)
   }
 
   useEffect(() => {
     if (showMessage && showMessage.success) {
-      toast.success(showMessage.success)
+      toast.success(showMessage.success,{autoClose:1500})
       setShowMessage({ ...showMessage, success: "" });
       setTimeout(() => {
         navigate(commingFrom, { replace: true });
       }, 2500)
     }
-  }, [showMessage, navigate,commingFrom]);
+  }, [showMessage, navigate, commingFrom]);
 
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    try { 
+    try {
       // console.log("state data:-",state);
       const res = await dispatch(SigninActionObj(state));
 
@@ -80,7 +89,7 @@ const Login = () => {
         setState(loginInitialState);
       }
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message,{autoClose:1500});
       setState(loginInitialState);
     }
   };
@@ -103,15 +112,17 @@ const Login = () => {
 
 
   if (showMessage && showMessage.invalid) {
-    toast.error(showMessage.invalid)
+    toast.error(showMessage.invalid,{autoClose:1500})
     setShowMessage({ ...showMessage, invalid: "" })
     // navigation("/login")
   }
 
+  // console.log("state from component", state, "isFormValid:", isFormValid());
+
 
   return (
     <>
-    
+
       <DocumentTitle pageTitle="| LOGIN" />
       {isLoading ? (
         <p style={{ textAlign: "center", fontSize: "30px" }} >Signin form loading...</p>
@@ -129,20 +140,27 @@ const Login = () => {
                     <span><FaEnvelope /></span>
                     <input type="email" name="email"
                       placeholder="Email"
-                      onBlur={() => Passhanlde("email")}
                       value={state.email}
-                      onChange={(e) => setState({ ...state, email: e.target.value })}
-                      required />
+                      onChange={(e) => {
+                        const emailValue = e.target.value;
+                        setState({ ...state, email: emailValue });
+                        Passhanlde("email", emailValue);
+                      }}
+                    />
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.email}</p>}
                   <div className={styles.input_field}>
                     {/* <span><FaLock /></span> */}
                     <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Password"
                       value={state.password}
-                      onBlur={() => Passhanlde("password")}
-                      onChange={(e) => setState({ ...state, password: e.target.value })}
-                      required />
-                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
+                      onChange={(e) => {
+                        const passWordValue = e.target.value;
+                        setState({ ...state, password: passWordValue });
+                        Passhanlde("password", passWordValue);
+                      }
+                      }
+                    />
+                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.password}</p>}
                   <input className={styles.button}
@@ -155,7 +173,7 @@ const Login = () => {
             </div>
           </div>
 
-          <p>Forget Password ? <span onClick={()=>navigate("/forgetPassword")} className={styles.__forgot__password__link} >Click here 👉</span> </p>
+          <p>Forget Password ? <span onClick={() => navigate("/forgetPassword")} className={styles.__forgot__password__link} >Click here 👉</span> </p>
         </div>
       )}
 
