@@ -19,6 +19,8 @@ function WishlistCard(props) {
       token: token,
     };
 
+    console.log(payload);
+
     try {
       let res = await dispatch(RemoveWishListAction(payload));
       // console.log("res:-", res);

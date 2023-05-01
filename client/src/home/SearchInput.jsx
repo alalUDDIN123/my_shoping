@@ -40,7 +40,7 @@ const SearchInput = () => {
 
   //handeling all products
   const handleAllProduct = () => {
-    console.log(inputValue);
+    navigate("/products");
   };
 
   useEffect(() => {
