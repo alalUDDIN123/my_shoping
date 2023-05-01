@@ -13,6 +13,12 @@ import {
     LOGIN_REQUEST_FAILUE,
     LOGIN_REQUEST_SUCESS,
 
+    LOGOUT_REQUEST,
+
+    LOGOUT_REQUEST_FAILUE,
+
+    LOGOUT_REQUEST_SUCCESS,
+
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_FAILUE,
     RESET_PASSWORD_REQUEST_SUCESS,
@@ -67,6 +73,7 @@ const loginReducer = (state = loginInitial, { type, payload }) => {
     switch (type) {
 
         case LOGIN_REQUEST:
+        case LOGOUT_REQUEST:    
             return {
                 ...state,
                 isLoading: true
@@ -79,8 +86,17 @@ const loginReducer = (state = loginInitial, { type, payload }) => {
                 isAuth: true,
                 isLoading: false
             }
+        case LOGOUT_REQUEST_SUCCESS:
+            localStorage.removeItem("loggedUser")
+            return {
+                ...state,
+                isAuth: false,
+                isLoading: false,
+                message: "Logout Successful."
+            }  
 
         case LOGIN_REQUEST_FAILUE:
+        case LOGOUT_REQUEST_FAILUE:    
             return {
                 ...state,
                 isAuth: false,
@@ -173,6 +189,7 @@ const ChangePasswordReducer = (state = changePasswordInitial, { type, payload })
         return state;
     }
   };
+
 
 
 export {
