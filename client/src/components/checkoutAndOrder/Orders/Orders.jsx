@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DocumentTitle from "../../Helmet/Helmet";
 import styles from "./orders.module.css";
 import { FaTrashAlt } from "react-icons/fa";
@@ -11,33 +11,45 @@ import ExpiredToken from "../../authentication/ExpiredToken";
 import NoOrderFound from "./NoOrderFound";
 
 function Orders() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const LoggedUser = getLoggedUserData()
-  const {isLoading,isError,orders,status,orderId } = useSelector(store => store.OrdersReducer)
-
+  const [timer, setTimer] = useState(true);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const LoggedUser = getLoggedUserData();
+  const { isError, orders, status, orderId } = useSelector(
+    (store) => store.OrdersReducer
+  );
 
   useEffect(() => {
     dispatch(GetOrderAction({ token: LoggedUser.token }));
   }, [dispatch, LoggedUser.token]);
 
-  if (isLoading) {
+  useEffect(() => {
+    setTimeout(() => {
+      setTimer(false);
+    }, 2000);
+  }, []);
+
+  if (timer) {
     return <Loader />;
   }
 
   if (isError) {
     // console.log("isError:",isError);
     if (isError.message === "Token expired") {
-      return <ExpiredToken loginMess={"Login"} />
+      return <ExpiredToken loginMess={"Login"} />;
     } else if (isError.msg === "No order data found for this user") {
-      return <NoOrderFound />
-    }else{
-      return <h1 style={{textAlign:"center"}}>Something went wrong. Please contact us</h1>
+      return <NoOrderFound />;
+    } else {
+      return (
+        <h1 style={{ textAlign: "center" }}>
+          Something went wrong. Please contact us
+        </h1>
+      );
     }
   }
- 
 
-// console.log("orderId:",orderId[0]);
+  console.log("orderId:", orderId);
+  console.log("this is order", orders);
 
   return (
     <>
@@ -61,23 +73,29 @@ function Orders() {
         </thead>
 
         <tbody className={styles.__orders_table__body}>
-         {orders?.map((el,index)=>(
-          <tr key={el._id} >
-             <td>{index + 1}</td>
+          {orders?.map((el, index) => (
+            <tr key={el._id}>
+              <td>{index + 1}</td>
               <td>
-               
                 <img src={el.productId.image} alt={el._id} />
               </td>
-              
-              <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
+
+              <td
+                onClick={() =>
+                  navigate(
+                    `/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`
+                  )
+                }
+              >
+                {el.productId._id}
+              </td>
               <td>₹ {el.productId.discountPrice} </td>
               <td> {status[index]} </td>
               <td>
-               
                 <FaTrashAlt size={19} color="red" />
               </td>
-          </tr>
-         ))}
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

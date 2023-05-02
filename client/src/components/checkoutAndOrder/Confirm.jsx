@@ -30,17 +30,17 @@ function Confirm() {
   }, [dispatch, productId]);
 
   const requestBody = {
-    products:
-      productId ??
-      response.cartItems.map((item) => ({
-        productId: item.product._id,
-      })),
+    products: productId
+      ? [{ productId: productId }]
+      : response.cartItems.map((item) => ({
+          productId: item.product._id,
+        })),
     paymentMethod: paymentOption,
     deliveryAddressId: deliveryAddressId,
     token: logedUser.token,
   };
   // console.log("response", response);
-  // console.log("requestBody for order::-", requestBody);
+  console.log("requestBody for order::-", requestBody);
 
   const handleConfirmOrder = async () => {
     try {
@@ -112,7 +112,7 @@ function Confirm() {
               <td></td>
               <td>
                 <span>
-                  ₹{" "}
+                  ₹
                   {productId
                     ? product.discountPrice + 45
                     : response && response?.totalPrice + 45}
