@@ -104,7 +104,7 @@ const GetOrders = async (req, res) => {
 
 const getSingleOrder = async (req, res) => {
   const { orderId, productId, userId } = req.body;
-  console.log("getting called ");
+  // console.log("getting called ");
 
   if (!orderId || !productId) {
     return res.status(400).json({ message: 'orderId and productId is required' });
