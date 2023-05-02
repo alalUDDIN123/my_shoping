@@ -6,11 +6,11 @@ import styles from './authentication.module.css';
 import { useDispatch } from 'react-redux';
 import { initialMessages, signupIntialState } from '../../objects/Objects';
 import ErrorShowModal from '../../modals/ErrorShowModal';
-import { handleValidation } from '../../Validation/signupValidation';
 import { SignupActionObj } from '../../redux/AuthReducer/actions';
 import DocumentTitle from '../Helmet/Helmet';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { validateInputValue } from '../../Validation/validateInput';
 
 const sendData = {
   title: "Email Validation Failed",
@@ -21,39 +21,56 @@ const sendData = {
 const Signup = () => {
   const [state, setState] = useState(signupIntialState)
   const [isLoading, setIsLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+  const [showMessage, setShowMessage] = useState(initialMessages);
+  const [emailSave, SetEmailSave] = useState("")
+
+  const [validation, setValidation] = useState({
+    name: false,
+    email: false,
+    password: false,
+    mobile: false
+  });
+
+
   const location = useLocation();
   const commingFrom = location.state?.from || "/"
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
 
-  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigate()
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const [showModal, setShowModal] = useState(true);
-  const [showMessage, setShowMessage] = useState(initialMessages);
-  const [emailSave, SetEmailSave] = useState("")
+
   const dispatch = useDispatch()
   const isFormValid = () => {
-    const formValid = !showMessage.name && !showMessage.email && !showMessage.password && !showMessage.mobile;
+    const formValid =
+      validation.name !== false &&
+      validation.email !== false &&
+      validation.password !== false &&
+      validation.mobile !== false
     return formValid;
   };
 
-  const Passhanlde = (name) => {
-    handleValidation(name, state, showMessage, setShowMessage)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState({ ...state, [name]: value })
+    validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage)
   }
 
   useEffect(() => {
     if (showMessage && showMessage.success) {
-      toast.success(showMessage.success)
+      toast.success(showMessage.success,{autoClose:1500})
       setTimeout(() => {
         navigation(commingFrom, { replace: true });
       }, 2500)
     }
-  }, [showMessage, navigation,commingFrom]);
+  }, [showMessage, navigation, commingFrom]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -64,7 +81,7 @@ const Signup = () => {
         name: state.firstname + " " + state.lastname,
         email: state.email,
         password: state.password,
-        mobile: state.mobile,
+        mobile: +state.mobile,
         avator: state.avator ? state.avator : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyu8pvIy6jXwRi9VluYbqkKBjhiM_YlZIGww&usqp=CAU"
       }
 
@@ -86,7 +103,7 @@ const Signup = () => {
       }
     } catch (err) {
       // console.log("err::-", err);
-      toast.error(err.message);
+      toast.error(err.message,{autoClose:1500});
       setState(signupIntialState);
     }
 
@@ -109,8 +126,7 @@ const Signup = () => {
     );
   }
 
-
-
+  // console.log("isForm validate from component :", isFormValid())
 
   return (
     <>
@@ -133,9 +149,7 @@ const Signup = () => {
                         <span><FaUser /></span>
                         <input type="text" name="firstname" placeholder="First Name"
                           value={state.firstname}
-                          onBlur={() => Passhanlde("name")}
-                          onChange={(e) => setState({ ...state, firstname: e.target.value })}
-                          required />
+                          onChange={handleChange} />
 
                       </div>
                     </div>
@@ -145,29 +159,25 @@ const Signup = () => {
                         <input type="text" name="lastname"
                           placeholder="Last Name"
                           value={state.lastname}
-                          onChange={(e) => setState({ ...state, lastname: e.target.value })}
-                          required />
+                          onChange={handleChange} />
                       </div>
                     </div>
+                    {showMessage && <p className={styles._show_indcator}>{showMessage.name}</p>}
                   </div>
                   <div className={styles.input_field}>
                     <span><FaEnvelope /></span>
                     <input type="email" name="email"
                       placeholder="Email"
-                      onBlur={() => Passhanlde("email")}
                       value={state.email}
-                      onChange={(e) => setState({ ...state, email: e.target.value })}
-                      required />
+                      onChange={handleChange} />
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.email}</p>}
                   <div className={styles.input_field}>
                     {/* <span><FaLock /></span> */}
                     <input type={showPassword ? 'text' : 'password'} name="password" placeholder="Password"
                       value={state.password}
-                      onBlur={() => Passhanlde("password")}
-                      onChange={(e) => setState({ ...state, password: e.target.value })}
-                      required />
-                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> :  <FaEyeSlash />}</span>
+                      onChange={handleChange} />
+                    <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
                   {showMessage && <p className={styles._show_indcator}>{showMessage.password}</p>}
 
@@ -175,9 +185,7 @@ const Signup = () => {
                     {/* <span><FaLock /></span> */}
                     <input type="number" name="mobile" placeholder='Enter mobile number'
                       value={state.mobile}
-                      onBlur={() => Passhanlde("mobile")}
-                      onChange={(e) => setState({ ...state, mobile: Number(e.target.value) })}
-                      required />
+                      onChange={handleChange} />
 
                     <span> <ImMobile /></span>
                   </div>
@@ -186,8 +194,7 @@ const Signup = () => {
                     <span><BiUserCircle /></span>
                     <input type="url" name="avator" placeholder="Paste your photo link"
                       value={state.avator}
-
-                      onChange={(e) => setState({ ...state, avator: e.target.value })} />
+                      onChange={handleChange} />
                   </div>
 
 

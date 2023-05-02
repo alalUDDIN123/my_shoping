@@ -8,15 +8,14 @@ import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";
 import getLoggedUserData from "../../../utils/LoggedUserData";
 import Loader from "../../loader/Loader";
 import ExpiredToken from "../../authentication/ExpiredToken";
-function Orders() {
+import NoOrderFound from "./NoOrderFound";
 
+function Orders() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LoggedUser = getLoggedUserData()
   const {isLoading,isError,orders,status,orderId } = useSelector(store => store.OrdersReducer)
 
-
-  // console.log(status);
 
   useEffect(() => {
     dispatch(GetOrderAction({ token: LoggedUser.token }));
@@ -26,10 +25,15 @@ function Orders() {
     return <Loader />;
   }
 
-  if(isError){
-   if(isError.message==="Token expired"){
-    return <ExpiredToken loginMess={"Login"} />
-   }
+  if (isError) {
+    // console.log("isError:",isError);
+    if (isError.message === "Token expired") {
+      return <ExpiredToken loginMess={"Login"} />
+    } else if (isError.msg === "No order data found for this user") {
+      return <NoOrderFound />
+    }else{
+      return <h1 style={{textAlign:"center"}}>Something went wrong. Please contact us</h1>
+    }
   }
  
 
@@ -57,26 +61,23 @@ function Orders() {
         </thead>
 
         <tbody className={styles.__orders_table__body}>
-          {orders?.map((el, index) => (
-            <tr key={el._id}>
-              <td>{index + 1}</td>
+         {orders?.map((el,index)=>(
+          <tr key={el._id} >
+             <td>{index + 1}</td>
               <td>
-                {" "}
-                <img src={el.productId.image} alt={el._id} />{" "}
+               
+                <img src={el.productId.image} alt={el._id} />
               </td>
-              <td onClick={() => navigate(`/orders/details/${el._id}`)}>
-                <p className={styles.__order__id__res}>{el._id}</p>
-              </td>
-              <td> <img src={el.productId.image} alt={el._id} /> </td>
+              
               <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
               <td>₹ {el.productId.discountPrice} </td>
               <td> {status[index]} </td>
               <td>
-                {" "}
+               
                 <FaTrashAlt size={19} color="red" />
               </td>
-            </tr>
-          ))}
+          </tr>
+         ))}
         </tbody>
       </table>
     </>

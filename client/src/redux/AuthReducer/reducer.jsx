@@ -13,6 +13,12 @@ import {
     LOGIN_REQUEST_FAILUE,
     LOGIN_REQUEST_SUCESS,
 
+    LOGOUT_REQUEST,
+    LOGOUT_REQUEST_FAILUE,
+    LOGOUT_REQUEST_SUCCESS,
+
+ 
+
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_REQUEST_FAILUE,
     RESET_PASSWORD_REQUEST_SUCESS,
@@ -21,7 +27,7 @@ import {
     SIGNUP_REQUEST_FAILUE,
     SIGNUP_REQUEST_SUCESS,
 
-    
+
 } from "../../Constant/actionTypes";
 
 import {
@@ -67,6 +73,7 @@ const loginReducer = (state = loginInitial, { type, payload }) => {
     switch (type) {
 
         case LOGIN_REQUEST:
+        case LOGOUT_REQUEST:
             return {
                 ...state,
                 isLoading: true
@@ -79,8 +86,20 @@ const loginReducer = (state = loginInitial, { type, payload }) => {
                 isAuth: true,
                 isLoading: false
             }
+        case LOGOUT_REQUEST_SUCCESS:
+            localStorage.removeItem("loggedUser")
+            if (localStorage.getItem("registration")) {
+                localStorage.removeItem("registration");
+            }
+            return {
+                ...state,
+                isAuth: false,
+                isLoading: false,
+                message: "Logout Successful."
+            }
 
         case LOGIN_REQUEST_FAILUE:
+        case LOGOUT_REQUEST_FAILUE:
             return {
                 ...state,
                 isAuth: false,
@@ -92,87 +111,88 @@ const loginReducer = (state = loginInitial, { type, payload }) => {
     }
 }
 
-const forgetPasswordReducer = (state = forgetPasswordInitial,{type,payload})=>{
+const forgetPasswordReducer = (state = forgetPasswordInitial, { type, payload }) => {
 
-    switch(type){
-    
-      case FORGET_PASSWORD_REQUEST:
-        return{
-            ...state,
-            isLoading:true
-        }   
-      
-      case FORGET_PASSWORD_REQUEST_SUCESS:
-        return{
-            ...state,
-            response:payload,
-            isLoading:false
-        }  
-      
-      case FORGET_PASSWORD_REQUEST_FAILUE:
-        return{
-            ...state,
-            isError:true,
-            isLoading:false
-        }  
-        default:return state
+    switch (type) {
+
+        case FORGET_PASSWORD_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case FORGET_PASSWORD_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false
+            }
+
+        case FORGET_PASSWORD_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: true,
+                isLoading: false
+            }
+        default: return state
     }
 }
 
-const resetPasswordReducer = (state = resetPasswordIntial,{type,payload})=>{
+const resetPasswordReducer = (state = resetPasswordIntial, { type, payload }) => {
 
-    switch(type){
-    
-      case RESET_PASSWORD_REQUEST:
-        return{
-            ...state,
-            isLoading:true
-        }   
-      
-      case RESET_PASSWORD_REQUEST_SUCESS:
-        return{
-            ...state,
-            response:payload,
-            isLoading:false
-        }  
-      
-      case RESET_PASSWORD_REQUEST_FAILUE:
-        return{
-            ...state,
-            isError:true,
-            isLoading:false
-        }  
-        default:return state
+    switch (type) {
+
+        case RESET_PASSWORD_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case RESET_PASSWORD_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false
+            }
+
+        case RESET_PASSWORD_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: true,
+                isLoading: false
+            }
+        default: return state
     }
 }
 
 const ChangePasswordReducer = (state = changePasswordInitial, { type, payload }) => {
     switch (type) {
-      case CHANGE_PASSWORD_REQUEST:
-        return {
-          ...state,
-          isLoading: true,
-        };
-  
-      case CHANGE_PASSWORD_REQUEST_SUCESS:
-        return {
-          ...state,
-          response: payload,
-          isLoading: false,
-          isError: null,
-        };
-  
-      case CHANGE_PASSWORD_REQUEST_FAILUE:
-        return {
-          ...state,
-          isError: payload,
-          isLoading: false,
-        };
-  
-      default:
-        return state;
+        case CHANGE_PASSWORD_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+
+        case CHANGE_PASSWORD_REQUEST_SUCESS:
+            return {
+                ...state,
+                response: payload,
+                isLoading: false,
+                isError: null,
+            };
+
+        case CHANGE_PASSWORD_REQUEST_FAILUE:
+            return {
+                ...state,
+                isError: payload,
+                isLoading: false,
+            };
+
+        default:
+            return state;
     }
-  };
+};
+
 
 
 export {

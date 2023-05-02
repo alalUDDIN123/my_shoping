@@ -119,6 +119,8 @@ function ProductsPage() {
     setSelectedRating(Number(event.target.value));
   };
 
+  // console.log("categoryfromLs:",categoryfromLs);
+
   return (
     <>
       <Dekstop>

@@ -14,6 +14,11 @@ import {
   LOGIN_REQUEST_SUCESS,
 
 
+  LOGOUT_REQUEST,
+  LOGOUT_REQUEST_FAILUE,
+  LOGOUT_REQUEST_SUCCESS,
+
+
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_REQUEST_FAILUE,
   RESET_PASSWORD_REQUEST_SUCESS,
@@ -26,15 +31,14 @@ import {
 
 } from "../../Constant/actionTypes";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080/api/users";
 
-const url = `${BASE_URL}/api/users/register`;
 
 const SignupActionObj = (payload) => async (dispatch) => {
   // console.log("payload::-",payload);
   dispatch({ type: SIGNUP_REQUEST });
   try {
-    const res = await fetch(url, {
+    const res = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -63,7 +67,7 @@ const SigninActionObj = (payload) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   try {
-    const res = await fetch(`${BASE_URL}/api/users/login`, {
+    const res = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -91,7 +95,7 @@ const SigninActionObj = (payload) => async (dispatch) => {
 const ForgetPassActionObj = (payload) => async (dispatch) => {
   dispatch({ type: FORGET_PASSWORD_REQUEST });
   try {
-    const res = await fetch(`${BASE_URL}/api/users/forget/password`, {
+    const res = await fetch(`${BASE_URL}/forget/password`, {
       method: "POST",
       body: JSON.stringify({ email: payload }),
       headers: {
@@ -122,7 +126,7 @@ const ForgetPassActionObj = (payload) => async (dispatch) => {
 const ResetPassActionObj = (payload) => async (dispatch) => {
   dispatch({ type: RESET_PASSWORD_REQUEST });
   try {
-    const res = await fetch(`${BASE_URL}/api/users/resetPassword`, {
+    const res = await fetch(`${BASE_URL}/resetPassword`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -155,7 +159,7 @@ const ChangePasswordAction = (payload) => async (dispatch) => {
   let responseData = null;
 
   try {
-    const res = await fetch(`${BASE_URL}/users/change/password`, {
+    const res = await fetch(`${BASE_URL}/change/password`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -181,12 +185,20 @@ const ChangePasswordAction = (payload) => async (dispatch) => {
   }
 };
 
+const LogoutActionCreator=()=>(dispatch)=>{
+ 
+  dispatch({type:LOGOUT_REQUEST})
+  dispatch({type:LOGOUT_REQUEST_SUCCESS})
+  dispatch({type:LOGOUT_REQUEST_FAILUE})
+}
+
 
 export {
   SignupActionObj,
   SigninActionObj,
   ForgetPassActionObj,
   ResetPassActionObj,
-  ChangePasswordAction
+  ChangePasswordAction,
+  LogoutActionCreator
 
 };

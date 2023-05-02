@@ -89,19 +89,20 @@ const GetOrderAction = (payload) => async (dispatch) => {
 };
 
 const GetSingleOrderAction = (payload) => async (dispatch) => {
-    console.log("payload from component:-",payload);
+    // console.log("payload from component:-",payload);
     dispatch({ type: GET_SINGLE_ORDER_REQUEST });
     try {
         let res = await fetch(`${BASE_URL}/api/order/get/singleOrder`, {
-            // body:JSON.stringify({orderId:payload.orderId,productId:payload.productId}),
+            method:"POST",
+            body:JSON.stringify({orderId:payload.orderId,productId:payload.productId}),
             headers: {
                 "Content-Type": "application/json",
                 token: payload.token ?? LoggedUser.token ?? "",
             }
         });
-        console.log("res only:-",res);
+        // console.log("res only:-",res);
         const response = await res.json();
-        console.log("action response for single order:-",response);
+        // console.log("action response for single order:-",response);
         if (response) {
             dispatch({
                 type: GET_SINGLE_ORDER_REQUEST_SUCCESS,

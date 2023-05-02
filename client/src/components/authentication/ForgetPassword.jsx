@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom"
 import styles from './authentication.module.css';
-import { isValidEmail } from '../../Validation/signupValidation';
 import { ForgetPassActionObj } from '../../redux/AuthReducer/actions';
 import { toast } from 'react-toastify';
 import { initialMessages } from '../../objects/Objects';
@@ -16,7 +15,10 @@ const sendData = {
   title: "Not Found",
   buttonText: "Try Again",
 }
-
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|mil|info|biz)$/i;
+  return emailRegex.test(email);
+}
 
 const ForgetPassword = () => {
   const [isFormLoading, setIsLoading] = useState(true);
