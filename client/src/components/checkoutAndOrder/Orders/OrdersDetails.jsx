@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import DocumentTitle from '../../Helmet/Helmet'
 import styles from "./orderDetails.module.css"
 import data from "./SingleObjData.json"
@@ -8,6 +8,49 @@ import { AiOutlineDownload } from "react-icons/ai"
 
 function OrdersDetails() {
   const LoggedUser = getLoggedUserData()
+
+
+    // getting complete url from browser
+  const fullUrl = window.location.href;
+
+  // split the url string by the "/" character
+  const urlParts = fullUrl.split("/");
+
+  // find the index of the "orderId" and "productId" strings
+  const orderIdIndex = urlParts.indexOf("orderId") + 1;
+  const productIdIndex = urlParts.indexOf("productId") + 1;
+
+  // extract the orderId and productId from the url
+  const orderId = urlParts[orderIdIndex];
+  const productId = urlParts[productIdIndex];
+
+  const fetchSingleOrderData=async(payload)=>{
+    let res= await fetch(`http://localhost:8080/api/order/get/singleOrder`,{
+      body:JSON.stringify({
+        orderId:payload.orderId,
+        productId:payload.productId
+      }),
+      headers:{
+        'Content-Type':"application/json",
+        token:payload.token
+      }
+    });
+
+    let data= await res.json();
+
+    console.log("data:",data);
+  }
+
+  useEffect(() => {
+    const payload = {
+      token: LoggedUser.token,
+      orderId,
+      productId
+    }
+
+    fetchSingleOrderData(payload)
+
+  }, [LoggedUser.token, orderId, productId])
 
 
 
