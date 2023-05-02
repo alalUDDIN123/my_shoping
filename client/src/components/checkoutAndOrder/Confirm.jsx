@@ -2,30 +2,39 @@ import React, { useEffect } from "react";
 import styles from "./confirm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPaymentOption } from "../../utils/PaymentOption";
-import { AddOrderAction} from "../../redux/AppReducer/orders/actions";
+import { AddOrderAction } from "../../redux/AppReducer/orders/actions";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import getLoggedUserData from "../../utils/LoggedUserData";
 import { getCartData } from "../../redux/AppReducer/cart/actions";
+import { getProductDetails } from "../../redux/AppReducer/products/actions";
 
 function Confirm() {
+  const { productId } = useParams();
   const logedUser = getLoggedUserData();
   let paymentOption = loadPaymentOption();
   const dispatch = useDispatch();
   const { response } = useSelector((store) => store.getCartDataReducer);
   const { deliveryAddress } = useSelector((state) => state.AddressReducer);
+  const { product } = useSelector((store) => store.getProductDetailsReducer);
   const deliveryAddressId =
     localStorage.getItem("deliveryAddressId").replace(/"/g, "") || "";
 
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getCartData());
-  }, [dispatch]);
+    if (productId) {
+      dispatch(getProductDetails(productId));
+    }
+  }, [dispatch, productId]);
 
   const requestBody = {
-    products: response.cartItems.map((item) => ({
-      productId: item.product._id,
-    })),
+    products:
+      productId ??
+      response.cartItems.map((item) => ({
+        productId: item.product._id,
+      })),
     paymentMethod: paymentOption,
     deliveryAddressId: deliveryAddressId,
     token: logedUser.token,
@@ -53,7 +62,6 @@ function Confirm() {
 
   return (
     <>
-   
       <div className={styles.__checkout__confirm_}>
         <p>Confirm your order</p>
         <table>
@@ -103,7 +111,12 @@ function Confirm() {
               <th>Total Amount :</th>
               <td></td>
               <td>
-                <span>₹ {response && response?.totalPrice + 45}</span>
+                <span>
+                  ₹{" "}
+                  {productId
+                    ? product.discountPrice + 45
+                    : response && response?.totalPrice + 45}
+                </span>
               </td>
             </tr>
           </tbody>

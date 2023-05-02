@@ -38,7 +38,7 @@ function ProductsPage() {
   // various branding secion
   const [brandOption, setBrandOption] = useState(brandOptionAv);
 
-  // ratings 
+  // ratings
 
   const [selectedRating, setSelectedRating] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -47,28 +47,13 @@ function ProductsPage() {
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [minPrice, maxPrice] = selectedPriceRange.split("-");
 
-  let categoryfromLs = (localStorage.getItem("homeCategory") || "").replace(/"/g, "");
-
-  if (selectedCategories.length > 0 && categoryfromLs) {
-    // Check if categoryfromLs is present in selectedCategories
-    const index = selectedCategories.indexOf(categoryfromLs);
-    if (index !== -1) {
-      // Remove the category from selectedCategories
-      selectedCategories.splice(index, 1);
-    }
-  }
-
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
-
-
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
 
   const { products, isLoading } = useSelector(
     (store) => store.getProductReducer
@@ -111,12 +96,10 @@ function ProductsPage() {
     setSelectedBrands(newSelectedBrands);
   }
 
-
-
   useEffect(() => {
     dispatch(
       getProductsData({
-        category:categoryfromLs?categoryfromLs:selectedCategories,
+        category: selectedCategories,
         brand: selectedBrands,
         minPrice: minPrice,
         maxPrice: maxPrice,
@@ -130,18 +113,13 @@ function ProductsPage() {
     minPrice,
     maxPrice,
     selectedRating,
-    categoryfromLs
   ]);
-
-
-
 
   const handleRatingChange = (event) => {
     setSelectedRating(Number(event.target.value));
   };
 
   // console.log("categoryfromLs:",categoryfromLs);
-
 
   return (
     <>
@@ -222,7 +200,6 @@ function ProductsPage() {
                 ))}
               </select>
             </div>
-
           </div>
 
           {/* products container */}
@@ -251,7 +228,9 @@ function ProductsPage() {
           {/* filters container */}
           <div className={stylesTablet._tablet_category_div}>
             <div className={stylesTablet._tablet_category_div}>
-              <label className={stylesTablet._tablet_label_text}>Select Category :: </label>
+              <label className={stylesTablet._tablet_label_text}>
+                Select Category ::{" "}
+              </label>
               {categoryOption.map((item, index) => (
                 <div key={index}>
                   <input
@@ -268,7 +247,9 @@ function ProductsPage() {
             <hr />
 
             <div className={styles._tablet_brand_div}>
-              <label className={styles._tablet_label_text}>Select Brand :: </label>
+              <label className={styles._tablet_label_text}>
+                Select Brand ::{" "}
+              </label>
               {brandOption.map((item, index) => (
                 <div key={index}>
                   <input
@@ -321,7 +302,6 @@ function ProductsPage() {
               </select>
             </div>
           </div>
-
 
           {/* products container */}
           <div className={stylesTablet._tablet_products_container}>
