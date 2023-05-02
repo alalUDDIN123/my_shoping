@@ -18,7 +18,7 @@ const orderRouter = express.Router();
 orderRouter.use(authenticateUser)
 orderRouter.post("/post", validateOrderFields, PostOrder)
 orderRouter.get("/get", GetOrders)
-orderRouter.get("/get/singleOrder", getSingleOrder)
+orderRouter.post("/get/singleOrder", getSingleOrder)
 orderRouter.delete("/remove", removeOrder)
 orderRouter.patch("/updateStatus", SuperAdminAccess, updateOrderStatus)
 orderRouter.get("/deiveredCount", SuperAdminAccess, countDeliveredOrders)

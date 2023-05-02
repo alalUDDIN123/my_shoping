@@ -140,11 +140,7 @@ function ProductsPage() {
     setSelectedRating(Number(event.target.value));
   };
 
-<<<<<<< HEAD
   // console.log("categoryfromLs:",categoryfromLs);
-=======
-  console.log("categoryfromLs:",categoryfromLs);
->>>>>>> 44bd9eb53857cf279fca7a702bfa55eadd709f67
 
 
   return (

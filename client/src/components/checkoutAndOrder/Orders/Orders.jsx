@@ -9,8 +9,8 @@ import getLoggedUserData from "../../../utils/LoggedUserData";
 import Loader from "../../loader/Loader";
 import ExpiredToken from "../../authentication/ExpiredToken";
 import NoOrderFound from "./NoOrderFound";
-function Orders() {
 
+function Orders() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LoggedUser = getLoggedUserData()
@@ -31,11 +31,14 @@ function Orders() {
       return <ExpiredToken loginMess={"Login"} />
     } else if (isError.msg === "No order data found for this user") {
       return <NoOrderFound />
+    }else{
+      return <h1 style={{textAlign:"center"}}>Something went wrong. Please contact us</h1>
     }
   }
+ 
 
+// console.log("orderId:",orderId[0]);
 
-  // console.log("orderId:",orderId[0]);
   return (
     <>
       <DocumentTitle pageTitle={"| MY ORDERS"} />
@@ -58,27 +61,23 @@ function Orders() {
         </thead>
 
         <tbody className={styles.__orders_table__body}>
-          {orders?.map((el, index) => (
-            <tr key={el._id}>
-              <td>{index + 1}</td>
+         {orders?.map((el,index)=>(
+          <tr key={el._id} >
+             <td>{index + 1}</td>
               <td>
-                {" "}
-                <img src={el.productId.image} alt={el._id} />{" "}
+               
+                <img src={el.productId.image} alt={el._id} />
               </td>
-              <td onClick={() => navigate(`/orders/details/${el._id}`)}>
-                <p className={styles.__order__id__res}>{el._id}</p>
-              </td>
-              <td> <img src={el.productId.image} alt={el._id} /> </td>
-              <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
+              
               <td onClick={() => navigate(`/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`)} >{orderId[index]}</td>
               <td>₹ {el.productId.discountPrice} </td>
               <td> {status[index]} </td>
               <td>
-                {" "}
+               
                 <FaTrashAlt size={19} color="red" />
               </td>
-            </tr>
-          ))}
+          </tr>
+         ))}
         </tbody>
       </table>
     </>

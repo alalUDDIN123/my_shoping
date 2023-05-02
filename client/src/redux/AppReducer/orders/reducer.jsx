@@ -127,6 +127,10 @@ const GetSingleOrderReducer = (state = getSingleOrderInitial, { type, payload })
         ...state,
         isLoading: false,
         isError: "",
+        order:payload.products[0].productId,
+        deliveryAddress:payload.deliveryAddress,
+        payMethod:payload.paymentMethod,
+        status:payload.orderStatus
       }
 
     case GET_SINGLE_ORDER_REQUEST_FAILUE:
