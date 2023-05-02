@@ -32,13 +32,19 @@ const PostOrder = async (req, res) => {
       deliveryAddress: deliveryAddressId,
     });
 
+    // Decrement the product stock in the order
+    for (const product of products) {
+      // console.log("product:",product);  
+      try {
+        await decrementProductQuantity(product.productId, 1);
+      } catch (error) {
+        // console.log({ errorMsg: error.message, message: "Internal server error" });
+        return res.status(500).send({ message: "Internal server error", err: error.message });
+      }
+    }
+
     // Save the order in the database
     await order.save();
-
-    // Decrement the product stock for each product in the order
-    for (const product of products) {
-      await decrementProductQuantity(product.productId, 1);
-    }
 
     // Populate the order object with its associated data
     const populatedOrder = await orderModel.findOne({ _id: order._id })
@@ -53,15 +59,12 @@ const PostOrder = async (req, res) => {
       .lean();
 
     res.status(201).send({ message: "Order placed successfully", hint: "orSucc", order: populatedOrder });
+
   } catch (error) {
-    res.status(500).send({ message: "Internal server error",err:error.message });
+    console.log({ errorMsg: error.message, message: "Internal server error" });
+    res.status(500).send({ message: "Internal server error", err: error.message });
   }
 };
-
-
-
-
-
 
 
 // retrive orders 👍👍👍
@@ -86,10 +89,10 @@ const GetOrders = async (req, res) => {
     }
 
     const simplifiedOrders = orders.map(order => {
-  
-      const { _id, paymentMethod, orderStatus, deliveryAddress, products,created } = order;
-     
-      return {_id,paymentMethod,orderStatus,deliveryAddress,created,products};
+
+      const { _id, paymentMethod, orderStatus, deliveryAddress, products, created } = order;
+
+      return { _id, paymentMethod, orderStatus, deliveryAddress, created, products };
     });
 
     res.status(200).send(simplifiedOrders);
@@ -138,7 +141,7 @@ const getSingleOrder = async (req, res) => {
     }
     // console.log("single order::-", singleOrder)
 
-    res.status(200).json(singleOrder );
+    res.status(200).json(singleOrder);
   } catch (err) {
 
     res.status(500).json({ message: 'Internal server error' });

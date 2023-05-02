@@ -121,6 +121,7 @@ function ProductsPage() {
 
   // console.log("categoryfromLs:",categoryfromLs);
 
+
   return (
     <>
       <Dekstop>
