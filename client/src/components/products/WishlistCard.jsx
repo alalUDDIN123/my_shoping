@@ -7,7 +7,7 @@ import { RemoveWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import { toast } from "react-toastify";
 function WishlistCard(props) {
   // console.log("propsData:-", props.productId);
-
+// console.log("props:-",props);
   const navigate = useNavigate();
   const loggedUser = getLoggedUserData();
   const token = loggedUser.token;
@@ -49,7 +49,9 @@ function WishlistCard(props) {
         </div>
         <p>{props?.productId?.title}</p>
         <div className={styles.__buttons__div}>
-          <button onClick={()=>navigate(`/checkout/buyNow/${props.productId._id}`)} >BUY NOW</button>
+
+          {props?.productId?.Stock<1?<button style={{cursor:"not-allowed",backgroundColor:"red",color:"white"}} >OUT OF STOCK</button>: <button onClick={()=>navigate(`/checkout/buyNow/${props.productId._id}`)} >BUY NOW</button>}
+         
           <button onClick={() => handleWishlistRemove(props.productId._id)}>
             REMOVE
           </button>

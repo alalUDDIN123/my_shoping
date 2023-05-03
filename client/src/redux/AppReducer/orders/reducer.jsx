@@ -33,9 +33,7 @@ const getSingleOrderInitial = {
   isLoading: false,
   isError: "",
   order: [],
-  deliveryAddress: {},
-  payMethod: "",
-  status: ""
+
 };
 
 
@@ -43,7 +41,7 @@ const OrdersReducer = (state = orderInitial, { type, payload }) => {
   switch (type) {
     case ADD_ORDER_REQUEST:
     case GET_ORDERS_REQUEST:
-    case CANCEL_ORDER_REQUEST:
+ 
 
       return {
         ...state,
@@ -59,47 +57,19 @@ const OrdersReducer = (state = orderInitial, { type, payload }) => {
       };
     case GET_ORDERS_REQUEST_SUCCESS:
 
-      // console.log("payload data from action for all products", payload);
-      const pay = [];
-      const sta = [];
-      const orderId=[]
-
-      const orders = [];
-      const deliveryAddresses = [];
-
-      payload.forEach((item) => {
-        // console.log("mapping item",item);
-        pay.push(item.paymentMethod)
-        sta.push(item.orderStatus)
-        orders.push(...item.products);
-        orderId.push(item._id)
-        deliveryAddresses.push(item.deliveryAddress);
-      });
-
-      // console.log("orderId:-",orderId);
+      // console.log("payload data from action for all orders:", payload);
+   
       return {
         ...state,
         isLoading: false,
-        orders,
-        deliveryAddress: deliveryAddresses,
-        payMethod: pay,
-        orderId,
-        status: sta,
+        orders:payload,
         isError: ""
       };
 
-    case CANCEL_ORDER_REQUEST_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        orders: state.orders.map(order =>
-          order._id === payload ? { ...order, status: "Cancelled" } : order
-        ),
-        isError: ""
-      };
+
     case ADD_ORDER_REQUEST_FAILUE:
     case GET_ORDERS_REQUEST_FAILUE:
-    case CANCEL_ORDER_REQUEST_FAILUE:
+ 
       return {
         ...state,
         isLoading: false,
@@ -115,6 +85,7 @@ const GetSingleOrderReducer = (state = getSingleOrderInitial, { type, payload })
   switch (type) {
 
     case GET_SINGLE_ORDER_REQUEST:
+    case CANCEL_ORDER_REQUEST:  
       return {
         ...state,
         isLoading: true,
@@ -122,18 +93,33 @@ const GetSingleOrderReducer = (state = getSingleOrderInitial, { type, payload })
       }
 
     case GET_SINGLE_ORDER_REQUEST_SUCCESS:
-      console.log("payload from action for single order in reducer:",payload);
+      // console.log("payload from action for single order in reducer:",payload);
       return {
         ...state,
         isLoading: false,
         isError: "",
-        order:payload.products[0].productId,
-        deliveryAddress:payload.deliveryAddress,
-        payMethod:payload.paymentMethod,
-        status:payload.orderStatus
+        order:payload,
+    
       }
 
+    case CANCEL_ORDER_REQUEST_SUCCESS:
+    console.log("action.payload:",payload);
+    console.log("state.order.products before delete :",state.order.products );
+    const updatedOrder= state.order.products.filter(
+      (item) => item.productId._id !== payload
+    );
+
+    console.log("state.order.products after delete :",updatedOrder );
+    return{
+      ...state,
+      isLoading: false,
+      isError: null,
+      order:updatedOrder
+    }
+        
+
     case GET_SINGLE_ORDER_REQUEST_FAILUE:
+    case CANCEL_ORDER_REQUEST_FAILUE:
       return {
         ...state,
         isLoading: false,

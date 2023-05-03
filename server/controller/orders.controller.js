@@ -1,6 +1,8 @@
 
 const orderModel = require("../modals/order.modal");
 const decrementProductQuantity = require("./decrementProductQuantity.controller");
+const mongoose = require("mongoose")
+
 
 // post order 👍👍👍
 const PostOrder = async (req, res) => {
@@ -106,47 +108,39 @@ const GetOrders = async (req, res) => {
 // get single order  👍👍👍
 
 const getSingleOrder = async (req, res) => {
-  const { orderId, productId, userId } = req.body;
-  // console.log("getting called ");
+  const { userId,orderId } = req.body;
 
-  if (!orderId || !productId) {
-    return res.status(400).json({ message: 'orderId and productId is required' });
+  if(!orderId){
+    return res.status(400).send({message:"OrderId is required"})
   }
 
   try {
+    const order = await orderModel.findOne({_id: orderId})
+    .populate({
+      path: "products.productId",
+      model: "product",
+    })
+    .populate({
+      path: "deliveryAddress",
+      model: "deliveryAddres",
+    })
+    .lean();
 
-    const order = await orderModel.findById(orderId);
-
+    // console.log("order:",order);
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
-    // console.log("orders::-", order)
 
     if (order.user.toString() !== userId) {
       return res.status(401).json({ message: 'You are not authorized to get this order' });
     }
-    const singleOrder = await orderModel.findOne({ "products.productId": productId })
-      .populate({
-        path: "products.productId",
-        model: "product",
-      })
-      .populate({
-        path: "deliveryAddress",
-        model: "deliveryAddres",
-      })
-      .lean();
 
-    if (!singleOrder) {
-      return res.status(404).json({ message: 'Order not found' });
-    }
-    // console.log("single order::-", singleOrder)
-
-    res.status(200).json(singleOrder);
+    res.status(200).send(order);
   } catch (err) {
-
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Internal server error', errorMsg: err.message });
   }
 }
+
 
 
 // super admin
@@ -166,36 +160,58 @@ const getallOrders = async (req, res) => {
 const removeOrder = async (req, res) => {
   const { orderId, productId, userId } = req.body;
 
-  if (!orderId || !productId) {
-    return res.status(400).json({ message: 'orderId and productId is required' });
+  if (!orderId) {
+    return res.status(400).json({ message: 'orderId is required' });
   }
 
   try {
-
-
-
     const order = await orderModel.findById(orderId);
 
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
-    // console.log("orders::-", order)
 
     if (order.user.toString() !== userId) {
       return res.status(401).json({ message: 'You are not authorized to remove this order' });
     }
 
-    if (order.orderStatus === "delivered") {
-      return res.status(403).json({ message: "Cannot remove a delivered order" });
+    if (order.orderStatus === 'delivered') {
+      return res.status(403).json({ message: 'Cannot remove a delivered order' });
     }
 
-    await orderModel.findOneAndRemove({ "products.productId": productId });
-    res.status(200).json({ message: "Order removed successfully" });
-  } catch (err) {
 
-    res.status(500).json({ message: "Internal server error" });
+
+    // console.log("order.products:", order.products.length);
+
+    if (order.products.length === 1) {
+      // Remove the complete order from the database
+      await orderModel.findByIdAndRemove(orderId);
+      return res.status(200).json({ message: 'Order removed successfully',hint:"orderRemoved" });
+    }
+
+    // Find the index of the product in the order's products array
+    const productIndex = order.products.findIndex(
+      (product) => product.productId.toString() === productId
+    );
+
+    if (productIndex === -1) {
+      return res.status(404).json({ message: 'Product not found in order' });
+    }
+
+    // Using $pull operator to remove the product from the order
+    await orderModel.findOneAndUpdate(
+      { _id: orderId },
+      { $pull: { products: { productId } } }
+    );
+
+    res.status(200).json({ message: 'Product removed from order successfully',hint:"productRe" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error', errorMsg: err.message });
   }
-}
+};
+
+
 
 // update order status 👍👍👍
 
