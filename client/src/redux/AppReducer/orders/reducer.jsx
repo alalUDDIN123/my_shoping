@@ -103,13 +103,13 @@ const GetSingleOrderReducer = (state = getSingleOrderInitial, { type, payload })
       }
 
     case CANCEL_ORDER_REQUEST_SUCCESS:
-    console.log("action.payload:",payload);
-    console.log("state.order.products before delete :",state.order.products );
+    // console.log("action.payload:",payload);
+    // console.log("state.order.products before delete :",state.order.products );
     const updatedOrder= state.order.products.filter(
       (item) => item.productId._id !== payload
     );
 
-    console.log("state.order.products after delete :",updatedOrder );
+    // console.log("state.order.products after delete :",updatedOrder );
     return{
       ...state,
       isLoading: false,

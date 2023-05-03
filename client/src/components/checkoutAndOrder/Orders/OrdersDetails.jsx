@@ -55,7 +55,7 @@ function OrdersDetails() {
     getUserDetails(payload.token);
   }, [LoggedUser.token, orderId, dispatch]);
 
-  console.log("storedata from component:-", storeData);
+  // console.log("storedata from component:-", storeData);
   useEffect(() => {
     setTimeout(() => {
       setTimer(false);
@@ -128,39 +128,37 @@ function OrdersDetails() {
           </button>
         </div>
       </div>
-
       <div className={styles.__orderDetails__Order_info}>
         {storeData?.order?.products &&
           storeData.order.products.map((el, index) => (
-            <>
-              <div
-                className={styles.__orderDetails__Order_Info_main_container}
-                key={index}
-              >
-                <div>
-                  <img src={el.productId.image} alt={el.productId.title} />
-                  <p>{el.productId.title}</p>
-                </div>
-
-                <div>
-                  <p>Payment method : {storeData?.order?.paymentMethod}</p>
-                  <p>Order Status : {storeData?.order?.orderStatus}</p>
-                  <p>Price : ₹ {el.productId.discountPrice}</p>
-                </div>
-
-                <div>
-                  <FaTrashAlt
-                    onClick={() => handleOrderDelete(el.productId._id)}
-                  />
-                </div>
-                <div>
-                  <p>Seller: Mr. Ravi Shop </p>
-                  <p>Rate and review</p>
-                </div>
+            <div
+              className={styles.__orderDetails__Order_Info_main_container}
+              key={index}
+            >
+              <div>
+                <img src={el.productId.image} alt={el.productId.title} />
+                <p>{el.productId.title}</p>
               </div>
-            </>
+
+              <div>
+                <p>Payment method : {storeData?.order?.paymentMethod}</p>
+                <p>Order Status : {storeData?.order?.orderStatus}</p>
+                <p>Price : ₹ {el.productId.discountPrice}</p>
+              </div>
+
+              <div>
+                <FaTrashAlt
+                  onClick={() => handleOrderDelete(el.productId._id)}
+                />
+              </div>
+              <div>
+                <p>Seller: Mr. Ravi Shop </p>
+                <p>Rate and review</p>
+              </div>
+            </div>
           ))}
       </div>
+
 
       {/* <div className={styles.__orderDetails__info_download_invoice_mobile}>
         <p>Download Order Invoice</p>
