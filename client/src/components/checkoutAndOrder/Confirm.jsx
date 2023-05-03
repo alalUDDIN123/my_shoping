@@ -51,20 +51,20 @@ function Confirm() {
       }
 
       if (res && res.hint === "orSucc") {
-        toast.success(res.message,{autoClose:1500});
+        toast.success(res.message, { autoClose: 1500 });
 
         setTimeout(() => {
           navigate("/orders");
         }, 2000);
-      }else if(res.hint==="orderExist"){
-        toast.error(res.message,{autoClose:1500});
+      } else if (res.hint === "orderExist") {
+        toast.error(res.message, { autoClose: 1500 });
 
         setTimeout(() => {
           navigate("/orders");
         }, 2000);
       }
     } catch (error) {
-      toast.error(error.message,{autoClose:1500})
+      toast.error(error.message, { autoClose: 1500 });
     }
   };
 
