@@ -40,7 +40,7 @@ function Confirm() {
     token: logedUser.token,
   };
   // console.log("response", response);
-  console.log("requestBody for order::-", requestBody);
+  // console.log("requestBody for order::-", requestBody);
 
   const handleConfirmOrder = async () => {
     try {
@@ -51,13 +51,21 @@ function Confirm() {
       }
 
       if (res && res.hint === "orSucc") {
-        toast.success(res.message);
+        toast.success(res.message,{autoClose:1500});
+
+        setTimeout(() => {
+          navigate("/orders");
+        }, 2000);
+      }else if(res.hint==="orderExist"){
+        toast.error(res.message,{autoClose:1500});
 
         setTimeout(() => {
           navigate("/orders");
         }, 2000);
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error.message,{autoClose:1500})
+    }
   };
 
   return (

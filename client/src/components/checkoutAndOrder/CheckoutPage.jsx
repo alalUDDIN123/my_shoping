@@ -12,7 +12,7 @@ import { getProductDetails } from "../../redux/AppReducer/products/actions";
 
 function CheckoutPage() {
   const { productId } = useParams();
-  console.log(productId);
+  // console.log(productId);
   const [currentStep, setCurrentStep] = useState(1);
   const dispatch = useDispatch();
   const { response } = useSelector((store) => store.getCartDataReducer);

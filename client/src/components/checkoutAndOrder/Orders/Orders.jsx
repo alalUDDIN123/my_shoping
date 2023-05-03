@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DocumentTitle from "../../Helmet/Helmet";
 import styles from "./orders.module.css";
-import { FaTrashAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";
@@ -15,9 +14,12 @@ function Orders() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const LoggedUser = getLoggedUserData();
-  const { isError, orders, status, orderId } = useSelector(
+  const { isError,orders } = useSelector(
     (store) => store.OrdersReducer
   );
+  // const storeData= useSelector(
+  //   (store) => store.OrdersReducer
+  // );
 
   useEffect(() => {
     dispatch(GetOrderAction({ token: LoggedUser.token }));
@@ -48,8 +50,9 @@ function Orders() {
     }
   }
 
-  console.log("orderId:", orderId);
-  console.log("this is order", orders);
+  // console.log("orderId from strore :", orderId);
+  // console.log("this is orders from store", orders);
+  // console.log("complete store data for orders:", storeData);
 
   return (
     <>
@@ -66,36 +69,33 @@ function Orders() {
             <th>S/n</th>
             <th>Product</th>
             <th>OrderID</th>
-            <th>Price</th>
             <th>Status</th>
-            <th>Action</th>
+           
           </tr>
         </thead>
 
         <tbody className={styles.__orders_table__body}>
-          {orders?.map((el, index) => (
-            <tr key={el._id}>
-              <td>{index + 1}</td>
+         {orders?.map((el,index)=>(
+          <tr key={el._id} >
+             <td>{index + 1}</td>
               <td>
-                <img src={el.productId.image} alt={el._id} />
+                <img src={el.products[0].productId.image} alt={el._id} />
               </td>
 
               <td
                 onClick={() =>
                   navigate(
-                    `/orders/details/orderId/${orderId[index]}/productId/${el.productId._id}`
+                    `/orders/details/orderId/${el._id}`
                   )
                 }
               >
-                {el.productId._id}
+              {el._id}
               </td>
-              <td>₹ {el.productId.discountPrice} </td>
-              <td> {status[index]} </td>
-              <td>
-                <FaTrashAlt size={19} color="red" />
-              </td>
-            </tr>
-          ))}
+             
+              <td> {el.orderStatus} </td>
+              
+          </tr>
+         ))}
         </tbody>
       </table>
     </>
