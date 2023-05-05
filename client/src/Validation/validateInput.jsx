@@ -4,7 +4,7 @@ const isValidEmail = (email) => {
     return emailRegex.test(email);
 }
 
-function validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage) {
+function validateInputValue(name, value,state, validation, setValidation, showMessage, setShowMessage) {
     // console.log("state value from ValidateInput file:", value, "");
     let isValid = false;
     let msg = '';
@@ -34,91 +34,139 @@ function validateInputValue(name, value, validation, setValidation, showMessage,
             break;
         case 'password':
             isValid =
-            value.length >= 6 &&
-            /[A-Z]/.test(value) &&
-            /[a-z]/.test(value) &&
-            /\d/.test(value) &&
-            /[@#%&^()/?!]/.test(value);
+                value.length >= 6 &&
+                /[A-Z]/.test(value) &&
+                /[a-z]/.test(value) &&
+                /\d/.test(value) &&
+                /[@#%&^()/?!]/.test(value);
 
-        // console.log("name:-", name);
-        // console.log("isValid from validate file for password:", isValid);
+            // console.log("name:-", name);
+            // console.log("isValid from validate file for password:", isValid);
 
-        if (!value) {
-            msg = "Password is required";
-        } else if (value.length < 6) {
-            msg = "Password should be at least 6 characters long";
-        } else if (!/[A-Z]/.test(value)) {
-            msg = "Password should contain at least one uppercase letter";
-        } else if (!/[a-z]/.test(value)) {
-            msg = "Password should contain at least one lowercase letter";
-        } else if (!/\d/.test(value)) {
-            msg = "Password should contain at least one digit";
-        } else if (!/[@#%&^()/?!]/.test(value)) {
-            msg = "Password should contain at least one special character";
-        }
+            if (!value) {
+                msg = "Password is required";
+            } else if (value.length < 6) {
+                msg = "Password should be at least 6 characters long";
+            } else if (!/[A-Z]/.test(value)) {
+                msg = "Password should contain at least one uppercase letter";
+            } else if (!/[a-z]/.test(value)) {
+                msg = "Password should contain at least one lowercase letter";
+            } else if (!/\d/.test(value)) {
+                msg = "Password should contain at least one digit";
+            } else if (!/[@#%&^()/?!]/.test(value)) {
+                msg = "Password should contain at least one special character";
+            }
 
-        setValidation({...validation,password:isValid})
-        setShowMessage({...showMessage,password:msg})
+            setValidation({ ...validation, password: isValid })
+            setShowMessage({ ...showMessage, password: msg })
 
-        break;
-        
+            break;
+
         case "currentPassword":
             isValid =
-            value.length >= 6 &&
-            /[A-Z]/.test(value) &&
-            /[a-z]/.test(value) &&
-            /\d/.test(value) &&
-            /[@#%&^()/?!]/.test(value);
+                value.length >= 6 &&
+                /[A-Z]/.test(value) &&
+                /[a-z]/.test(value) &&
+                /\d/.test(value) &&
+                /[@#%&^()/?!]/.test(value);
 
-        // console.log("name:-", name);
-        // console.log("isValid from validate file for password:", isValid);
+            // console.log("name:-", name);
+            // console.log("isValid from validate file for password:", isValid);
 
-        if (!value) {
-            msg = "Password is required";
-        } else if (value.length < 6) {
-            msg = "Password should be at least 6 characters long";
-        } else if (!/[A-Z]/.test(value)) {
-            msg = "Password should contain at least one uppercase letter";
-        } else if (!/[a-z]/.test(value)) {
-            msg = "Password should contain at least one lowercase letter";
-        } else if (!/\d/.test(value)) {
-            msg = "Password should contain at least one digit";
-        } else if (!/[@#%&^()/?!]/.test(value)) {
-            msg = "Password should contain at least one special character";
-        }
-        setValidation({ ...validation, currentPassword: isValid });
-        setShowMessage({...showMessage,currentPassword:msg})
-    
-        break;    
+            if (!value) {
+                msg = "Password is required";
+            } else if (value.length < 6) {
+                msg = "Password should be at least 6 characters long";
+            } else if (!/[A-Z]/.test(value)) {
+                msg = "Password should contain at least one uppercase letter";
+            } else if (!/[a-z]/.test(value)) {
+                msg = "Password should contain at least one lowercase letter";
+            } else if (!/\d/.test(value)) {
+                msg = "Password should contain at least one digit";
+            } else if (!/[@#%&^()/?!]/.test(value)) {
+                msg = "Password should contain at least one special character";
+            }
+            setValidation({ ...validation, currentPassword: isValid });
+            setShowMessage({ ...showMessage, currentPassword: msg })
+
+            break;
 
         case "newPassword":
             isValid =
-            value.length >= 6 &&
-            /[A-Z]/.test(value) &&
-            /[a-z]/.test(value) &&
-            /\d/.test(value) &&
-            /[@#%&^()/?!]/.test(value);
+                value.length >= 6 &&
+                /[A-Z]/.test(value) &&
+                /[a-z]/.test(value) &&
+                /\d/.test(value) &&
+                /[@#%&^()/?!]/.test(value);
 
-        // console.log("name:-", name);
-        // console.log("isValid from validate file for password:", isValid);
+            // console.log("name:-", name);
+            // console.log("isValid from validate file for password:", isValid);
 
-        if (!value) {
-            msg = "Password is required";
-        } else if (value.length < 6) {
-            msg = "Password should be at least 6 characters long";
-        } else if (!/[A-Z]/.test(value)) {
-            msg = "Password should contain at least one uppercase letter";
-        } else if (!/[a-z]/.test(value)) {
-            msg = "Password should contain at least one lowercase letter";
-        } else if (!/\d/.test(value)) {
-            msg = "Password should contain at least one digit";
-        } else if (!/[@#%&^()/?!]/.test(value)) {
-            msg = "Password should contain at least one special character";
-        }
-        setValidation({ ...validation, newPassword: isValid });
-        setShowMessage({...showMessage,newPassword:msg})
-    
-        break;  
+            if (!value) {
+                msg = "Password is required";
+            } else if (value.length < 6) {
+                msg = "Password should be at least 6 characters long";
+            } else if (!/[A-Z]/.test(value)) {
+                msg = "Password should contain at least one uppercase letter";
+            } else if (!/[a-z]/.test(value)) {
+                msg = "Password should contain at least one lowercase letter";
+            } else if (!/\d/.test(value)) {
+                msg = "Password should contain at least one digit";
+            } else if (!/[@#%&^()/?!]/.test(value)) {
+                msg = "Password should contain at least one special character";
+            }
+            setValidation({ ...validation, newPassword: isValid });
+            setShowMessage({ ...showMessage, newPassword: msg })
+
+            break;
+
+        case 'resetPassword':
+            isValid =
+                value.length >= 6 &&
+                /[A-Z]/.test(value) &&
+                /[a-z]/.test(value) &&
+                /\d/.test(value) &&
+                /[@#%&^()/?!]/.test(value);
+
+            if (!value) {
+                msg = "Password is required";
+            } else if (value.length < 6) {
+                msg = "Password should be at least 6 characters long";
+            } else if (!/[A-Z]/.test(value)) {
+                msg = "Password should contain at least one uppercase letter";
+            } else if (!/[a-z]/.test(value)) {
+                msg = "Password should contain at least one lowercase letter";
+            } else if (!/\d/.test(value)) {
+                msg = "Password should contain at least one digit";
+            } else if (!/[@#%&^()/?!]/.test(value)) {
+                msg = "Password should contain at least one special character";
+            }
+            setValidation({ ...validation, resetPassword: isValid })
+            setShowMessage({ ...showMessage, resetPassword: msg })
+            break;
+
+
+
+        case "resetPasswordConfirmPassword":
+            isValid =
+                value.length >= 6 &&
+                /[A-Z]/.test(value) &&
+                /[a-z]/.test(value) &&
+                /\d/.test(value) &&
+                /[@#%&^()/?!]/.test(value);
+
+            if (!value) {
+                msg = "Reset confirm password is required";
+            }
+            else if (value === state.resetPassword) {
+                isValid = true;
+                msg = '';
+            } else {
+                msg = 'Reset confirm password do not match.';
+            }
+            setValidation({ ...validation, resetPasswordConfirmPassword: isValid })
+            setShowMessage({ ...showMessage, resetPasswordConfirmPassword: msg })
+            break;
         case "mobile":
             isValid = value.toString().length >= 10
 

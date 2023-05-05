@@ -142,8 +142,8 @@ const addOrderIntial = {
 }
 
 const intitialStateForget = {
-  password: "",
-  confirmPassword: ""
+  resetPassword: "",
+  resetPasswordConfirmPassword: ""
 }
 
 
