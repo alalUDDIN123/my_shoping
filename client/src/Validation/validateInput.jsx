@@ -1,11 +1,14 @@
 
+
+
 const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|mil|info|biz)$/i;
     return emailRegex.test(email);
 }
 
-function validateInputValue(name, value,state, validation, setValidation, showMessage, setShowMessage) {
-    // console.log("state value from ValidateInput file:", value, "");
+
+function validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage, state) {
+    // console.log("typeof of setValidation from ValidateInput:", typeof setValidation);
     let isValid = false;
     let msg = '';
 
@@ -119,8 +122,19 @@ function validateInputValue(name, value,state, validation, setValidation, showMe
             setShowMessage({ ...showMessage, newPassword: msg })
 
             break;
+        case "mobile":
+            isValid = value.toString().length >= 10
 
-        case 'resetPassword':
+            // console.log("name:-", name);
+            // console.log("isValid from validate file for mobile:", isValid);
+
+            msg = isValid ? "" : "Mobile number must be exactly 10 digits"
+            setValidation({ ...validation, mobile: isValid })
+            setShowMessage({ ...showMessage, mobile: msg });
+            break;
+
+        case "resetPassword":
+            // console.log("name:", name,"setValidation:",setValidation)
             isValid =
                 value.length >= 6 &&
                 /[A-Z]/.test(value) &&
@@ -129,25 +143,27 @@ function validateInputValue(name, value,state, validation, setValidation, showMe
                 /[@#%&^()/?!]/.test(value);
 
             if (!value) {
-                msg = "Password is required";
+                msg = "Reset password is required";
             } else if (value.length < 6) {
-                msg = "Password should be at least 6 characters long";
+                msg = "Reset password should be at least 6 characters long";
             } else if (!/[A-Z]/.test(value)) {
-                msg = "Password should contain at least one uppercase letter";
+                msg = "Reset password should contain at least one uppercase letter";
             } else if (!/[a-z]/.test(value)) {
-                msg = "Password should contain at least one lowercase letter";
+                msg = "Reset password should contain at least one lowercase letter";
             } else if (!/\d/.test(value)) {
-                msg = "Password should contain at least one digit";
+                msg = "Reset password should contain at least one digit";
             } else if (!/[@#%&^()/?!]/.test(value)) {
-                msg = "Password should contain at least one special character";
+                msg = "Reset password should contain at least one special character";
             }
+
             setValidation({ ...validation, resetPassword: isValid })
             setShowMessage({ ...showMessage, resetPassword: msg })
+
+
             break;
 
-
-
         case "resetPasswordConfirmPassword":
+            // console.log(state,":: state value")
             isValid =
                 value.length >= 6 &&
                 /[A-Z]/.test(value) &&
@@ -166,16 +182,6 @@ function validateInputValue(name, value,state, validation, setValidation, showMe
             }
             setValidation({ ...validation, resetPasswordConfirmPassword: isValid })
             setShowMessage({ ...showMessage, resetPasswordConfirmPassword: msg })
-            break;
-        case "mobile":
-            isValid = value.toString().length >= 10
-
-            // console.log("name:-", name);
-            // console.log("isValid from validate file for mobile:", isValid);
-
-            msg = isValid ? "" : "Mobile number must be exactly 10 digits"
-            setValidation({ ...validation, mobile: isValid })
-            setShowMessage({ ...showMessage, mobile: msg });
             break;
         default:
             break;

@@ -18,6 +18,7 @@ function ResetPassword() {
   const { token } = useParams();
   const dispatch = useDispatch()
   const { response, isError } = useSelector(store => store.resetPasswordReducer)
+
   const [validation, setValidation] = useState({
     resetPassword: false,
     resetPasswordConfirmPassword: false,
@@ -47,12 +48,14 @@ function ResetPassword() {
     return formValid;
   };
 
-
   const onChangeHandle = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value })
-    validateInputValue(name, value, state,validation, setValidation,showMessage,setShowMessage)
-  }
+    // console.log("name:",name,"value:",value);
+    setState((prevState) => ({ ...prevState, [name]: value }));
+    validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage,state)
+  };
+
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -80,11 +83,12 @@ function ResetPassword() {
     }, 2000)
   }
 
+  // console.log("typeof setValidation from component:",typeof setValidation);
+  // console.log("state value :",state);
+
   return (
     <>
       <DocumentTitle pageTitle={"| RESET PASSWORD"} />
-
-
 
       {isLoading ? (
         <p style={{ textAlign: "center", fontSize: "30px" }} >Reset form loading...</p>
@@ -100,8 +104,10 @@ function ResetPassword() {
 
                   <div className={styles.input_field}>
                     <input type={showPassword ? 'text' : 'password'}
-                      name="resetPassword" placeholder="Enter new password"
-                      onChange={onChangeHandle} />
+                      name="resetPassword"
+                       placeholder="Enter new password"
+                      onChange={onChangeHandle} 
+                      value={state.resetPassword}/>
                     <span onClick={handleTogglePassword}>{showPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
 
@@ -113,6 +119,7 @@ function ResetPassword() {
                       name="resetPasswordConfirmPassword"
                       placeholder="Confirm password"
                       onChange={onChangeHandle}
+                      value={state.resetPasswordConfirmPassword}
                     />
                     <span onClick={handleToggleConfirmPassword}>{showConfirmPassword ? <FaEye /> : <FaEyeSlash />}</span>
                   </div>
