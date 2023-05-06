@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./cart.module.css";
+import styles from "./styles/cart.module.css";
 import CartItem from "./CartItem";
 
 import { useDispatch, useSelector } from "react-redux";

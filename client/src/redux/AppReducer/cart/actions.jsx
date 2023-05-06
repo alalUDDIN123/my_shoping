@@ -94,7 +94,7 @@ const addToCartAction = (payload) => async (dispatch) => {
         type: REMOVE_SINGLE_CART_REQUEST,
       });
       try {
-        let res = await fetch(`http://localhost:8080/api/cart/remove`, {
+        let res = await fetch(`${BASE_URL}/api/cart/remove`, {
           method: "DELETE",
           body: JSON.stringify({ productId: payload.productId }),
           headers: {
@@ -126,7 +126,7 @@ const addToCartAction = (payload) => async (dispatch) => {
         type: REMOVE_ALL_CART_REQUEST,
       });
       try {
-        let res = await fetch(`http://localhost:8080/api/cart/remove/all`, {
+        let res = await fetch(`${BASE_URL}/api/cart/remove/all`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -158,8 +158,7 @@ const addToCartAction = (payload) => async (dispatch) => {
         type: INCREMENT_CART_QUANTYTI_REQUEST,
       });
       try {
-        let res = await fetch(
-          `http://localhost:8080/api/cart/incrementQuantity`,
+        let res = await fetch(`${BASE_URL}/api/cart/incrementQuantity`,
           {
             method: "PATCH",
             body: JSON.stringify({ productId: payload.productId }),
@@ -193,8 +192,7 @@ const addToCartAction = (payload) => async (dispatch) => {
         type: DECREMENT_CART_QUANTYTI_REQUEST,
       });
       try {
-        let res = await fetch(
-          `http://localhost:8080/api/cart/decrementQuantity`,
+        let res = await fetch(`${BASE_URL}/api/cart/decrementQuantity`,
           {
             method: "PATCH",
             body: JSON.stringify({ productId: payload.productId }),

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./cart.module.css";
+import styles from "./styles/cart.module.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
 import { BiMinus } from "react-icons/bi";

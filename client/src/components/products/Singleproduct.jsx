@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import styles from "./details.module.css";
+import styles from "./styles/details.module.css";
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { ReviewModal } from "../../modals/CompleteReview";

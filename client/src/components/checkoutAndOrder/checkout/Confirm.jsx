@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import styles from "./confirm.module.css";
+import styles from "./styles/confirm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPaymentOption } from "../../utils/PaymentOption";
-import { AddOrderAction } from "../../redux/AppReducer/orders/actions";
+import { loadPaymentOption } from "../../../utils/PaymentOption";
+import { AddOrderAction } from "../../../redux/AppReducer/orders/actions";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import getLoggedUserData from "../../utils/LoggedUserData";
-import { getCartData } from "../../redux/AppReducer/cart/actions";
-import { getProductDetails } from "../../redux/AppReducer/products/actions";
+import getLoggedUserData from "../../../utils/LoggedUserData";
+import { getCartData } from "../../../redux/AppReducer/cart/actions";
+import { getProductDetails } from "../../../redux/AppReducer/products/actions";
 
 function Confirm() {
   const { productId } = useParams();

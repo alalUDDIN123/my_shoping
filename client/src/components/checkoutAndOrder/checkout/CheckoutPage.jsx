@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styles from "./checkout.module.css";
+import styles from "./styles/checkout.module.css";
 import { FaCheckCircle } from "react-icons/fa";
-import DocumentTitle from "../../components/Helmet/Helmet";
+import DocumentTitle from "../../../components/Helmet/Helmet";
 import Address from "./Address";
 import Payments from "./Payments";
 import Confirm from "./Confirm";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartData } from "../../redux/AppReducer/cart/actions";
+import { getCartData } from "../../../redux/AppReducer/cart/actions";
 import { useParams } from "react-router-dom";
-import { getProductDetails } from "../../redux/AppReducer/products/actions";
+import { getProductDetails } from "../../../redux/AppReducer/products/actions";
 
 function CheckoutPage() {
   const { productId } = useParams();

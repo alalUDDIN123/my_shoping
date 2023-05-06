@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "./noOrder.module.css"
+import styles from "./styles/noOrder.module.css"
 function NoOrderFound() {
     return (
         <>

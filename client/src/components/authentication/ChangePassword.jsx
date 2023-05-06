@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
-import styles from './authentication.module.css';
+import styles from "./styles/authentication.module.css"
 import DocumentTitle from '../Helmet/Helmet';
 // import { isValidEmail } from '../../Validation/signupValidation';
 import { changePasswordInitialState } from '../../objects/Objects';

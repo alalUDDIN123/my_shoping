@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "./expired.module.css"
+import styles from "./styles/expired.module.css"
 import expiredImg from "../../assets/invalid.jpg"
 import { useNavigate } from 'react-router-dom'
 function ExpiredToken({loginMess}) {

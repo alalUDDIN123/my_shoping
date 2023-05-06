@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaUser, FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { BiUserCircle } from 'react-icons/bi';
 import { ImMobile } from 'react-icons/im';
-import styles from './authentication.module.css';
+import styles from "./styles/authentication.module.css"
 import { useDispatch } from 'react-redux';
 import { initialMessages, signupIntialState } from '../../objects/Objects';
 import ErrorShowModal from '../../modals/ErrorShowModal';

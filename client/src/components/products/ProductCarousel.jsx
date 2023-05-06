@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 
-import "./ProductCarousel.css";
+import "./styles/ProductCarousel.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsData } from "../../redux/AppReducer/products/actions";
 

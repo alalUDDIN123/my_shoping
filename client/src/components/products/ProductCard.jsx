@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { FaHeart, FaShoppingCart, FaStar } from "react-icons/fa";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-import styles from "./productCard.module.css";
+import styles from "./styles/productCard.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import getLoggedUserData from "../../utils/LoggedUserData";
 import { useDispatch } from "react-redux";

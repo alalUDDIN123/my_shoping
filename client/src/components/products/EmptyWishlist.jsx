@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './emptywishlist.module.css';
+import styles from './styles/emptywishlist.module.css';
 import emptyWislImg from "../../assets/emptywishlist.png"
 import { useNavigate } from 'react-router-dom'
 const EmptyWishlist = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./home.module.css";
+import styles from "./styles/home.module.css";
 import { MdOutlineElectricalServices } from "react-icons/md";
 import { BsLaptop } from "react-icons/bs";
 import { GiClothes } from "react-icons/gi";

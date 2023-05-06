@@ -3,7 +3,7 @@ import { FaEnvelope } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom"
-import styles from './authentication.module.css';
+import styles from "./styles/authentication.module.css"
 import { ForgetPassActionObj } from '../../redux/AuthReducer/actions';
 import { toast } from 'react-toastify';
 import { initialMessages } from '../../objects/Objects';

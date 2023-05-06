@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DocumentTitle from "../../Helmet/Helmet";
-import styles from "./orderDetails.module.css";
+import styles from "./styles/orderDetails.module.css";
 import getLoggedUserData from "../../../utils/LoggedUserData";
 import { AiOutlineDownload } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";

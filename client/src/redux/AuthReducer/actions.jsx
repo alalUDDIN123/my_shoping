@@ -31,14 +31,16 @@ import {
 
 } from "../../Constant/actionTypes";
 
-const BASE_URL = "http://localhost:8080/api/users";
+// const BASE_URL = "http://localhost:8080/api/users";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 const SignupActionObj = (payload) => async (dispatch) => {
   // console.log("payload::-",payload);
   dispatch({ type: SIGNUP_REQUEST });
   try {
-    const res = await fetch(`${BASE_URL}/register`, {
+    const res = await fetch(`${BASE_URL}/api/users/register`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -67,7 +69,7 @@ const SigninActionObj = (payload) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
 
   try {
-    const res = await fetch(`${BASE_URL}/login`, {
+    const res = await fetch(`${BASE_URL}/api/users/login`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -95,7 +97,7 @@ const SigninActionObj = (payload) => async (dispatch) => {
 const ForgetPassActionObj = (payload) => async (dispatch) => {
   dispatch({ type: FORGET_PASSWORD_REQUEST });
   try {
-    const res = await fetch(`${BASE_URL}/forget/password`, {
+    const res = await fetch(`${BASE_URL}/api/users/forget/password`, {
       method: "POST",
       body: JSON.stringify({ email: payload }),
       headers: {
@@ -126,7 +128,7 @@ const ForgetPassActionObj = (payload) => async (dispatch) => {
 const ResetPassActionObj = (payload) => async (dispatch) => {
   dispatch({ type: RESET_PASSWORD_REQUEST });
   try {
-    const res = await fetch(`${BASE_URL}/resetPassword`, {
+    const res = await fetch(`${BASE_URL}/api/users/resetPassword`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -159,7 +161,7 @@ const ChangePasswordAction = (payload) => async (dispatch) => {
   let responseData = null;
 
   try {
-    const res = await fetch(`${BASE_URL}/change/password`, {
+    const res = await fetch(`${BASE_URL}/api/users/change/password`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {

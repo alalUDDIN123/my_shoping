@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./products.module.css";
+import styles from "./styles/products.module.css";
 import { useMediaQuery } from "react-responsive";
-import stylesTablet from "./products.tablet.module.css";
+import stylesTablet from "./styles/products.tablet.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/Loader";
 import ProductCard from "./ProductCard";

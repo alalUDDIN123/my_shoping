@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
-import styles from './authentication.module.css';
+import styles from "./styles/authentication.module.css"
 import { useDispatch } from 'react-redux';
 import ErrorShowModal from '../../modals/ErrorShowModal';
 import DocumentTitle from '../Helmet/Helmet';

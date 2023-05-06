@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetWishListAction } from "../../redux/AppReducer/wishlist/actions";
 import getLoggedUserData from "../../utils/LoggedUserData";
 import Loader from "../loader/Loader";
-import styles from "./wishlist.module.css";
+import styles from "./styles/wishlist.module.css";
 import EmptyWishlist from "./EmptyWishlist";
 import WishlistCard from "./WishlistCard";
 

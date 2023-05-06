@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import styles from "./address.module.css";
+import styles from "./styles/address.module.css";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { DeliverinitialState } from "../../objects/Objects";
+import { DeliverinitialState } from "../../../objects/Objects";
 import {
   deliveryAddressActionObj,
   storeAddressAction,
-} from "../../redux/AppReducer/checkout/actions";
-import getLoggedUserData from "../../utils/LoggedUserData";
+} from "../../../redux/AppReducer/checkout/actions";
+import getLoggedUserData from "../../../utils/LoggedUserData";
 
 function Address({ handleNext }) {
   const logedUser = getLoggedUserData();

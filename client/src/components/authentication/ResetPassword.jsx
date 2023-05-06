@@ -7,7 +7,7 @@ import { ResetPassActionObj } from '../../redux/AuthReducer/actions';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import DocumentTitle from '../Helmet/Helmet';
-import styles from './authentication.module.css';
+import styles from "./styles/authentication.module.css"
 import { RESET_PASSWORD_REQUEST_SUCESS } from '../../Constant/actionTypes';
 import { validateInputValue } from '../../Validation/validateInput';
 function ResetPassword() {

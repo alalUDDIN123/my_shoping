@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DocumentTitle from "../../Helmet/Helmet";
-import styles from "./orders.module.css";
+import styles from "./styles/orders.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetOrderAction } from "../../../redux/AppReducer/orders/actions";

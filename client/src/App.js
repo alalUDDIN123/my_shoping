@@ -13,7 +13,7 @@ import Singleproduct from './components/products/Singleproduct';
 import Home from './home/Home';
 import UserProfile from './userProfile/UserProfile';
 import Wishlist from './components/products/Wishlist';
-import CheckoutPage from './components/checkoutAndOrder/CheckoutPage';
+import CheckoutPage from './components/checkoutAndOrder/checkout/CheckoutPage';
 import Orders from './components/checkoutAndOrder/Orders/Orders';
 import Login from './components/authentication/Login';
 import Cart from "./components/cart/Cart"

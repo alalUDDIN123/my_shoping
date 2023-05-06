@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { GrLinkPrevious } from "react-icons/gr"
-import styles from "./payment.module.css"
+import styles from "./styles/payment.module.css"
 import { AiOutlineArrowRight } from 'react-icons/ai';
-import { SavePaymentOption } from '../../utils/PaymentOption';
+import { SavePaymentOption } from '../../../utils/PaymentOption';
 
 function Payments({ handlePrev, handleNext }) {
 

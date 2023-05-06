@@ -11,13 +11,14 @@ import getLoggedUserData from "../../../utils/LoggedUserData";
 // getting data from local storage
 const LoggedUser = getLoggedUserData();
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 
 const deliveryAddressActionObj = (payload) => async (dispatch) => {
   dispatch({ type: ADD_DELIVERY_ADDRESS_REQUEST });
   try {
-    let res = await fetch("http://localhost:8080/api/address", {
+    let res = await fetch(`${BASE_URL}/api/address`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {

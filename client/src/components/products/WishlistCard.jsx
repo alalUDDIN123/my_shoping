@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./wishlist.module.css";
+import styles from "./styles/wishlist.module.css";
 import { useNavigate } from "react-router-dom";
 import getLoggedUserData from "../../utils/LoggedUserData";
 import { useDispatch } from "react-redux";
