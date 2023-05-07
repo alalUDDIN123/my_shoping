@@ -33,7 +33,8 @@ const getProductReducer = (state = getProductIntial, { type, payload }) => {
         case GET_PRODUCT_REQUEST_SUCESS:
             return {
                 ...state,
-                products: payload,
+                products: payload.products,
+                totalProductspage:payload.totalPage,
                 isLoading: false
 
             }

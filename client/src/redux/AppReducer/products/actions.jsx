@@ -46,7 +46,7 @@ const getProductsData = (params = {}) => {
       // console.log("url::-",url);
       let res = await fetch(url);
       let data = await res.json();
-      dispatch({ type: GET_PRODUCT_REQUEST_SUCESS, payload: data.products });
+      dispatch({ type: GET_PRODUCT_REQUEST_SUCESS, payload: data});
     } catch (error) {
       dispatch({ type: GET_PRODUCT_REQUEST_FAILUE });
     }

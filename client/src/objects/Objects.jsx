@@ -69,7 +69,8 @@ const initialMessages = {
 const getProductIntial = {
     isLoading: false,
     products: [],
-    isError: false
+    isError: false,
+    totalProductspage:null,
 }
 
 

@@ -75,6 +75,9 @@ const getProducts = async (req, res) => {
 
     // console.log("page::-",parsedPage,"limit::-",parsedLimit, "filter::-",filter,"sort::-",sort,"rating::",ratings)
 
+    let totalProducts= await productModal.find()
+    let totalPage= Math.floor(totalProducts.length/parsedLimit)
+
     products = await productModal.find(filter)
       .sort(sort)
       .skip(startIndex)
@@ -85,7 +88,7 @@ const getProducts = async (req, res) => {
       return res.status(404).json({ message: "No products found" });
     }
 
-    res.status(200).json({ products, total: products.length });
+    res.status(200).json({ products,totalPage });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
