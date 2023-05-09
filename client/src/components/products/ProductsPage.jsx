@@ -18,6 +18,7 @@ import {
   priceRanges,
   ratingOption,
 } from "../../Constant/ProductsFiltersOption";
+import MobileFilterModal from "../../modals/MobileFilterModal";
 
 function ProductsPage() {
   const Dekstop = ({ children }) => {
@@ -43,16 +44,27 @@ function ProductsPage() {
   const [selectedRating, setSelectedRating] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [minPrice, maxPrice] = selectedPriceRange.split("-");
 
+  // mobile sortby
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  // mobile filter
+  const handleMobileFilterOpen = () => {
+    setIsFilterOpen(true);
+  };
+
+  const handleMobileFilterClose = () => {
+    setIsFilterOpen(false);
   };
 
   const { products, isLoading } = useSelector(
@@ -120,7 +132,6 @@ function ProductsPage() {
   };
 
   // console.log("categoryfromLs:",categoryfromLs);
-
 
   return (
     <>
@@ -332,7 +343,7 @@ function ProductsPage() {
               <FiChevronDown />
               Sort by
             </div>
-            <div>
+            <div onClick={handleMobileFilterOpen}>
               <GoSettings /> Filter
             </div>
           </div>
@@ -348,7 +359,27 @@ function ProductsPage() {
           </div>
         </div>
 
-        {isModalOpen && <FilterModal onClose={handleCloseModal} />}
+        {isModalOpen && (
+          <FilterModal
+            onClose={handleCloseModal}
+            selectedPriceRange={selectedPriceRange}
+            setSelectedPriceRange={setSelectedPriceRange}
+            priceRanges={priceRanges}
+            handleRatingChange={handleRatingChange}
+            selectedRating={selectedRating}
+            ratingOption={ratingOption}
+          />
+        )}
+
+        {isFilterOpen && (
+          <MobileFilterModal
+            onClose={handleMobileFilterClose}
+            categoryOption={categoryOption}
+            handleCategoryChange={handleCategoryChange}
+            brandOption={brandOption}
+            handleBrandChange={handleBrandChange}
+          />
+        )}
       </Mobile>
     </>
   );
