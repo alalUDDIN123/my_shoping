@@ -12,8 +12,6 @@
   margin: 0 auto;
 }
 
-
-
 /* tablet filters start */
 ._tablet_category_div > div {
   display: flex;
@@ -24,7 +22,7 @@
 
 ._tablet_category_div input[type="checkbox"] {
   margin-right: 8px;
-  margin-right: 0.5rem; 
+  margin-right: 0.5rem;
 }
 
 ._tablet_category_div label {
@@ -96,8 +94,6 @@
   margin-bottom: 16px;
 }
 
-
-
 hr {
   border: 0;
   height: 1px;
@@ -105,9 +101,7 @@ hr {
   margin: 20px 0;
 }
 
-
 /* star css start */
-
 
 .product_rating {
   display: flex;
@@ -131,10 +125,7 @@ hr {
 
 /* start css end */
 
-
 /* tablet filters end */
-
-
 
 /* tablet pagination */
 
