@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteProduct } from "../redux/AppReducer/admin/action";
 import { toast } from 'react-toastify';
 import { DELETE_PRODUCT_REQUEST_SUCCESS } from "../Constant/actionTypes";
-
+import { useNavigate } from "react-router-dom"
 
 
 function ProductTableItem({ ind, image, _id, startIndex }) {
   const loggedUser = getLoggedUserData()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { responseMsg, isLoading } = useSelector(store => store.getProductReducer);
   const [localResponseMsg, setLocalResponseMsg] = useState(responseMsg);
 
@@ -34,13 +35,13 @@ function ProductTableItem({ ind, image, _id, startIndex }) {
         toast.error(localResponseMsg, { autoClose: 1500 })
       }
     }
-  }, [localResponseMsg,dispatch])
+  }, [localResponseMsg, dispatch])
 
-  
 
-  // handle edit
+
+  // handle edit redirect
   const editProduct = (id) => {
-    alert(`Edit product ${id}`);
+    navigate(`/admin/product/edit/${id}`)
   };
 
   return (

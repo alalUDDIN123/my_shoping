@@ -12,7 +12,7 @@ function ReqAuthAdmin({ children }) {
     } else if (loggeduser.role === "admin") {
         return children
     }
-    return <UnauthorizedAccess />
+    return <UnauthorizedAccess accessPer="This is for Admin Only"/>
 }
 
 export default ReqAuthAdmin;

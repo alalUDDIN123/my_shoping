@@ -93,7 +93,7 @@ function Home() {
               <div className={activeComponent === "stock" ?`${styles.activeTab}` : ""} onClick={() => setActiveComponent("stock")}>
                 <li>
                   <AiOutlineStock />
-                  <span className={styles.__admin__linksName}>Stock</span>
+                  <span className={styles.__admin__linksName}>Out Of Stock</span>
                 </li>
               </div>
 

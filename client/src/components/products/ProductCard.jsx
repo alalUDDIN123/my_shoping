@@ -117,6 +117,8 @@ const ProductCard = ({
     }
   };
 
+  // console.log("title:", title);
+
   return (
     <>
       <DocumentTitle pageTitle={`| ${title}`} />
@@ -128,7 +130,12 @@ const ProductCard = ({
           <img src={image} alt={title} className={styles.product_image} />
         </div>
         <div className={styles.product_details}>
-          <h3 className={styles.product_name}>{title.substr(0, 20)}</h3>
+          {title && title.length >= 20 ? (
+            <h3 className={styles.product_name}>{title.substr(0, 20)}</h3>
+          ) : (
+            <h3 className={styles.product_name}>Default Title</h3>
+          )}
+
           <p className={styles.product_brand}>
             <strong>Brand : -</strong> {brand}
           </p>
@@ -142,9 +149,8 @@ const ProductCard = ({
               .map((_, i) => (
                 <span
                   key={i}
-                  className={`${styles.star} ${
-                    i < Math.floor(ratings) ? styles.star_active : ""
-                  }`}
+                  className={`${styles.star} ${i < Math.floor(ratings) ? styles.star_active : ""
+                    }`}
                 >
                   <FaStar />
                 </span>
@@ -154,9 +160,8 @@ const ProductCard = ({
           <p className={styles.product_price}> ₹ {discountPrice}</p>
           <div className={styles.icons_container}>
             <button
-              className={`${styles.icon_button_shop} ${
-                Stock <= 0 ? styles.icon_button_shop_red_bg : ""
-              }`}
+              className={`${styles.icon_button_shop} ${Stock <= 0 ? styles.icon_button_shop_red_bg : ""
+                }`}
               onClick={AddToCart}
             >
               {Stock <= 0 ? (
@@ -167,9 +172,8 @@ const ProductCard = ({
             </button>
 
             <button
-              className={`${styles.icon_button_heart} ${
-                isHeartClicked ? styles.icon_button_heart_active : ""
-              }`}
+              className={`${styles.icon_button_heart} ${isHeartClicked ? styles.icon_button_heart_active : ""
+                }`}
               onClick={handleHeartClick}
             >
               <FaHeart style={{ color: isHeartClicked ? "#fff" : "#333" }} />

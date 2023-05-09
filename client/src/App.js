@@ -24,6 +24,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import OrdersDetails from './components/checkoutAndOrder/Orders/OrdersDetails'
 import ReqAuthAdmin from './components/authentication/ReqAuthAdmin'
+import UpdateProductForm from './admin/UpdateProductForm'
+import ReqAuthSuperAdmin from './components/authentication/ReqAuthSuperAdmin'
 
 
 
@@ -68,11 +70,12 @@ function App() {
 
         {/* Admin Route */}
         <Route path='/admin' element={<ReqAuthAdmin><AdminHome /></ReqAuthAdmin>}></Route>
+        <Route path='/admin/product/edit/:id' element={<ReqAuthAdmin><UpdateProductForm /></ReqAuthAdmin>}></Route>
 
 
 
         {/* Super Admin Route */}
-        <Route path="/superAdmin" element={<SuperHome />} ></Route>
+        <Route path="/superAdmin" element={<ReqAuthSuperAdmin><SuperHome /></ReqAuthSuperAdmin>} ></Route>
 
 
         {/* Not found route */}

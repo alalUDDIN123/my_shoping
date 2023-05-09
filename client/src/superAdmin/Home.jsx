@@ -1,10 +1,11 @@
 import React from 'react'
+import UnderConstruction from '../components/construction/UnderConstruction'
 
 function Home() {
   return (
-    <div>
-      Super Admin Access
-    </div>
+    <>
+     <UnderConstruction />
+    </>
   )
 }
 

@@ -1,9 +1,10 @@
 import React from 'react'
+import UnderConstruction from './UnderConstruction'
 
 const Stock = () => {
   return (
     <>
-      Stcok
+      <UnderConstruction />
     </>
   )
 }
