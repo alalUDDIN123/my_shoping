@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { FaTrashAlt } from "react-icons/fa";
+import getLoggedUserData from "../utils/LoggedUserData";
+import { useDispatch, useSelector } from "react-redux"
+import { deleteProduct } from "../redux/AppReducer/admin/action";
+import { toast } from 'react-toastify';
+import { DELETE_PRODUCT_REQUEST_SUCCESS } from "../Constant/actionTypes";
+
+
 
 function ProductTableItem({ ind, image, _id, startIndex }) {
-  // handle edit
-
-  const editProduct = (id) => {
-    alert(`Edit product ${id}`);
-  };
+  const loggedUser = getLoggedUserData()
+  const dispatch = useDispatch()
+  const { responseMsg, isLoading } = useSelector(store => store.getProductReducer);
+  const [localResponseMsg, setLocalResponseMsg] = useState(responseMsg);
 
   // handle delete product
+  const deleteProductData = (id) => {
+    const payload = {
+      token: loggedUser.token,
+      productId: id
+    }
+    dispatch(deleteProduct(payload))
+  };
 
-  const deleteProduct = (id) => {
-    alert(`Delete product ${id}`);
+  useEffect(() => {
+    if (localResponseMsg) {
+      if (localResponseMsg === "Product deleted success") {
+        toast.success(localResponseMsg, { autoClose: 1500 })
+        dispatch({ type: DELETE_PRODUCT_REQUEST_SUCCESS, payload: null })
+        setLocalResponseMsg(null);
+      } else {
+        toast.error(localResponseMsg, { autoClose: 1500 })
+      }
+    }
+  }, [localResponseMsg,dispatch])
+
+  
+
+  // handle edit
+  const editProduct = (id) => {
+    alert(`Edit product ${id}`);
   };
 
   return (
@@ -26,8 +54,8 @@ function ProductTableItem({ ind, image, _id, startIndex }) {
         <td onClick={() => editProduct(_id)}>
           <FiEdit />
         </td>
-        <td onClick={() => deleteProduct(_id)}>
-          <FaTrashAlt />
+        <td onClick={() => deleteProductData(_id)}>
+          {isLoading ? "Deleting..." : <FaTrashAlt />}
         </td>
       </tr>
     </>

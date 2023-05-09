@@ -23,6 +23,7 @@ import About from './About/About'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import OrdersDetails from './components/checkoutAndOrder/Orders/OrdersDetails'
+import ReqAuthAdmin from './components/authentication/ReqAuthAdmin'
 
 
 
@@ -66,7 +67,7 @@ function App() {
         <Route path="/checkout/buyNow/:productId" element={<ReqAuth><CheckoutPage /></ReqAuth>} ></Route>
 
         {/* Admin Route */}
-        <Route path='/admin' element={<AdminHome />}></Route>
+        <Route path='/admin' element={<ReqAuthAdmin><AdminHome /></ReqAuthAdmin>}></Route>
 
 
 
