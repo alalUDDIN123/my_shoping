@@ -9,7 +9,6 @@ const decrementProductQuantity = async (productId, quantityToDecrement) => {
         throw new Error(`Not enough quantity available for product ${productId}`);
     }
     const StockRemained = product.Stock - quantityToDecrement;
-    // console.log("StockRemained::-", StockRemained)
     await productModal.findByIdAndUpdate(productId, { $set: { Stock: StockRemained } });
 
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import "./userSideBar.css";
-// import getLoggedUserData from "../utils/LoggedUserData";
+
 
 const ProfileDetails = () => {
   const handleEditSubmit = (event) => {

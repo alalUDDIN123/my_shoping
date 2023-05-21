@@ -73,7 +73,6 @@ const getProductIntial = {
     totalProductspage:null,
 }
 
-
 const getProductDetailsInitial = {
     isLoading: false,
     product: {},

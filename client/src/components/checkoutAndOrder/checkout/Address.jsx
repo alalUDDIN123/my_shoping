@@ -53,7 +53,7 @@ function Address({ handleNext }) {
       };
       let data = await dispatch(deliveryAddressActionObj(payload));
 
-      // console.log("response from backend in delivery address::-", data);
+
       dispatch(storeAddressAction(payload));
       if (data === undefined) {
         toast.error("Something went wrong");

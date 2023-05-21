@@ -8,7 +8,6 @@ const getLoggedUserData = () => {
         return null;
     }
 };
-
 export default getLoggedUserData;
 const loadUser = () => {
     const data = localStorage.getItem("registration");

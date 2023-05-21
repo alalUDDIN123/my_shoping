@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 
-// create a nodemailer transporter with your Email JS credentials
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -21,10 +20,10 @@ async function sendEmail(to, subject, message) {
         //   console.log(`Email sent to ${to} from sendmail `);
     } catch (error) {
         if (error.code === 'EAUTH') {
-            // console.error(`Authentication error sending email: ${error}`);
+        
             throw new Error('Invalid email credentials from admin side');
         } else {
-            // console.error(`Error sending email: ${error}`);
+        
             throw new Error('Error sending email');
         }
     }

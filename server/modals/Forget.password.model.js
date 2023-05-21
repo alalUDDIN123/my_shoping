@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const forgetPasswordSchema = mongoose.Schema({
 
     userId:{

@@ -9,7 +9,6 @@ const validateOrderFields = (req, res, next) => {
     return res.status(400).send("Products field is invalid");
   }
 
-
   for (let i = 0; i < products.length; i++) {
     // console.log("productsId",products[i])
     const product = products[i];

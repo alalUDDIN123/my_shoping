@@ -2,7 +2,6 @@
 
 function deliveryAddressValidation(req, res, next) {
     const address = req.body;
-
     if (!address.address) {
       return res.status(400).json({ error: "address is required." });
     }

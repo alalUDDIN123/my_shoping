@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { addReviewAction } from "../redux/AppReducer/products/actions";
 import { toast } from 'react-toastify';
 
-
 function AddReviewModal({ onCloseModal, onComponentChanges }) {
   // console.log("  onComponentChanges:-", onComponentChanges);
   const CheckLogin = getLoggedUserData()

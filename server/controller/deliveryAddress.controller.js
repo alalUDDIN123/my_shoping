@@ -1,7 +1,7 @@
 const deliveryAddressModel = require("../modals/DeliveryOrderAddress.modal");
 
 const createDeliveryAddress = async (req, res) => {
-  const { address,city,state,postalCode,block,userId } = req.body;
+  const { address, city, state, postalCode, block, userId } = req.body;
 
   try {
     const deliveryAddress = new deliveryAddressModel({
@@ -10,11 +10,11 @@ const createDeliveryAddress = async (req, res) => {
       city,
       block,
       postalCode,
-      user:userId
+      user: userId
     });
 
     const savedDeliveryAddress = await deliveryAddress.save();
-    res.status(201).send({deliveryAddressId: savedDeliveryAddress._id, message: "Delivery address created successfully",hint:"deSuces"});
+    res.status(201).send({ deliveryAddressId: savedDeliveryAddress._id, message: "Delivery address created successfully", hint: "deSuces" });
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal server error" });

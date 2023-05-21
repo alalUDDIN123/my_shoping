@@ -3,7 +3,6 @@ import styles from "./footer.module.css"
 import { AiFillLinkedin, AiFillTwitterCircle, AiFillYoutube } from "react-icons/ai"
 
 import { useMediaQuery } from 'react-responsive';
-
 function Footer() {
 
   const Desktop = ({ children }) => {

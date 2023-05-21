@@ -3,7 +3,7 @@ import { FaEnvelope, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 import styles from "./styles/authentication.module.css"
 import DocumentTitle from '../Helmet/Helmet';
-// import { isValidEmail } from '../../Validation/signupValidation';
+
 import { changePasswordInitialState } from '../../objects/Objects';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';

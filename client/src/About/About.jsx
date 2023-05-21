@@ -5,7 +5,6 @@ import { CgProfile } from "react-icons/cg"
 import DocumentTitle from '../components/Helmet/Helmet';
 
 
-
 const teamMembers = [
   {
     name: 'Alal Uddin',

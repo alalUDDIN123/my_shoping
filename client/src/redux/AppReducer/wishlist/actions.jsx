@@ -101,7 +101,7 @@ const RemoveWishListAction = (payload) => async (dispatch) => {
     });
 
     responseData = await res.json();
-    // console.log("responseData:-", responseData);
+   
 
     if (responseData && responseData.hint === "reSuc") {
       dispatch({

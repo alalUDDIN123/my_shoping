@@ -9,7 +9,6 @@ const app = express()
 const cors = require("cors")
 
 
-
 // requiring file path 👍👍👍
 const ConnectDb = require("./config/Db.connect")
 const userRouter = require("./routes/user.route");

@@ -1,7 +1,5 @@
 const mongoose = require("mongoose")
-
 mongoose.set("strictQuery", false);
-
 const ConnectDb = () => {
   mongoose.connect(process.env.MONGO_URL)
     .then(() => {
@@ -12,5 +10,4 @@ const ConnectDb = () => {
       console.log("Unable to connect !");
     });
 }
-
 module.exports=ConnectDb

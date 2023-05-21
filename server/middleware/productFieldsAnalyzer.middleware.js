@@ -10,7 +10,6 @@ function validateProduct(req, res, next) {
     brand,
     Stock
   } = req.body;
-
   if (typeof title !== "string" && title) {
     return res.status(400).json({ error: "Title must be a string" });
   }

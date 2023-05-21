@@ -25,11 +25,39 @@ My Shopping is an online e-commerce website that allows users to buy various typ
 - Bcrypt
 - Node Mailer
 
-The project was completed in a duration of 10 days.
+
+### **`⏱️ Duration`**
+-  10 days
+
+### **👤 Made by**
+- Collaborative
 
 ## Project Deployment 🚢
 
 Deployed link : https://my-shoping-frontend.vercel.app/
+### **`How to Run Locally`** ❔
+
+To run this application locally, follow these steps:
+
+1. Clone or download the code repository.
+2. Open the folder in your preferred terminal or code editor, such as VS Code.
+3. Install the required npm packages by running the command `npm install` in both the `client` and `server` directories.
+4. Start the server by running the command `npm run server`.
+   - **Note**: Before running `npm run server`, make sure that you have created a file called `.env` in the server folder. Add the following keys with the correct details:
+     - `MONGO_URL`: Put your MongoDB URL or local MongoDB URL.
+     - `PORT`: Choose any port number (suggested: greater than 800).
+     - `SECRET_KEY`: Choose any string, number, or special character as the secret key.
+     - `my_email`: Put your Google email that has access to send mail using Nodemailer.
+     - `my_password`: Put your Google App passwords. If you're unsure how to get a Google App password, please search online for more information.
+
+6. Start the frontend by running the command `npm run start`.
+   - Once the server is up and running, you can access the application locally at this URL: http://localhost:3000/.
+   - Open the provided URL in any web browser to view and interact with the application.
+
+By following these steps, you can easily set up and run the e-commerce application locally on your machine.
+
+----
+----
 
 ## Collaborators and Responsibilities 👥
 
@@ -83,8 +111,9 @@ Through the development of this project, we learned several valuable lessons, in
 - The advantages of leveraging third-party libraries and tools to implement complex functionality and save development time.
 - How to execute a project from scratch to completion and overcome challenges along the way.
 
+### `Contact Information` 📞
 
+If you have any further inquiries or need additional information, please feel free to contact me via email or phone:
 
-
-If you have any questions or concerns about the project, please do contact 📞
-  - Email :  alalu75666@gmail.com
+- ✉️ Email: alalu75666@gmail.com
+- ☎️ Phone: +91 6002565574

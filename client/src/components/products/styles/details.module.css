@@ -5,7 +5,6 @@
   justify-content: space-evenly;
   gap: 30px;
 }
-
 ._main_single_container > div:first-child {
   width: 40%;
   height: 70vh;

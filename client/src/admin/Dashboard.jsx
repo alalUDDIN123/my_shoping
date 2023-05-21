@@ -45,7 +45,6 @@ const Dashboard = () => {
     localStorage.setItem("outOfStock", outOfStock.length)
   }, [dispatch, productsLegth,outOfStock.length])
 
-  // console.log("products:",products);
 
 
   return (

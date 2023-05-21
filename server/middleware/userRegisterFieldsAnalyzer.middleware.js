@@ -5,7 +5,6 @@ const isValidEmail = (email) => {
     return emailRegex.test(email);
 }
 
-
 const validateUserFields = (req, res, next) => {
     const { name, email, password, mobile, role } = req.body;
 

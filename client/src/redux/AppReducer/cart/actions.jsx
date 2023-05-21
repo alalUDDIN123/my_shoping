@@ -36,7 +36,6 @@ const LoggedUser = getLoggedUserData();
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-
 const addToCartAction = (payload) => async (dispatch) => {
     dispatch({ type: ADD_CART_REQUEST });
     // console.log("payload::-",payload);

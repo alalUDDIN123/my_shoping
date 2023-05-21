@@ -42,7 +42,7 @@ export const options = {
 
 
 function ChartHome(props) {
-    // console.log("data:",props.data);
+
 
 
     const labelsArray = props.data.map(item => item.title);

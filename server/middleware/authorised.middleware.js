@@ -12,7 +12,6 @@ const adminAccess = async (req, res, next) => {
     }
 }
 
-
 const SuperAdminAccess = async (req, res, next) => {
     const { userId } = req.body;
     //  console.log(userId)

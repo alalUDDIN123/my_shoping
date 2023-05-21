@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 
-
 const deliveryAddressSchema = mongoose.Schema({
     address: {
         type: String,

@@ -13,7 +13,6 @@ const {
     getToken,
     getLoggedUserData,
 
-
 } = require("../controller/users.controller");
 const authenticateUser = require("../middleware/authontication.middleware");
 const { SuperAdminAccess } = require("../middleware/authorised.middleware");

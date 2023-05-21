@@ -3,7 +3,6 @@ import {
     DELETE_PRODUCT_REQUEST_FAILUE,
     DELETE_PRODUCT_REQUEST_SUCCESS
 } from "../../../Constant/actionTypes";
-
 import getLoggedUserData from "../../../utils/LoggedUserData";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const LoggedUser = getLoggedUserData()

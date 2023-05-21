@@ -8,7 +8,7 @@ const isValidEmail = (email) => {
 
 
 function validateInputValue(name, value, validation, setValidation, showMessage, setShowMessage, state) {
-    // console.log("typeof of setValidation from ValidateInput:", typeof setValidation);
+  
     let isValid = false;
     let msg = '';
 

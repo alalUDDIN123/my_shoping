@@ -4,7 +4,6 @@ const  validateReviewData= (req, res, next)=>{
     if(!rating || !comment){
         return res.status(400).json({ message: "rating and comment required" });
     }
-
     if(!productId){
         return res.status(400).json({ message: "productId is required" }); 
     }

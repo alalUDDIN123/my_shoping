@@ -14,8 +14,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [searchBtnPrice, SetsearchBtnPrice] = useState(false)
   const [searchBtnQuery, SetsearchBtnQuery] = useState(false)
-  // const [limit, setLimit] = useState(10);
-  // const [products, setProducts] = useState([]);
+ 
 
   const ratingOption = [5, 4, 3, 2, 4.5, 3.5, 2.5]
   const categoryOption = ["Electronics", "accessories", "clothing"]

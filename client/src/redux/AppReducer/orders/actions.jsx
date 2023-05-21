@@ -20,7 +20,6 @@ import {
     CANCEL_ORDER_REQUEST_SUCCESS,
     CANCEL_ORDER_REQUEST_FAILUE,
 
-
 } from "../../../Constant/actionTypes";
 
 import getLoggedUserData from "../../../utils/LoggedUserData";

@@ -4,7 +4,6 @@ import { MdOutlineElectricalServices } from "react-icons/md";
 import { BsLaptop } from "react-icons/bs";
 import { GiClothes } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
-
 const categories = [
   {
     id: 1,

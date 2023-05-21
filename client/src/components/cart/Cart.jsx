@@ -58,7 +58,7 @@ const Cart = () => {
     return <Loader />;
   }
 
-  // console.log("cartdata:-", response);
+
 
   return (
     <>
