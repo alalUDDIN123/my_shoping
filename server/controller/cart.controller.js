@@ -2,6 +2,7 @@
 const cartModal = require("../modals/cart.modal");
 const productModal = require("../modals/product.modal");
 const decrementProductQuantity = require("./decrementProductQuantity.controller");
+
 // add product to cart 👍👍👍👍👍
 const addProductToCart = async (req, res) => {
     const { quantity, productId } = req.body;

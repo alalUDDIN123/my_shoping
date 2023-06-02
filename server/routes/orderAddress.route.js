@@ -4,6 +4,7 @@ const deliveryAddressValidation = require("../middleware/ValidateOrderAddress.mi
 const authenticateUser = require("../middleware/authontication.middleware");
 
 const orderAddressRouter = express.Router();
+
 orderAddressRouter.post("/address", authenticateUser, deliveryAddressValidation, createDeliveryAddress)
 
 module.exports = orderAddressRouter

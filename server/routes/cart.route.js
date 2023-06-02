@@ -10,6 +10,7 @@ const {
 const authenticateUser = require("../middleware/authontication.middleware");
 
 
+
 const cartRouter = express.Router();
 cartRouter.use(authenticateUser)
 cartRouter.post("/add", addProductToCart)

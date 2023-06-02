@@ -4,6 +4,7 @@ const generateToken = require("../generateToken");
 const crypto = require('crypto');
 const forgotModal = require("../modals/Forget.password.model");
 const sendEmail = require("./sendmail");
+
 // register user 👍👍👍👍👍
 
 const createUser = async (req, res) => {

@@ -22,6 +22,7 @@ const productRouter = express.Router();
 productRouter.get("/get", getProducts)
 productRouter.get("/get/:id", getSingleProduct)
 
+
 // review
 productRouter.post("/review", authenticateUser, validateReviewData, createReview)
 productRouter.get('/reviews',getAllReviewOfAproduct)
