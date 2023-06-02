@@ -44,14 +44,17 @@ const getProductDetails = async (req, res) => {
 // Search products
 const searchProducts = async (req, res) => {
   try {
-    const query = req.query.q; // Get the search query from the request parameters
-    const regexQuery = new RegExp(query, 'i'); // Create a case-insensitive regular expression query
+    const query = req.query.q;
+    if (!query) {
+      return res.status(400).send({ message: "Please provide search term" })
+    }
+    const regexQuery = new RegExp(query, 'i');
 
     const products = await angularproductModel.find({
       $or: [
-        { name: { $regex: regexQuery, $options: 'i' } },
-        { category: { $regex: regexQuery, $options: 'i' } },
-        { description: { $regex: regexQuery, $options: 'i' } }
+        { name: { $regex: regexQuery } },
+        { category: { $regex: regexQuery } },
+        { description: { $regex: regexQuery } }
       ]
     });
 
@@ -61,15 +64,16 @@ const searchProducts = async (req, res) => {
   }
 };
 
+
 // Update a product
 const updateProduct = async (req, res) => {
   try {
     // console.log("from front end update product",req.body);
-    const { productId ,updatedData} = req.body;
+    const { productId, updatedData } = req.body;
     // console.log("updatedData",updatedData);
 
 
-    const updatedProduct = await angularproductModel.findByIdAndUpdate(productId,updatedData, {
+    const updatedProduct = await angularproductModel.findByIdAndUpdate(productId, updatedData, {
       new: true
     });
 

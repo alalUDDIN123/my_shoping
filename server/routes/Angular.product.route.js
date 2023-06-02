@@ -4,14 +4,15 @@ const {
     getProduct,
     updateProduct,
     deleteProduct,
-    getProductDetails
+    getProductDetails,
+    searchProducts
 } = require("../controller/Angular.product.controller")
 
 const AngularProductRouter = express.Router()
 AngularProductRouter.post("/add", addProduct)
 AngularProductRouter.get("/get", getProduct)
 AngularProductRouter.get("/get/:productId", getProductDetails)
-AngularProductRouter.get("/get/search", getProductDetails)
+AngularProductRouter.get("/search/angular", searchProducts)
 AngularProductRouter.patch("/update", updateProduct)
 AngularProductRouter.delete("/delete", deleteProduct)
 

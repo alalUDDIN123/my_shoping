@@ -30,6 +30,6 @@ const AngularProductSchema = new Schema({
 });
 
 // Create the model
-const angularproductModel = mongoose.model('angularProductSchema', AngularProductSchema);
+const angularproductModel = mongoose.model('AngularProduct', AngularProductSchema);
 
-module.exports=angularproductModel
+module.exports = angularproductModel;
